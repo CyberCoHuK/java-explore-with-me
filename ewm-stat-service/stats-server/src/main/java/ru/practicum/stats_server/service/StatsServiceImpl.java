@@ -24,7 +24,7 @@ public class StatsServiceImpl implements StatsService {
     @Transactional(readOnly = true)
     public Collection<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
         List<ViewStatsDto> hits;
-        if (uris == null || uris.isEmpty()) {
+        if (uris.isEmpty()) {
             if (unique) {
                 hits = hitsRepository.findAllDistinct(start, end);
             } else {

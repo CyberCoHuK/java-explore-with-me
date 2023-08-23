@@ -38,12 +38,20 @@ public class StatClient extends BaseClient {
         if (start == null || end == null || start.isAfter(end)) {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
-        Map<String, Object> parameters = Map.of(
+        Map<String, Object> parameters;
+        parameters = Map.of(
                 "start", start.format(DATE_TIME_FORMATTER),
                 "end", end.format(DATE_TIME_FORMATTER),
-                "uris", String.join(",", uris),
                 "unique", unique
         );
+        if(uris != null){
+            parameters = Map.of(
+                    "start", start.format(DATE_TIME_FORMATTER),
+                    "end", end.format(DATE_TIME_FORMATTER),
+                    "uris", String.join(",", uris),
+                    "unique", unique
+            );
+        }
         log.info("Отправлен get запрос на сервер с данными " + parameters);
         return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
     }
