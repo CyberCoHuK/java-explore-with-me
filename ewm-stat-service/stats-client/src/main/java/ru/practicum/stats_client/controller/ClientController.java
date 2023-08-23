@@ -32,7 +32,8 @@ public class ClientController {
                                            @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
                                            @RequestParam(required = false, name = "uris") List<String> uris,
                                            @RequestParam(required = false, defaultValue = "false") Boolean unique) {
-        log.info("Принят get запрос в клиент с данными start=" + start + " end time=" + end + " uris=" + uris + " unique=" + unique);
+        log.info("Принят get запрос в клиент с данными start=" + start + " end time=" + end + " uris=" + uris +
+                " unique=" + unique);
         return statClient.getStats(start, end, uris, unique);
     }
 }

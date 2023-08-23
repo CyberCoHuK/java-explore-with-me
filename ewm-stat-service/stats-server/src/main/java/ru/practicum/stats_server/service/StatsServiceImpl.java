@@ -24,11 +24,20 @@ public class StatsServiceImpl implements StatsService {
     @Transactional(readOnly = true)
     public Collection<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
         List<ViewStatsDto> hits;
-        if (unique) {
-            hits = hitsRepository.findAllDistinct(start, end, uris);
+        if (uris == null || uris.isEmpty()) {
+            if (unique) {
+                hits = hitsRepository.findAllDistinct(start, end);
+            } else {
+                hits = hitsRepository.findAll(start, end);
+            }
         } else {
-            hits = hitsRepository.findAll(start, end, uris);
+            if (unique) {
+                hits = hitsRepository.findAllByUriDistinct(start, end, uris);
+            } else {
+                hits = hitsRepository.findAllByUri(start, end, uris);
+            }
         }
+
         return hits;
     }
 
