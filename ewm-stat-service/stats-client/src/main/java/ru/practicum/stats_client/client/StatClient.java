@@ -44,7 +44,7 @@ public class StatClient extends BaseClient {
                 "end", end.format(DATE_TIME_FORMATTER),
                 "unique", unique
         );
-        if(uris != null){
+        if (uris != null) {
             parameters = Map.of(
                     "start", start.format(DATE_TIME_FORMATTER),
                     "end", end.format(DATE_TIME_FORMATTER),
