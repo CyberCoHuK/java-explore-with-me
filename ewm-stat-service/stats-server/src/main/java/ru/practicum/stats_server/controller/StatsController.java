@@ -18,11 +18,11 @@ import java.util.List;
 @Validated
 public class StatsController {
     private final StatsService statsService;
-    public final String DT_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public final String DATEFORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @GetMapping("/stats")
-    public Collection<ViewStatsDto> getStats(@RequestParam @DateTimeFormat(pattern = DT_FORMAT) LocalDateTime start,
-                                             @RequestParam @DateTimeFormat(pattern = DT_FORMAT) LocalDateTime end,
+    public Collection<ViewStatsDto> getStats(@RequestParam @DateTimeFormat(pattern = DATEFORMAT) LocalDateTime start,
+                                             @RequestParam @DateTimeFormat(pattern = DATEFORMAT) LocalDateTime end,
                                              @RequestParam(required = false) List<String> uris,
                                              @RequestParam(required = false, defaultValue = "false") Boolean unique) {
         return statsService.getStats(start, end, uris, unique);

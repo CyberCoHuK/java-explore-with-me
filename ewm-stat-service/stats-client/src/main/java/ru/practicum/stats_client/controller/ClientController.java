@@ -19,7 +19,7 @@ import java.util.List;
 @Slf4j
 public class ClientController {
     private StatClient statClient;
-    public final String DT_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public final String DATEFORMAT = "yyyy-MM-dd HH:mm:ss";
 
     @PostMapping("/hit")
     public ResponseEntity<Object> saveHit(@Valid @RequestBody EndpointHitDto hitDto) {
@@ -28,8 +28,8 @@ public class ClientController {
     }
 
     @GetMapping("/stats")
-    public ResponseEntity<Object> getStats(@RequestParam @DateTimeFormat(pattern = DT_FORMAT) LocalDateTime start,
-                                           @RequestParam @DateTimeFormat(pattern = DT_FORMAT) LocalDateTime end,
+    public ResponseEntity<Object> getStats(@RequestParam @DateTimeFormat(pattern = DATEFORMAT) LocalDateTime start,
+                                           @RequestParam @DateTimeFormat(pattern = DATEFORMAT) LocalDateTime end,
                                            @RequestParam(required = false, name = "uris") List<String> uris,
                                            @RequestParam(required = false, defaultValue = "false") Boolean unique) {
         log.info("Принят get запрос в клиент с данными start=" + start + " end time=" + end + " uris=" + uris + " unique=" + unique);
