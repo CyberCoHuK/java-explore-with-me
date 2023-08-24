@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.dto.ViewStatsDto;
 import ru.practicum.stats_server.mapper.HitsMapper;
+import ru.practicum.stats_server.model.EndpointHit;
 import ru.practicum.stats_server.repository.HitsRepository;
 
 import java.time.LocalDateTime;
@@ -20,17 +21,16 @@ public class StatsServiceImpl implements StatsService {
     @Override
     @Transactional(readOnly = true)
     public Collection<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
-        List<ViewStatsDto> hits;
-        hits = (uris == null || uris.isEmpty()) ?
+        return (uris == null || uris.isEmpty()) ?
                 (unique ? hitsRepository.findAllDistinct(start, end) : hitsRepository.findAll(start, end)) :
                 (unique ? hitsRepository.findAllByUriDistinct(start, end, uris) :
                         hitsRepository.findAllByUri(start, end, uris));
-        return hits;
     }
 
     @Override
     @Transactional
     public void createHit(EndpointHitDto endpointHitDto) {
-        hitsRepository.save(HitsMapper.toEndpointHit(endpointHitDto));
+        EndpointHit saveHit = HitsMapper.toEndpointHit(endpointHitDto);
+        hitsRepository.save(saveHit);
     }
 }
