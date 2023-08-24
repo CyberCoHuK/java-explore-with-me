@@ -20,10 +20,12 @@ public class StatsServiceImpl implements StatsService {
     @Override
     @Transactional(readOnly = true)
     public Collection<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
-        return (uris == null || uris.isEmpty()) ?
+        List<ViewStatsDto> hits;
+        hits = (uris == null || uris.isEmpty()) ?
                 (unique ? hitsRepository.findAllDistinct(start, end) : hitsRepository.findAll(start, end)) :
                 (unique ? hitsRepository.findAllByUriDistinct(start, end, uris) :
                         hitsRepository.findAllByUri(start, end, uris));
+        return hits;
     }
 
     @Override
