@@ -17,8 +17,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Validated
 public class StatsController {
-    private final StatsService statsService;
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private final StatsService statsService;
 
     @GetMapping("/stats")
     public Collection<ViewStatsDto> getStats(@RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime start,
