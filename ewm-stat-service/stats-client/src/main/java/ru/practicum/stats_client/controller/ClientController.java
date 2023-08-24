@@ -18,8 +18,8 @@ import java.util.List;
 @Validated
 @Slf4j
 public class ClientController {
-    private StatClient statClient;
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    private StatClient statClient;
 
     @PostMapping("/hit")
     public ResponseEntity<Object> saveHit(@Valid @RequestBody EndpointHitDto hitDto) {
