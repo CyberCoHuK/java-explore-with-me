@@ -2,7 +2,6 @@ package ru.practicum.stats_server.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.dto.ViewStatsDto;
@@ -15,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@Validated
 public class StatsController {
     public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private final StatsService statsService;
