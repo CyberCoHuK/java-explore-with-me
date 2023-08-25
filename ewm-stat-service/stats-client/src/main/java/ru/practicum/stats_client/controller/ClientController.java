@@ -3,7 +3,6 @@ package ru.practicum.stats_client.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +24,7 @@ public class ClientController {
     @PostMapping("/hit")
     public ResponseEntity<Object> saveHit(@Valid @RequestBody EndpointHitDto hitDto) {
         log.info("Принят post запрос в клиент с данными" + hitDto);
-        statClient.createStat(hitDto);
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return statClient.createStat(hitDto);
     }
 
     @GetMapping("/stats")
