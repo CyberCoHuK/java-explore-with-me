@@ -29,7 +29,7 @@ public class StatsController {
     }
 
     @PostMapping("/hit")
-    public void createHit(@Valid @RequestBody EndpointHitDto endpointHitDto) {
-        statsService.createHit(endpointHitDto);
+    public ViewStatsDto createHit(@Valid @RequestBody EndpointHitDto endpointHitDto) {
+        return statsService.createHit(endpointHitDto);
     }
 }

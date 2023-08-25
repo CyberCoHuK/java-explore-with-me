@@ -7,6 +7,7 @@ import org.springframework.util.CollectionUtils;
 import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.dto.ViewStatsDto;
 import ru.practicum.stats_server.mapper.HitsMapper;
+import ru.practicum.stats_server.model.EndpointHit;
 import ru.practicum.stats_server.repository.HitsRepository;
 
 import java.time.LocalDateTime;
@@ -29,7 +30,8 @@ public class StatsServiceImpl implements StatsService {
 
     @Override
     @Transactional
-    public void createHit(EndpointHitDto endpointHitDto) {
-        hitsRepository.save(HitsMapper.toEndpointHit(endpointHitDto));
+    public ViewStatsDto createHit(EndpointHitDto endpointHitDto) {
+        EndpointHit saveHit = hitsRepository.save(HitsMapper.toEndpointHit(endpointHitDto));
+        return HitsMapper.toViewDto(saveHit);
     }
 }
