@@ -1,4 +1,4 @@
-version: '3.1'
+version: '3.8'
 services:
   stats-client:
     build: ./ewm-stat-service/stats-client
@@ -7,8 +7,10 @@ services:
     ports:
       - "9090:9090"
     depends_on:
-      - stats-db
-      - stats-server
+      stats-db:
+        condition: service_started
+      stats-server:
+        condition: service_started
     environment:
       - STATS_SERVER_URL=http://stats-server:9091
 
@@ -19,7 +21,8 @@ services:
     ports:
       - "9091:9091"
     depends_on:
-      - stats-db
+      stats-db:
+        condition: service_started
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats-db
 
