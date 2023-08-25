@@ -15,11 +15,11 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class StatsServiceImpl implements StatsService {
     private final HitsRepository hitsRepository;
 
     @Override
-    @Transactional(readOnly = true)
     public Collection<ViewStatsDto> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
         return (CollectionUtils.isEmpty(uris)) ?
                 (unique ? hitsRepository.findAllDistinct(start, end) : hitsRepository.findAll(start, end)) :
@@ -28,7 +28,6 @@ public class StatsServiceImpl implements StatsService {
     }
 
     @Override
-    @Transactional
     public void createHit(EndpointHitDto endpointHitDto) {
         hitsRepository.save(HitsMapper.toEndpointHit(endpointHitDto));
     }
