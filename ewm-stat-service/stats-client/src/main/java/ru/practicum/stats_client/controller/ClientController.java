@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.EndpointHitDto;
@@ -15,7 +16,7 @@ import java.util.List;
 
 import static ru.practicum.utils.CommonUtils.DATE_FORMAT;
 
-@RestController
+@Controller
 @AllArgsConstructor
 @Validated
 @Slf4j

@@ -19,7 +19,6 @@ import static ru.practicum.utils.CommonUtils.DATE_TIME_FORMATTER;
 @Service
 @Slf4j
 public class StatClient extends BaseClient {
-
     @Autowired
     public StatClient(@Value("${stats-server.url}") String serverUrl, RestTemplateBuilder builder) {
         super(builder
