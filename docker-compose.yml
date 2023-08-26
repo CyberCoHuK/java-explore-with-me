@@ -7,8 +7,6 @@ services:
     ports:
       - "9090:9090"
     depends_on:
-      stats-db:
-        condition: service_started
       stats-server:
         condition: service_started
     environment:
