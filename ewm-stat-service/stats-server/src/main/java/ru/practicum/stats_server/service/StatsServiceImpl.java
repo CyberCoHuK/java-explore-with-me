@@ -1,5 +1,6 @@
 package ru.practicum.stats_server.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -13,14 +14,9 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class StatsServiceImpl implements StatsService {
     private final HitsRepository hitsRepository;
-    private final HitsMapper hitsMapper;
-
-    public StatsServiceImpl(HitsRepository hitsRepository, HitsMapper hitsMapper) {
-        this.hitsRepository = hitsRepository;
-        this.hitsMapper = hitsMapper;
-    }
 
     @Override
     @Transactional(readOnly = true)
@@ -34,6 +30,6 @@ public class StatsServiceImpl implements StatsService {
     @Override
     @Transactional
     public void createHit(EndpointHitDto endpointHitDto) {
-        hitsRepository.save(hitsMapper.toEndpointHit(endpointHitDto));
+        hitsRepository.save(HitsMapper.toEndpointHit(endpointHitDto));
     }
 }

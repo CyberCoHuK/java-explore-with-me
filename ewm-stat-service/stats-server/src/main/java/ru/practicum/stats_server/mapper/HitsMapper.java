@@ -1,12 +1,12 @@
 package ru.practicum.stats_server.mapper;
 
-import org.springframework.stereotype.Component;
+import lombok.Builder;
 import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.stats_server.model.EndpointHit;
 
-@Component
+@Builder
 public class HitsMapper {
-    public EndpointHit toEndpointHit(EndpointHitDto endpointHitDto) {
+    public static EndpointHit toEndpointHit(EndpointHitDto endpointHitDto) {
         return EndpointHit.builder()
                 .ip(endpointHitDto.getIp())
                 .app(endpointHitDto.getApp())
