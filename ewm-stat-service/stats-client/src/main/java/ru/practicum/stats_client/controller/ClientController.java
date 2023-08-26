@@ -13,12 +13,13 @@ import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import static ru.practicum.utils.CommonUtils.DATE_FORMAT;
+
 @RestController
 @AllArgsConstructor
 @Validated
 @Slf4j
 public class ClientController {
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private StatClient statClient;
 
     @PostMapping("/hit")

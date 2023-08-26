@@ -12,10 +12,11 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+import static ru.practicum.utils.CommonUtils.DATE_FORMAT;
+
 @RestController
 @RequiredArgsConstructor
 public class StatsController {
-    public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
     private final StatsService statsService;
 
     @GetMapping("/stats")
