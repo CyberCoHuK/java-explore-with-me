@@ -11,15 +11,14 @@ import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.dto.EndpointHitDto;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
+
+import static ru.practicum.utils.CommonUtils.DATE_TIME_FORMATTER;
 
 @Service
 @Slf4j
 public class StatClient extends BaseClient {
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-
     @Autowired
     public StatClient(@Value("${stats-server.url}") String serverUrl, RestTemplateBuilder builder) {
         super(builder

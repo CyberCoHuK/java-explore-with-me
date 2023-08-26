@@ -17,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class StatsServiceImpl implements StatsService {
     private final HitsRepository hitsRepository;
-    private final HitsMapper hitsMapper;
 
     @Override
     @Transactional(readOnly = true)
@@ -31,6 +30,6 @@ public class StatsServiceImpl implements StatsService {
     @Override
     @Transactional
     public void createHit(EndpointHitDto endpointHitDto) {
-        hitsRepository.save(hitsMapper.toEndpointHit(endpointHitDto));
+        hitsRepository.save(HitsMapper.toEndpointHit(endpointHitDto));
     }
 }
