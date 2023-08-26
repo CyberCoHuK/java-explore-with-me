@@ -1,7 +1,6 @@
 package ru.practicum.stats_server.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import ru.practicum.dto.EndpointHitDto;
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-@Service
 @RequiredArgsConstructor
 public class StatsServiceImpl implements StatsService {
     private final HitsRepository hitsRepository;

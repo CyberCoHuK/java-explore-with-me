@@ -14,7 +14,6 @@ import java.util.List;
 
 import static ru.practicum.utils.CommonUtils.DATE_FORMAT;
 
-@RestController
 @RequiredArgsConstructor
 public class StatsController {
     private final StatsService statsService;
