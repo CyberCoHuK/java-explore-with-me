@@ -12,10 +12,14 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
-@RequiredArgsConstructor
 public class StatsServiceImpl implements StatsService {
     private final HitsRepository hitsRepository;
     private final HitsMapper hitsMapper;
+
+    public StatsServiceImpl(HitsRepository hitsRepository, HitsMapper hitsMapper) {
+        this.hitsRepository = hitsRepository;
+        this.hitsMapper = hitsMapper;
+    }
 
     @Override
     @Transactional(readOnly = true)

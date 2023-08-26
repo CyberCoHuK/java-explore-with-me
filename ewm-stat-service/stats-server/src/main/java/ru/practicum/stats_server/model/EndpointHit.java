@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "hits")
+@Table(name = "hits", schema = "public")
 public class EndpointHit {
     @Id
     @EqualsAndHashCode.Include

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.dto.ViewStatsDto;
 import ru.practicum.stats_server.service.StatsService;
+import ru.practicum.stats_server.service.StatsServiceImpl;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
@@ -14,9 +15,13 @@ import java.util.List;
 
 import static ru.practicum.utils.CommonUtils.DATE_FORMAT;
 
-@RequiredArgsConstructor
+@RestController
 public class StatsController {
     private final StatsService statsService;
+
+    public StatsController(StatsServiceImpl statsService) {
+        this.statsService = statsService;
+    }
 
     @GetMapping("/stats")
     public Collection<ViewStatsDto> getStats(@RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime start,
