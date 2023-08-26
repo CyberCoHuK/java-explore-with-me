@@ -14,8 +14,8 @@ import java.time.LocalDateTime;
 public class EndpointHit {
     @Id
     @EqualsAndHashCode.Include
-    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
     @Column(name = "app", nullable = false)
     private String app;
