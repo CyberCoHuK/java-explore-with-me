@@ -5,9 +5,9 @@ import lombok.experimental.FieldDefaults;
 import ru.practicum.ewm_service.categories.dto.CategoryDto;
 import ru.practicum.ewm_service.events.model.Location;
 import ru.practicum.ewm_service.user.dto.UserDtoShort;
+import ru.practicum.ewm_service.utils.State;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
@@ -23,12 +23,12 @@ public class EventDto {
     LocalDateTime eventDate;
     Long id;
     UserDtoShort initiator;
-    List<Location> location;
+    Location location;
     Boolean paid;
-    Integer participantLimit;
+    Long participantLimit;
     LocalDateTime publishedOn;
     Boolean requestModeration;
-    String state;
+    State state;
     String title;
     Long views;
 }

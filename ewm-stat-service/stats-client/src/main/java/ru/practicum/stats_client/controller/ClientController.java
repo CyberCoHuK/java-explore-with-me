@@ -32,9 +32,13 @@ public class ClientController {
     public ResponseEntity<Object> getStats(@RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime start,
                                            @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
                                            @RequestParam(required = false, name = "uris") List<String> uris,
-                                           @RequestParam(required = false, defaultValue = "false") Boolean unique) {
+                                           @RequestParam(defaultValue = "false") Boolean unique) {
         log.info("Принят get запрос в клиент с данными start=" + start + " end time=" + end + " uris=" + uris +
                 " unique=" + unique);
         return statClient.getStats(start, end, uris, unique);
+    }
+    @GetMapping("/view/{eventId}")
+    public ResponseEntity<Object> getView(@PathVariable long eventId){
+        return statClient.getView(eventId);
     }
 }

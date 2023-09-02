@@ -5,10 +5,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm_service.compilations.dto.CompilationDto;
 import ru.practicum.ewm_service.compilations.dto.NewCompilationDto;
+import ru.practicum.ewm_service.compilations.dto.UpdateCompilationRequest;
 import ru.practicum.ewm_service.compilations.service.CompilationsAdminService;
 
 import javax.validation.Valid;
-import java.util.Collection;
 
 @Validated
 @RestController
@@ -23,11 +23,13 @@ public class CompilationsAdminController {
     }
 
     @DeleteMapping("/{compId}")
-    public CompilationDto deleteCompilationById(@PathVariable Long compId) {
-        return compilationsService.deleteCompilationById(compId);
+    public void deleteCompilationById(@PathVariable Long compId) {
+        compilationsService.deleteCompilationById(compId);
     }
+
     @PatchMapping("/{compId}")
-    public CompilationDto editCompilationById(@PathVariable Long compId) {
-        return compilationsService.editCompilationById(compId);
+    public CompilationDto editCompilationById(@PathVariable Long compId,
+                                              @RequestBody UpdateCompilationRequest updateCompilationRequest) {
+        return compilationsService.editCompilationById(compId, updateCompilationRequest);
     }
 }

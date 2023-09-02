@@ -6,9 +6,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import ru.practicum.ewm_service.exceptions.ObjectNotFoundException;
+import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
+import ru.practicum.ewm_service.user.dto.NewUserDto;
 import ru.practicum.ewm_service.user.dto.UserDto;
-import ru.practicum.ewm_service.user.dto.UserDtoShort;
 import ru.practicum.ewm_service.user.mapper.UserMapper;
 import ru.practicum.ewm_service.user.model.User;
 import ru.practicum.ewm_service.user.repository.UserRepository;
@@ -33,8 +33,8 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserDto createUser(UserDtoShort userDtoShort) {
-        User user = userRepository.save(UserMapper.toUser(userDtoShort));
+    public UserDto createUser(NewUserDto newUserDto) {
+        User user = userRepository.save(UserMapper.toUser(newUserDto));
         return UserMapper.toUserDto(user);
     }
 

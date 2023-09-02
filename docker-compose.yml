@@ -7,10 +7,10 @@ services:
     ports:
       - "9090:9090"
     depends_on:
-      stats-server:
-        condition: service_started
+      - stats-server
     environment:
-      - STATS_SERVER_URL=http://stats-server:9091
+      - stats-client-port=9090
+      - stats-server.url=http://stats-server:9091
 
   stats-server:
     build: ./ewm-stat-service/stats-server
@@ -19,28 +19,48 @@ services:
     ports:
       - "9091:9091"
     depends_on:
-      stats-db:
-        condition: service_started
+      - stats-db
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats-db:5432/stats-db
+      - stats-server-port=9091
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=org.postgresql.Driver
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://stats_db:5432/stats
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
 
   stats-db:
     image: postgres:14-alpine
     container_name: stats-db
     ports:
       - "6541:5432"
-    volumes:
-      - /var/lib/postgresql/data/
     environment:
-      - POSTGRES_DB=stats-db
+      - POSTGRES_DB=stats
       - POSTGRES_USER=root
       - POSTGRES_PASSWORD=root
+    hostname: stats_db
 
   ewm-service:
     build: ./ewm-service/
     image: ewm-service
-    container_name: main-service
+    container_name: ewm-service
     ports:
       - "8080:8080"
+    depends_on:
+      - ewm-db
     environment:
-      - STATS_CLIENT_URL=http://stats-client:9090
+      - ewm-server-port=8080
+      - stats-server.url=http://stats-client:9090
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://ewm_db:5432/ewm
+      - SPRING_DATASOURCE_DRIVERCLASSNAME=org.postgresql.Driver
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+
+  ewm-db:
+    image: postgres:14-alpine
+    container_name: ewm-db
+    ports:
+      - "6542:5432"
+    environment:
+      - POSTGRES_DB=ewm
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+    hostname: ewm_db

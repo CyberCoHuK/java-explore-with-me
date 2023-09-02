@@ -23,12 +23,17 @@ public class StatsController {
     public Collection<ViewStatsDto> getStats(@RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime start,
                                              @RequestParam @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime end,
                                              @RequestParam(required = false) List<String> uris,
-                                             @RequestParam(required = false, defaultValue = "false") Boolean unique) {
+                                             @RequestParam(defaultValue = "false") Boolean unique) {
         return statsService.getStats(start, end, uris, unique);
     }
 
     @PostMapping("/hit")
     public void createHit(@Valid @RequestBody EndpointHitDto endpointHitDto) {
         statsService.createHit(endpointHitDto);
+    }
+
+    @GetMapping("/view/{eventId}")
+    public Long getView(@PathVariable long eventId) {
+        return statsService.getView(eventId);
     }
 }

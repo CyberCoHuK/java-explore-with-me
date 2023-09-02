@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm_service.events.dto.EventDto;
 import ru.practicum.ewm_service.events.dto.UpdateEventAdminRequest;
 import ru.practicum.ewm_service.events.service.EventAdminService;
+import ru.practicum.ewm_service.utils.State;
 
 import javax.validation.Valid;
 import javax.validation.constraints.Positive;
@@ -26,15 +27,15 @@ public class EventAdminController {
 
     @GetMapping
     public Collection<EventDto> searchEvents(@RequestParam(required = false) List<Long> users,
-                                             @RequestParam(required = false) List<String> states,
+                                             @RequestParam(required = false) List<State> states,
                                              @RequestParam(required = false) List<Long> categories,
                                              @RequestParam(required = false)
                                              @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime rangeStart,
                                              @RequestParam(required = false)
                                              @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime rangeEnd,
-                                             @RequestParam(required = false, defaultValue = "0")
+                                             @RequestParam(defaultValue = "0")
                                              @PositiveOrZero int from,
-                                             @RequestParam(required = false, defaultValue = "10") @Positive int size) {
+                                             @RequestParam(defaultValue = "10") @Positive int size) {
         return eventService.searchEvents(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 

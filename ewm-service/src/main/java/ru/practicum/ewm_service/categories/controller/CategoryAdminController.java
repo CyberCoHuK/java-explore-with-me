@@ -4,27 +4,27 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm_service.categories.dto.CategoryDto;
-import ru.practicum.ewm_service.categories.service.CategoriesAdminService;
+import ru.practicum.ewm_service.categories.service.CategoryAdminService;
 
 @Validated
 @RestController
 @RequestMapping(path = "/admin/categories")
 @RequiredArgsConstructor
-public class CategoriesAdminController {
-    private final CategoriesAdminService categoriesAdminService;
+public class CategoryAdminController {
+    private final CategoryAdminService categoryAdminService;
 
     @PatchMapping
     public CategoryDto createCategory(@RequestBody CategoryDto categoryDto) {
-        return categoriesAdminService.createCategory(categoryDto);
+        return categoryAdminService.createCategory(categoryDto);
     }
 
     @PatchMapping("/{catId}")
     public CategoryDto updateCategory(@PathVariable Long catId, @RequestBody CategoryDto categoryDto) {
-        return categoriesAdminService.updateCategory(catId, categoryDto);
+        return categoryAdminService.updateCategory(catId, categoryDto);
     }
 
     @DeleteMapping("/{catId}")
     public void deleteCategoryById(@PathVariable long catId) {
-        categoriesAdminService.deleteCategoryById(catId);
+        categoryAdminService.deleteCategoryById(catId);
     }
 }

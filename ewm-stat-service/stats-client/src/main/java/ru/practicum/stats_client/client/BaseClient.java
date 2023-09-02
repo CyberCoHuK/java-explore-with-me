@@ -15,15 +15,19 @@ public class BaseClient {
         this.rest = rest;
     }
 
-    protected <T> ResponseEntity<Object> post(String path, T body) {
-        return makeAndSendRequest(HttpMethod.POST, path, null, body);
-    }
-
     protected <T> ResponseEntity<Object> get(String path, @Nullable Map<String, Object> parameters) {
-        return makeAndSendRequest(HttpMethod.GET, path, parameters, null);
+        return makeAndSendRequest(HttpMethod.GET, path, null, parameters, null);
     }
 
-    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, @Nullable Map<String, Object> parameters, @Nullable T body) {
+    protected <T> ResponseEntity<Object> post(String path, T body) {
+        return makeAndSendRequest(HttpMethod.POST, path, null, null, body);
+    }
+
+    protected <T> ResponseEntity<Object> get(String path) {
+        return makeAndSendRequest(HttpMethod.GET, path, null, null, null);
+    }
+
+    private <T> ResponseEntity<Object> makeAndSendRequest(HttpMethod method, String path, Long id, @Nullable Map<String, Object> parameters, @Nullable T body) {
         HttpEntity<T> requestEntity = new HttpEntity<>(body, defaultHeaders());
 
         ResponseEntity<Object> statsServerResponse;

@@ -56,6 +56,8 @@ public class StatClient extends BaseClient {
             log.info("Отправлен get запрос на сервер с данными " + parameters);
             return get("/stats?start={start}&end={end}&unique={unique}", parameters);
         }
-
+    }
+    public ResponseEntity<Object> getView(Long eventId) {
+        return get("/view/" + eventId);
     }
 }

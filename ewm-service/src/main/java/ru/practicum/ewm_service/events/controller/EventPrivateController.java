@@ -20,11 +20,11 @@ public class EventPrivateController {
     private final EventPrivateService eventService;
 
     @GetMapping
-    public Collection<EventDto> getAllEventsByUser(@PathVariable Long userId,
-                                                   @RequestParam(required = false, defaultValue = "0")
-                                                   @PositiveOrZero int from,
-                                                   @RequestParam(required = false, defaultValue = "10")
-                                                   @Positive int size) {
+    public Collection<EventDtoShort> getAllEventsByUser(@PathVariable Long userId,
+                                                        @RequestParam(defaultValue = "0")
+                                                        @PositiveOrZero int from,
+                                                        @RequestParam(defaultValue = "10")
+                                                        @Positive int size) {
         return eventService.getAllEventsByUser(userId, from, size);
     }
 

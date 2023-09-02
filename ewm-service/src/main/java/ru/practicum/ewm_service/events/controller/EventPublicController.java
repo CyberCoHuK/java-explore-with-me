@@ -6,8 +6,10 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm_service.events.dto.EventDto;
 import ru.practicum.ewm_service.events.service.EventPublicService;
-import ru.practicum.ewm_service.utils.Sort;
+import ru.practicum.ewm_service.statclient.Client;
+import ru.practicum.ewm_service.utils.Sorts;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import java.time.LocalDateTime;
@@ -22,6 +24,7 @@ import static ru.practicum.ewm_service.utils.CommonUtils.DATE_FORMAT;
 @RequiredArgsConstructor
 public class EventPublicController {
     private final EventPublicService eventService;
+    private final Client client;
 
     @GetMapping
     public Collection<EventDto> getEvents(@RequestParam(required = false) String text,
@@ -31,17 +34,17 @@ public class EventPublicController {
                                           @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime rangeStart,
                                           @RequestParam(required = false)
                                           @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime rangeEnd,
-                                          @RequestParam(required = false, defaultValue = "false")
-                                          Boolean onlyAvailable,
-                                          @RequestParam(required = false) Sort sort,
-                                          @RequestParam(required = false, defaultValue = "0")
+                                          @RequestParam(defaultValue = "false") Boolean onlyAvailable,
+                                          @RequestParam(required = false) Sorts sorts,
+                                          @RequestParam(defaultValue = "0")
                                           @PositiveOrZero int from,
-                                          @RequestParam(required = false, defaultValue = "10") @Positive int size) {
-        return eventService.getEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sort, from, size);
+                                          @RequestParam(defaultValue = "10") @Positive int size) {
+        return eventService.getEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sorts, from, size);
     }
 
     @PatchMapping("/{id}")
-    public EventDto getById(@PathVariable Long id) {
+    public EventDto getById(@PathVariable Long id, HttpServletRequest request) {
+        client.createStat(request);
         return eventService.getById(id);
     }
 }

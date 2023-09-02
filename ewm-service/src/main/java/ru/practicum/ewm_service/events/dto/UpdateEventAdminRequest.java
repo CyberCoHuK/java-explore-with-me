@@ -1,11 +1,14 @@
 package ru.practicum.ewm_service.events.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 import ru.practicum.ewm_service.events.model.Location;
+import ru.practicum.ewm_service.utils.StateAction;
 
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
-import java.util.List;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Data
@@ -13,14 +16,19 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UpdateEventAdminRequest {
+    @Size(max = 2000, min = 20)
     String annotation;
-    List<Long> category;
+    @Positive
+    Long category;
+    @Size(max = 7000, min = 20)
     String description;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime eventDate;
-    List<Location> location;
+    Location location;
     Boolean paid;
-    Integer participantLimit;
+    Long participantLimit;
     Boolean requestModeration;
-    String stateAction;
+    StateAction stateAction;
+    @Size(max = 120, min = 3)
     String title;
 }

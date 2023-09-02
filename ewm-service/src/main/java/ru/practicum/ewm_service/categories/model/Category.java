@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Data
 @Builder
 @Entity
-@Table(name = "categories")
+@Table(name = "category")
 @NoArgsConstructor
 @AllArgsConstructor
 public class Category {
@@ -15,6 +15,6 @@ public class Category {
     @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(nullable = false, length = 512, unique = true)
+    @Column(nullable = false, length = 50, unique = true)
     private String name;
 }

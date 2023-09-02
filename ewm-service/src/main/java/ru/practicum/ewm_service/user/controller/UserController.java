@@ -3,8 +3,8 @@ package ru.practicum.ewm_service.user.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import ru.practicum.ewm_service.user.dto.NewUserDto;
 import ru.practicum.ewm_service.user.dto.UserDto;
-import ru.practicum.ewm_service.user.dto.UserDtoShort;
 import ru.practicum.ewm_service.user.service.UserService;
 
 import java.util.Collection;
@@ -25,8 +25,8 @@ public class UserController {
     }
 
     @PostMapping
-    public UserDto createUser(@RequestBody UserDtoShort userDtoShort) {
-        return userService.createUser(userDtoShort);
+    public UserDto createUser(@RequestBody NewUserDto newUserDto) {
+        return userService.createUser(newUserDto);
     }
 
     @DeleteMapping("/{userId}")

@@ -4,20 +4,20 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.practicum.ewm_service.events.dto.EventDtoShort;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Builder
-@Entity
-@Table(name = "compilations")
 @NoArgsConstructor
 @AllArgsConstructor
 public class NewCompilationDto {
-    private List<EventDtoShort> events;
-    private Boolean pinned;
+    private List<Long> events = new ArrayList<>();
+    private Boolean pinned = false;
+    @NotBlank
+    @Size(max = 50, min = 1)
     private String title;
 }
