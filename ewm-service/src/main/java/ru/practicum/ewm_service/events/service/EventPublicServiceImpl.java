@@ -15,7 +15,6 @@ import ru.practicum.ewm_service.utils.State;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
