@@ -3,20 +3,30 @@ package ru.practicum.ewm_service.events.mapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.practicum.ewm_service.categories.mapper.CategoriesMapper;
+import ru.practicum.ewm_service.categories.model.Category;
 import ru.practicum.ewm_service.events.dto.EventDto;
 import ru.practicum.ewm_service.events.dto.EventDtoShort;
 import ru.practicum.ewm_service.events.dto.NewEventDto;
 import ru.practicum.ewm_service.events.model.Event;
+import ru.practicum.ewm_service.events.model.Location;
 import ru.practicum.ewm_service.statclient.Client;
 import ru.practicum.ewm_service.user.mapper.UserMapper;
+import ru.practicum.ewm_service.user.model.User;
+import ru.practicum.ewm_service.utils.State;
+
+import java.time.LocalDateTime;
 
 @RequiredArgsConstructor
 @Component
 public class EventMapper {
     private final Client client;
 
-    public Event toEvent(NewEventDto newEventDto) {
+    public Event toEvent(NewEventDto newEventDto, Category category, Location location, User user, LocalDateTime now,
+                         State pending) {
         return Event.builder()
+                .category(category)
+                .location(location)
+                .initiator(user)
                 .annotation(newEventDto.getAnnotation())
                 .description(newEventDto.getDescription())
                 .eventDate(newEventDto.getEventDate())
@@ -24,7 +34,8 @@ public class EventMapper {
                 .participantLimit(newEventDto.getParticipantLimit())
                 .requestModeration(newEventDto.getRequestModeration())
                 .title(newEventDto.getTitle())
-                .location(newEventDto.getLocation())
+                .createdOn(now)
+                .state(pending)
                 .build();
     }
 

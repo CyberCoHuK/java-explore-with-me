@@ -31,7 +31,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
                                    @Param("rangeStart") LocalDateTime rangeStart,
                                    @Param("rangeEnd") LocalDateTime rangeEnd, PageRequest page);
 
-    Collection<Event> findAllByUser(User user, PageRequest page);
+    Collection<Event> findAllByInitiator(User user, PageRequest page);
 
     Collection<Event> findAllByAnnotationOrDescriptionContainingIgnoreCaseAndCategoryIdInAndPaidEqualsAndEventDateAfterAndEventDateBeforeAndStateEquals(String text, String text1, List<Long> categories, Boolean paid, LocalDateTime rangeStart, LocalDateTime rangeEnd, State published, PageRequest page);
 

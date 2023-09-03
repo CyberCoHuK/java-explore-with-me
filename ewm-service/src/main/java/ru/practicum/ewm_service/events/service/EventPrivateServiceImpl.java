@@ -4,11 +4,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.practicum.ewm_service.categories.model.Category;
 import ru.practicum.ewm_service.categories.repository.CategoryRepository;
 import ru.practicum.ewm_service.events.dto.*;
 import ru.practicum.ewm_service.events.mapper.EventMapper;
 import ru.practicum.ewm_service.events.model.Event;
+import ru.practicum.ewm_service.events.model.Location;
 import ru.practicum.ewm_service.events.repository.EventRepository;
+import ru.practicum.ewm_service.events.repository.LocationRepository;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
 import ru.practicum.ewm_service.requests.dto.ParticipationRequestDto;
 import ru.practicum.ewm_service.requests.mapper.RequestMapper;
@@ -36,6 +39,7 @@ public class EventPrivateServiceImpl implements EventPrivateService {
     private final CategoryRepository categoryRepository;
     private final RequestRepository requestRepository;
     private final EventMapper eventMapper;
+    private final LocationRepository locationRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -43,19 +47,25 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
         PageRequest page = PageRequest.of(from / size, size);
-        return eventRepository.findAllByUser(user, page).stream().map(eventMapper::toEventDtoShort).collect(Collectors.toList());
+        return eventRepository.findAllByInitiator(user, page).stream().map(eventMapper::toEventDtoShort).collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public EventDto createNewEvent(Long userId, NewEventDto newEventDto) {
-        Event event = eventMapper.toEvent(newEventDto);
-        if (event.getEventDate() != null && event.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
+        if (newEventDto.getEventDate() != null && newEventDto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
+        System.out.println("PERED USEROM");
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
-        event.setInitiator(user);
+        Category category = categoryRepository.findById(newEventDto.getCategory())
+                .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
+        Location location = locationRepository.findByLatAndLon(newEventDto.getLocation().getLat(),
+                newEventDto.getLocation().getLat()).orElseGet(() -> locationRepository.save(newEventDto.getLocation()));
+        System.out.println("POSLE USERA");
+        Event event = eventMapper.toEvent(newEventDto, category, location, user, LocalDateTime.now(), PENDING);
+        System.out.println("INITIATOR IN");
         return eventMapper.toEventDto(eventRepository.save(event));
     }
 

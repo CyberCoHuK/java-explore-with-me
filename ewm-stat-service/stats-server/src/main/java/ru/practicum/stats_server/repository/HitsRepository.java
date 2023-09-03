@@ -39,5 +39,5 @@ public interface HitsRepository extends JpaRepository<EndpointHit, Long> {
             "ORDER BY count(h.ip) desc")
     List<ViewStatsDto> findAll(LocalDateTime start, LocalDateTime end);
 
-    Long countByDistinctIpAndUriEquals(String s);
+    Long countDistinctByUri(String s);
 }

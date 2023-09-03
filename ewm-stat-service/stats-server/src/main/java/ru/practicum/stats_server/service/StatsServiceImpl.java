@@ -37,7 +37,7 @@ public class StatsServiceImpl implements StatsService {
     @Override
     @Transactional(readOnly = true)
     public Long getView(long eventId) {
-        Long views = hitsRepository.countByDistinctIpAndUriEquals("/event/" + eventId);
+        Long views = hitsRepository.countDistinctByUri("/event/" + eventId);
         return Objects.requireNonNullElse(views, 0L);
     }
 }
