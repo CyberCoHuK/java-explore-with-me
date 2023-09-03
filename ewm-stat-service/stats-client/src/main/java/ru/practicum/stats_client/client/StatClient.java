@@ -57,6 +57,7 @@ public class StatClient extends BaseClient {
             return get("/stats?start={start}&end={end}&unique={unique}", parameters);
         }
     }
+
     public ResponseEntity<Object> getView(Long eventId) {
         return get("/view/" + eventId);
     }

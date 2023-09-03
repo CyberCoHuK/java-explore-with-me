@@ -37,8 +37,9 @@ public class ClientController {
                 " unique=" + unique);
         return statClient.getStats(start, end, uris, unique);
     }
+
     @GetMapping("/view/{eventId}")
-    public ResponseEntity<Object> getView(@PathVariable long eventId){
+    public ResponseEntity<Object> getView(@PathVariable long eventId) {
         return statClient.getView(eventId);
     }
 }
