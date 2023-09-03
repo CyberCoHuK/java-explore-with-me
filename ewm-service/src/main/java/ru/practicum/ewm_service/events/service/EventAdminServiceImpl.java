@@ -50,8 +50,6 @@ public class EventAdminServiceImpl implements EventAdminService {
                 .orElseThrow(() -> new ObjectNotFoundException("События с id = " + eventId + " не существует"));
         if (updateEvent.getEventDate() != null && updateEvent.getEventDate().isAfter(LocalDateTime.now().plusHours(1))) {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
-        } else {
-            event.setEventDate(updateEvent.getEventDate());
         }
         if (updateEvent.getStateAction() != null) {
             if (event.getState().equals(PUBLISHED)) {
@@ -73,6 +71,7 @@ public class EventAdminServiceImpl implements EventAdminService {
             event.setCategory(categoryRepository.findById(updateEvent.getCategory()).orElseThrow(() ->
                     new ObjectNotFoundException("Категории с id = " + updateEvent.getCategory() + " не существует")));
         }
+        Optional.ofNullable(updateEvent.getEventDate()).ifPresent(event::setEventDate);
         Optional.ofNullable(updateEvent.getAnnotation()).ifPresent(event::setAnnotation);
         Optional.ofNullable(updateEvent.getDescription()).ifPresent(event::setDescription);
         Optional.ofNullable(updateEvent.getLocation()).ifPresent(event::setLocation);

@@ -56,16 +56,13 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         if (newEventDto.getEventDate() != null && newEventDto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
-        System.out.println("PERED USEROM");
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
         Category category = categoryRepository.findById(newEventDto.getCategory())
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
         Location location = locationRepository.findByLatAndLon(newEventDto.getLocation().getLat(),
                 newEventDto.getLocation().getLat()).orElseGet(() -> locationRepository.save(newEventDto.getLocation()));
-        System.out.println("POSLE USERA");
         Event event = eventMapper.toEvent(newEventDto, category, location, user, LocalDateTime.now(), PENDING);
-        System.out.println("INITIATOR IN");
         return eventMapper.toEventDto(eventRepository.save(event));
     }
 

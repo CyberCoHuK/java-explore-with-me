@@ -34,34 +34,28 @@ public class EventPublicServiceImpl implements EventPublicService {
     public Collection<EventDto> getEvents(String text, List<Long> categories, Boolean paid, LocalDateTime rangeStart,
                                           LocalDateTime rangeEnd, Boolean onlyAvailable, Sorts sorts, int from,
                                           int size, HttpServletRequest request) {
-        Comparator<EventDto> comparator;
-
         if (rangeEnd != null && rangeStart != null && rangeStart.isAfter(rangeEnd)) {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
         PageRequest page = PageRequest.of(from / size, size);
         Collection<Event> events;
         if (rangeEnd == null && rangeStart == null) {
-            events = eventRepository.findAllByAnnotationOrDescriptionContainingIgnoreCaseAndCategoryIdInAndPaidEqualsAndEventDateAfterAndStateEquals(text, text, categories, paid, LocalDateTime.now(), State.PUBLISHED, page);
+            events = eventRepository.findAllByPublicNoDate(text, categories, paid, LocalDateTime.now(), onlyAvailable, page);
         } else {
-            events = eventRepository.findAllByAnnotationOrDescriptionContainingIgnoreCaseAndCategoryIdInAndPaidEqualsAndEventDateAfterAndEventDateBeforeAndStateEquals(text, text, categories, paid, rangeStart, rangeEnd, State.PUBLISHED, page);
-        }
-        Collection<EventDto> answer;
-        if (onlyAvailable) {
-            answer = events.stream()
-                    .filter(e -> e.getParticipantLimit() > e.getConfirmedRequests() || e.getParticipantLimit() == 0)
-                    .map(eventMapper::toEventDto)
-                    .collect(Collectors.toList());
-        } else {
-            answer = events.stream().map(eventMapper::toEventDto).collect(Collectors.toList());
+            events = eventRepository.findAllByPublic(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, page);
         }
         statClient.createStat(request);
         if (sorts.equals(EVENT_DATE)) {
-            comparator = Comparator.comparing(EventDto::getEventDate);
+            return events.stream()
+                    .map(eventMapper::toEventDto)
+                    .sorted(Comparator.comparing(EventDto::getEventDate))
+                    .collect(Collectors.toList());
         } else {
-            comparator = Comparator.comparing(EventDto::getViews);
+            return events.stream()
+                    .map(eventMapper::toEventDto)
+                    .sorted(Comparator.comparing(EventDto::getViews))
+                    .collect(Collectors.toList());
         }
-        return answer.stream().sorted(comparator).collect(Collectors.toList());
     }
 
     @Override

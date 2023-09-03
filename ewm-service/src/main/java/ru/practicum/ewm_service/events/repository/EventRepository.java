@@ -33,7 +33,43 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     Collection<Event> findAllByInitiator(User user, PageRequest page);
 
-    Collection<Event> findAllByAnnotationOrDescriptionContainingIgnoreCaseAndCategoryIdInAndPaidEqualsAndEventDateAfterAndEventDateBeforeAndStateEquals(String text, String text1, List<Long> categories, Boolean paid, LocalDateTime rangeStart, LocalDateTime rangeEnd, State published, PageRequest page);
+    @Query("SELECT e FROM Event e " +
+            "WHERE e.state = 'PUBLISHED' " +
+            "AND (COALESCE(:text, NULL) IS NULL OR (LOWER(e.annotation) LIKE LOWER(concat('%', :text, '%')) OR LOWER(e.description) LIKE LOWER(concat('%', :text, '%')))) " +
+            "AND (COALESCE(:categories, NULL) IS NULL OR e.category.id IN :categories) " +
+            "AND (COALESCE(:paid, NULL) IS NULL OR e.paid = :paid) " +
+            "AND (COALESCE(:rangeStart, NULL) IS NULL OR e.eventDate >= :rangeStart) " +
+            "AND (COALESCE(:rangeEnd, NULL) IS NULL OR e.eventDate <= :rangeEnd) " +
+            "AND (:onlyAvailable = false OR e.id IN " +
+            "(SELECT r.event.id " +
+            "FROM ParticipationRequests r " +
+            "WHERE r.status = 'CONFIRMED' " +
+            "GROUP BY r.event.id " +
+            "HAVING e.participantLimit - count(id) > 0 " +
+            "ORDER BY count(r.id))) ")
+    List<Event> findAllByPublic(@Param("text") String text,
+                                      @Param("categories") List<Long> categories,
+                                      @Param("paid") Boolean paid,
+                                      @Param("rangeStart") LocalDateTime rangeStart,
+                                      @Param("rangeEnd") LocalDateTime rangeEnd,
+                                      @Param("onlyAvailable") Boolean onlyAvailable, PageRequest page);
 
-    Collection<Event> findAllByAnnotationOrDescriptionContainingIgnoreCaseAndCategoryIdInAndPaidEqualsAndEventDateAfterAndStateEquals(String text, String text1, List<Long> categories, Boolean paid, LocalDateTime now, State published, PageRequest page);
+    @Query("SELECT e FROM Event e " +
+            "WHERE e.state = 'PUBLISHED' " +
+            "AND (COALESCE(:text, NULL) IS NULL OR (LOWER(e.annotation) LIKE LOWER(concat('%', :text, '%')) OR LOWER(e.description) LIKE LOWER(concat('%', :text, '%')))) " +
+            "AND (COALESCE(:categories, NULL) IS NULL OR e.category.id IN :categories) " +
+            "AND (COALESCE(:paid, NULL) IS NULL OR e.paid = :paid) " +
+            "AND (e.eventDate >= :now) " +
+            "AND (:onlyAvailable = false OR e.id IN " +
+            "(SELECT r.event.id " +
+            "FROM ParticipationRequests r " +
+            "WHERE r.status = 'CONFIRMED' " +
+            "GROUP BY r.event.id " +
+            "HAVING e.participantLimit - count(id) > 0 " +
+            "ORDER BY count(r.id))) ")
+    List<Event> findAllByPublicNoDate(@Param("text") String text,
+                                            @Param("categories") List<Long> categories,
+                                            @Param("paid") Boolean paid,
+                                            @Param("now") LocalDateTime now,
+                                            @Param("onlyAvailable") Boolean onlyAvailable, PageRequest page);
 }
