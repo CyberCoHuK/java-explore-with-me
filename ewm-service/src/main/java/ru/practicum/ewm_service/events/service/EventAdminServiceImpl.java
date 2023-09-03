@@ -19,7 +19,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static ru.practicum.ewm_service.utils.State.*;
+import static ru.practicum.ewm_service.utils.State.CANCELED;
+import static ru.practicum.ewm_service.utils.State.PUBLISHED;
 
 @Service
 @RequiredArgsConstructor
@@ -53,17 +54,17 @@ public class EventAdminServiceImpl implements EventAdminService {
             event.setEventDate(updateEvent.getEventDate());
         }
         if (updateEvent.getStateAction() != null) {
-            if(event.getState().equals(PUBLISHED)){
+            if (event.getState().equals(PUBLISHED)) {
                 throw new IllegalArgumentException("Изменять опубликованные события нельзя");
             }
             switch (updateEvent.getStateAction()) {
                 case REJECT_EVENT:
-                        event.setState(CANCELED);
-                        break;
+                    event.setState(CANCELED);
+                    break;
                 case PUBLISH_EVENT:
-                        event.setState(PUBLISHED);
-                        event.setPublishedOn(LocalDateTime.now());
-                        break;
+                    event.setState(PUBLISHED);
+                    event.setPublishedOn(LocalDateTime.now());
+                    break;
                 default:
                     throw new IllegalArgumentException("Недопустимое значение State");
             }
