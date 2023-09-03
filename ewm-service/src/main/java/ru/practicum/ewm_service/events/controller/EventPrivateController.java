@@ -14,7 +14,7 @@ import java.util.Collection;
 
 @Validated
 @RestController
-@RequestMapping(path = "/user/{userId}/events")
+@RequestMapping(path = "/users/{userId}/events")
 @RequiredArgsConstructor
 public class EventPrivateController {
     private final EventPrivateService eventService;
