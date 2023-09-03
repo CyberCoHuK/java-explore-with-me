@@ -16,7 +16,7 @@ import javax.validation.Valid;
 public class CategoryAdminController {
     private final CategoryAdminService categoryAdminService;
 
-    @PatchMapping
+    @PostMapping
     public CategoryDto createCategory(@Valid @RequestBody NewCategoryDto categoryDto) {
         return categoryAdminService.createCategory(categoryDto);
     }
