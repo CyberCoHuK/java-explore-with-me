@@ -2,7 +2,6 @@ package ru.practicum.ewm_service.events.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm_service.events.dto.EventDto;
@@ -22,7 +21,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static ru.practicum.ewm_service.utils.Sorts.EVENT_DATE;
-import static ru.practicum.ewm_service.utils.Sorts.VIEWS;
 
 @Service
 @RequiredArgsConstructor

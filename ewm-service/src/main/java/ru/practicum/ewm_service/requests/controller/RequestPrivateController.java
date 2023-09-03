@@ -14,16 +14,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RequestPrivateController {
     RequestPrivateService requestPrivateService;
+
     @GetMapping
-    public List<ParticipationRequestDto> getRequestsOfUser(@PathVariable Long userId){
+    public List<ParticipationRequestDto> getRequestsOfUser(@PathVariable Long userId) {
         return requestPrivateService.getRequestsOfUser(userId);
     }
+
     @PostMapping
-    public ParticipationRequestDto createRequest(@PathVariable Long userId, @RequestParam Long eventId){
+    public ParticipationRequestDto createRequest(@PathVariable Long userId, @RequestParam Long eventId) {
         return requestPrivateService.createRequest(userId, eventId);
     }
+
     @PatchMapping("/{requestId}/cancel")
-    public ParticipationRequestDto cancelRequest(@PathVariable Long userId, @RequestParam Long requestId){
+    public ParticipationRequestDto cancelRequest(@PathVariable Long userId, @RequestParam Long requestId) {
         return requestPrivateService.cancelRequest(userId, requestId);
     }
 }

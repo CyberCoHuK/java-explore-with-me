@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
-import static ru.practicum.ewm_service.utils.CommonUtils.DATE_TIME_FORMATTER;
-
 @Component
 @Slf4j
 public class Client extends BaseClient {
