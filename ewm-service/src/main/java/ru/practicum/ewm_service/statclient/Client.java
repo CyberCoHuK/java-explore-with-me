@@ -30,7 +30,7 @@ public class Client extends BaseClient {
         EndpointHitDto endpointHitDto = EndpointHitDto.builder()
                 .ip(request.getRemoteAddr())
                 .uri(request.getRequestURI())
-                .timestamp(LocalDateTime.parse(LocalDateTime.now().format(DATE_TIME_FORMATTER)))
+                .timestamp(LocalDateTime.now())
                 .app("ewm_service")
                 .build();
         log.info("Отправлен get запрос на сервер с данными " + endpointHitDto);

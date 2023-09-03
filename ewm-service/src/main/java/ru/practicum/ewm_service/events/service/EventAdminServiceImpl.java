@@ -53,22 +53,17 @@ public class EventAdminServiceImpl implements EventAdminService {
             event.setEventDate(updateEvent.getEventDate());
         }
         if (updateEvent.getStateAction() != null) {
+            if(event.getState().equals(PUBLISHED)){
+                throw new IllegalArgumentException("Изменять опубликованные события нельзя");
+            }
             switch (updateEvent.getStateAction()) {
                 case REJECT_EVENT:
-                    if (!event.getState().equals(PUBLISHED)) {
                         event.setState(CANCELED);
                         break;
-                    } else {
-                        throw new IllegalArgumentException("Можно отклонить событие только если оно не опубликовано");
-                    }
                 case PUBLISH_EVENT:
-                    if (event.getState().equals(PENDING)) {
                         event.setState(PUBLISHED);
                         event.setPublishedOn(LocalDateTime.now());
                         break;
-                    } else {
-                        throw new IllegalArgumentException("Можно опубликовать событие только в состоянии ожидания");
-                    }
                 default:
                     throw new IllegalArgumentException("Недопустимое значение State");
             }

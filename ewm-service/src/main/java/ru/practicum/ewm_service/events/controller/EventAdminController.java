@@ -26,16 +26,14 @@ public class EventAdminController {
     private final EventAdminService eventService;
 
     @GetMapping
-    public Collection<EventDto> searchEvents(@RequestParam(required = false) List<Long> users,
-                                             @RequestParam(required = false) List<State> states,
-                                             @RequestParam(required = false) List<Long> categories,
-                                             @RequestParam(required = false)
-                                             @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime rangeStart,
-                                             @RequestParam(required = false)
-                                             @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime rangeEnd,
-                                             @RequestParam(defaultValue = "0")
-                                             @PositiveOrZero int from,
-                                             @RequestParam(defaultValue = "10") @Positive int size) {
+    public Collection<EventDto> searchEvents(
+            @RequestParam(required = false) List<Long> users,
+            @RequestParam(required = false) List<State> states,
+            @RequestParam(required = false) List<Long> categories,
+            @RequestParam(required = false) @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime rangeStart,
+            @RequestParam(required = false) @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime rangeEnd,
+            @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+            @RequestParam(defaultValue = "10") @Positive int size) {
         return eventService.searchEvents(users, states, categories, rangeStart, rangeEnd, from, size);
     }
 

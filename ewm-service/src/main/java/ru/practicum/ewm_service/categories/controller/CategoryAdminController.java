@@ -4,7 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm_service.categories.dto.CategoryDto;
+import ru.practicum.ewm_service.categories.dto.NewCategoryDto;
 import ru.practicum.ewm_service.categories.service.CategoryAdminService;
+
+import javax.validation.Valid;
 
 @Validated
 @RestController
@@ -14,7 +17,7 @@ public class CategoryAdminController {
     private final CategoryAdminService categoryAdminService;
 
     @PatchMapping
-    public CategoryDto createCategory(@RequestBody CategoryDto categoryDto) {
+    public CategoryDto createCategory(@Valid @RequestBody NewCategoryDto categoryDto) {
         return categoryAdminService.createCategory(categoryDto);
     }
 

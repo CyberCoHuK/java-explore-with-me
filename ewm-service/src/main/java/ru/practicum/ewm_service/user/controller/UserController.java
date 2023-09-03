@@ -18,7 +18,7 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping
-    public Collection<UserDto> getAllUsers(@RequestParam List<Long> ids,
+    public Collection<UserDto> getAllUsers(@RequestParam(required = false) List<Long> ids,
                                            @RequestParam(defaultValue = "0") int from,
                                            @RequestParam(defaultValue = "10") int size) {
         return userService.getAllUsers(ids, from, size);

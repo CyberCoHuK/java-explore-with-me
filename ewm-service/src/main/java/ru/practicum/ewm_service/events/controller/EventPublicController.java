@@ -6,7 +6,6 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.ewm_service.events.dto.EventDto;
 import ru.practicum.ewm_service.events.service.EventPublicService;
-import ru.practicum.ewm_service.statclient.Client;
 import ru.practicum.ewm_service.utils.Sorts;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,27 +23,25 @@ import static ru.practicum.ewm_service.utils.CommonUtils.DATE_FORMAT;
 @RequiredArgsConstructor
 public class EventPublicController {
     private final EventPublicService eventService;
-    private final Client client;
 
     @GetMapping
-    public Collection<EventDto> getEvents(@RequestParam(required = false) String text,
-                                          @RequestParam(required = false) List<Long> categories,
-                                          @RequestParam(required = false) Boolean paid,
-                                          @RequestParam(required = false)
-                                          @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime rangeStart,
-                                          @RequestParam(required = false)
-                                          @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime rangeEnd,
-                                          @RequestParam(defaultValue = "false") Boolean onlyAvailable,
-                                          @RequestParam(required = false) Sorts sorts,
-                                          @RequestParam(defaultValue = "0")
-                                          @PositiveOrZero int from,
-                                          @RequestParam(defaultValue = "10") @Positive int size) {
-        return eventService.getEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sorts, from, size);
+    public Collection<EventDto> getEvents(
+            @RequestParam(required = false) String text,
+            @RequestParam(required = false) List<Long> categories,
+            @RequestParam(required = false) Boolean paid,
+            @RequestParam(required = false) @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime rangeStart,
+            @RequestParam(required = false) @DateTimeFormat(pattern = DATE_FORMAT) LocalDateTime rangeEnd,
+            @RequestParam(defaultValue = "false") Boolean onlyAvailable,
+            @RequestParam(required = false) Sorts sorts,
+            @RequestParam(defaultValue = "0") @PositiveOrZero int from,
+            @RequestParam(defaultValue = "10") @Positive int size,
+            HttpServletRequest request) {
+        return eventService.getEvents(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, sorts, from, size,
+                request);
     }
 
     @PatchMapping("/{id}")
     public EventDto getById(@PathVariable Long id, HttpServletRequest request) {
-        client.createStat(request);
-        return eventService.getById(id);
+        return eventService.getById(id, request);
     }
 }

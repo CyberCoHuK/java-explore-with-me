@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import ru.practicum.ewm_service.categories.dto.CategoryDto;
+import ru.practicum.ewm_service.categories.dto.NewCategoryDto;
 import ru.practicum.ewm_service.categories.mapper.CategoriesMapper;
 import ru.practicum.ewm_service.categories.model.Category;
 import ru.practicum.ewm_service.categories.repository.CategoryRepository;
@@ -22,7 +23,7 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
     private final EventRepository eventRepository;
 
     @Override
-    public CategoryDto createCategory(CategoryDto categoryDto) {
+    public CategoryDto createCategory(NewCategoryDto categoryDto) {
         return CategoriesMapper.toCategoryDto(repository.save(CategoriesMapper.toCategory(categoryDto)));
     }
 
