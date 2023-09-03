@@ -50,7 +50,7 @@ public class EventPrivateServiceImpl implements EventPrivateService {
     @Transactional
     public EventDto createNewEvent(Long userId, NewEventDto newEventDto) {
         Event event = eventMapper.toEvent(newEventDto);
-        if (event.getEventDate().isAfter(LocalDateTime.now().plusHours(2))) {
+        if (event.getEventDate() != null && event.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
         User user = userRepository.findById(userId)
@@ -105,7 +105,7 @@ public class EventPrivateServiceImpl implements EventPrivateService {
                     throw new IllegalArgumentException("Недопустимое значение StateAction");
             }
         }
-        if (updateEvent.getEventDate() != null && updateEvent.getEventDate().isAfter(LocalDateTime.now().plusHours(2))) {
+        if (updateEvent.getEventDate() != null && updateEvent.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         } else {
             event.setEventDate(updateEvent.getEventDate());
