@@ -5,10 +5,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import ru.practicum.ewm_service.exceptions.exception.BadRequestException;
-import ru.practicum.ewm_service.exceptions.exception.CategoryIsNotEmpty;
-import ru.practicum.ewm_service.exceptions.exception.ConflictException;
-import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
 
 @Slf4j
 @RestControllerAdvice
