@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto createUser(NewUserDto newUserDto) {
-        if(userRepository.findByNameContainingIgnoreCase(newUserDto.getName()) != null){
+        if (userRepository.findByNameContainingIgnoreCase(newUserDto.getName()) != null) {
             throw new ConflictException("Имя занято другим пользователем");
         }
         User user = userRepository.save(UserMapper.toUser(newUserDto));
