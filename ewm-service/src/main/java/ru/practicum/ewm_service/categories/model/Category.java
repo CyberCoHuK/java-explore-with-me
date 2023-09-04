@@ -1,6 +1,9 @@
 package ru.practicum.ewm_service.categories.model;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -12,7 +15,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Category {
     @Id
-    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @Column(nullable = false, length = 50, unique = true)

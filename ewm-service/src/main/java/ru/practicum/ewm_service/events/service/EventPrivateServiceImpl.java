@@ -8,6 +8,7 @@ import ru.practicum.ewm_service.categories.model.Category;
 import ru.practicum.ewm_service.categories.repository.CategoryRepository;
 import ru.practicum.ewm_service.events.dto.*;
 import ru.practicum.ewm_service.events.mapper.EventMapper;
+import ru.practicum.ewm_service.events.mapper.LocationMapper;
 import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.events.model.Location;
 import ru.practicum.ewm_service.events.repository.EventRepository;
@@ -61,7 +62,8 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         Category category = categoryRepository.findById(newEventDto.getCategory())
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
         Location location = locationRepository.findByLatAndLon(newEventDto.getLocation().getLat(),
-                newEventDto.getLocation().getLat()).orElseGet(() -> locationRepository.save(newEventDto.getLocation()));
+                        newEventDto.getLocation().getLat())
+                .orElseGet(() -> locationRepository.save(LocationMapper.toLocation(newEventDto.getLocation())));
         Event event = eventMapper.toEvent(newEventDto, category, location, user, LocalDateTime.now(), PENDING);
         return eventMapper.toEventDto(eventRepository.save(event));
     }
@@ -89,40 +91,40 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         if (!event.getInitiator().equals(user)) {
             throw new IllegalArgumentException("Событие не принадлежит данному пользователю");
         }
-        if (updateEvent.getStateAction() != null && event.getState().equals(PUBLISHED)) {
+        if (event.getState().equals(PUBLISHED)) {
             throw new IllegalArgumentException("Событие можно изменить только в состоянии ожидания или отмененные");
         }
-        if (updateEvent.getStateAction() != null) {
-            switch (updateEvent.getStateAction()) {
-                case CANCEL_REVIEW:
-                    if (!event.getState().equals(PENDING)) {
-                        event.setState(CANCELED);
-                        break;
-                    } else {
-                        throw new IllegalArgumentException("Можно отклонить событие только если оно в ожидании");
-                    }
-                case SEND_TO_REVIEW:
-                    if (event.getState().equals(CANCELED)) {
-                        event.setState(PENDING);
-                        break;
-                    } else {
-                        throw new IllegalArgumentException("Можно выслать на ревью событие только в состоянии отмены");
-                    }
-                default:
-                    throw new IllegalArgumentException("Недопустимое значение StateAction");
-            }
-        }
-        if (updateEvent.getEventDate() != null && updateEvent.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
-            throw new IllegalArgumentException("Недопустимый временной промежуток.");
-        }
+
         if (updateEvent.getCategory() != null) {
             event.setCategory(categoryRepository.findById(updateEvent.getCategory()).orElseThrow(() ->
                     new ObjectNotFoundException("Категории с id = " + updateEvent.getCategory() + " не существует")));
         }
-        Optional.ofNullable(updateEvent.getEventDate()).ifPresent(event::setEventDate);
+
+        if (updateEvent.getEventDate() != null && updateEvent.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
+            throw new IllegalArgumentException("Недопустимый временной промежуток.");
+        }
+
+        if (updateEvent.getStateAction() != null) {
+            switch (updateEvent.getStateAction()) {
+                case CANCEL_REVIEW:
+                    event.setState(CANCELED);
+                    break;
+                case SEND_TO_REVIEW:
+                    event.setState(PENDING);
+                    break;
+                default:
+                    throw new IllegalArgumentException("Недопустимое значение StateAction");
+            }
+        }
+        if (updateEvent.getLocation() != null) {
+            Location location = locationRepository.findByLatAndLon(updateEvent.getLocation().getLat(),
+                            updateEvent.getLocation().getLat())
+                    .orElseGet(() -> locationRepository.save(LocationMapper.toLocation(updateEvent.getLocation())));
+            event.setLocation(location);
+        }
         Optional.ofNullable(updateEvent.getAnnotation()).ifPresent(event::setAnnotation);
         Optional.ofNullable(updateEvent.getDescription()).ifPresent(event::setDescription);
-        Optional.ofNullable(updateEvent.getLocation()).ifPresent(event::setLocation);
+        Optional.ofNullable(updateEvent.getEventDate()).ifPresent(event::setEventDate);
         Optional.ofNullable(updateEvent.getPaid()).ifPresent(event::setPaid);
         Optional.ofNullable(updateEvent.getParticipantLimit()).ifPresent(event::setParticipantLimit);
         Optional.ofNullable(updateEvent.getRequestModeration()).ifPresent(event::setRequestModeration);
@@ -158,7 +160,7 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         if (event.getParticipantLimit() == 0 || !event.getRequestModeration()) {
             throw new IllegalArgumentException("Для события подтвреждение заявок не требуется");
         }
-        if (event.getParticipantLimit().equals(event.getConfirmedRequests())) {
+        if (event.getParticipantLimit().equals(requestRepository.findConfirmedRequests(eventId))) {
             throw new IllegalArgumentException("Достигнут лимит заявок для события");
         }
         List<ParticipationRequest> requests = requestRepository.findAllByIdIn(eventRequestUpdate.getRequestIds());
@@ -166,6 +168,7 @@ public class EventPrivateServiceImpl implements EventPrivateService {
             throw new IllegalArgumentException("Изменять можно только запросы находящиеся в ожидании");
         }
         EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
+
         if (eventRequestUpdate.getStatus().equals(REJECTED)) {
             requests.forEach(request -> request.setStatus(REJECTED));
             result.setRejectedRequests(requestRepository.saveAll(requests).stream()
@@ -173,13 +176,12 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         }
         if (eventRequestUpdate.getStatus().equals(CONFIRMED)) {
             for (ParticipationRequest r : requests) {
-                if (event.getConfirmedRequests().equals(event.getParticipantLimit())) {
+                if (requestRepository.findConfirmedRequests(eventId).equals(event.getParticipantLimit())) {
                     r.setStatus(REJECTED);
                     result.getRejectedRequests().add(RequestMapper.toRequestDto(requestRepository.save(r)));
                 } else {
                     r.setStatus(CONFIRMED);
                     result.getConfirmedRequests().add(RequestMapper.toRequestDto(requestRepository.save(r)));
-                    event.setConfirmedRequests(event.getConfirmedRequests() + 1);
                 }
             }
         }

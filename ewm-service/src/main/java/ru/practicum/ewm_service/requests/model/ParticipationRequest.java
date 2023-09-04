@@ -2,6 +2,8 @@ package ru.practicum.ewm_service.requests.model;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.user.model.User;
 import ru.practicum.ewm_service.utils.Status;
@@ -22,12 +24,16 @@ public class ParticipationRequest {
     @Column(name = "id")
     Long id;
     @ManyToOne
-    @JoinColumn(name = "event_id")
+    @JoinColumn(name = "event_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     Event event;
+    @Column(nullable = false)
     LocalDateTime created;
     @ManyToOne
-    @JoinColumn(name = "requester")
+    @JoinColumn(name = "requester", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     User requester;
+    @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     Status status;
 }

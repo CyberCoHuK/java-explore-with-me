@@ -9,6 +9,7 @@ import ru.practicum.ewm_service.events.dto.EventDtoShort;
 import ru.practicum.ewm_service.events.dto.NewEventDto;
 import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.events.model.Location;
+import ru.practicum.ewm_service.requests.repository.RequestRepository;
 import ru.practicum.ewm_service.statclient.Client;
 import ru.practicum.ewm_service.user.mapper.UserMapper;
 import ru.practicum.ewm_service.user.model.User;
@@ -20,6 +21,7 @@ import java.time.LocalDateTime;
 @Component
 public class EventMapper {
     private final Client client;
+    private final RequestRepository requestRepository;
 
     public Event toEvent(NewEventDto newEventDto, Category category, Location location, User user, LocalDateTime now,
                          State pending) {
@@ -43,13 +45,13 @@ public class EventMapper {
         return EventDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoriesMapper.toCategoryDto(event.getCategory()))
-                .confirmedRequests(event.getConfirmedRequests())
+                .confirmedRequests(requestRepository.findConfirmedRequests(event.getId()))
                 .createdOn(event.getCreatedOn())
                 .description(event.getDescription())
                 .eventDate(event.getEventDate())
                 .id(event.getId())
                 .initiator(UserMapper.toUserDtoShort(event.getInitiator()))
-                .location(event.getLocation())
+                .location(LocationMapper.toLocationDto(event.getLocation()))
                 .paid(event.getPaid())
                 .participantLimit(event.getParticipantLimit())
                 .publishedOn(event.getPublishedOn())
@@ -64,7 +66,7 @@ public class EventMapper {
         return EventDtoShort.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoriesMapper.toCategoryDto(event.getCategory()))
-                .confirmedRequests(event.getConfirmedRequests())
+                .confirmedRequests(requestRepository.findConfirmedRequests(event.getId()))
                 .eventDate(event.getEventDate())
                 .id(event.getId())
                 .initiator(UserMapper.toUserDtoShort(event.getInitiator()))

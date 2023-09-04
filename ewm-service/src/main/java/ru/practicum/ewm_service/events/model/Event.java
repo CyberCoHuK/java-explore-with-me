@@ -24,22 +24,20 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String annotation;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     Category category;
-    @Column(name = "confirmed_requests")
-    Long confirmedRequests;
     @Column(name = "created_on")
     LocalDateTime createdOn;
     String description;
     @Column(name = "event_date")
     LocalDateTime eventDate;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "initiator_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     User initiator;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "location_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.CASCADE)
     Location location;

@@ -1,6 +1,7 @@
 package ru.practicum.ewm_service.events.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -8,8 +9,11 @@ import ru.practicum.ewm_service.categories.repository.CategoryRepository;
 import ru.practicum.ewm_service.events.dto.EventDto;
 import ru.practicum.ewm_service.events.dto.UpdateEventAdminRequest;
 import ru.practicum.ewm_service.events.mapper.EventMapper;
+import ru.practicum.ewm_service.events.mapper.LocationMapper;
 import ru.practicum.ewm_service.events.model.Event;
+import ru.practicum.ewm_service.events.model.Location;
 import ru.practicum.ewm_service.events.repository.EventRepository;
+import ru.practicum.ewm_service.events.repository.LocationRepository;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
 import ru.practicum.ewm_service.utils.State;
 
@@ -24,10 +28,12 @@ import static ru.practicum.ewm_service.utils.State.PUBLISHED;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class EventAdminServiceImpl implements EventAdminService {
     private final EventRepository eventRepository;
     private final CategoryRepository categoryRepository;
     private final EventMapper eventMapper;
+    private final LocationRepository locationRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -37,8 +43,10 @@ public class EventAdminServiceImpl implements EventAdminService {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
         PageRequest page = PageRequest.of(from / size, size);
-        return eventRepository.findAllAdminByData(users, states, categories, rangeStart, rangeEnd, page).stream()
+        List<EventDto> answer = eventRepository.findAllAdminByData(users, states, categories, rangeStart, rangeEnd, page).stream()
                 .map(eventMapper::toEventDto).collect(Collectors.toList());
+        log.info(answer.toString());
+        return answer;
     }
 
     @Override
@@ -69,10 +77,18 @@ public class EventAdminServiceImpl implements EventAdminService {
             event.setCategory(categoryRepository.findById(updateEvent.getCategory()).orElseThrow(() ->
                     new ObjectNotFoundException("Категории с id = " + updateEvent.getCategory() + " не существует")));
         }
+        log.info("ПРОВЕРЯЮ НАЛИЧИЕ ЛОКАЦИИ " + updateEvent.getLocation());
+        if (updateEvent.getLocation() != null) {
+            System.out.println(updateEvent.getLocation());
+            Location location = locationRepository.findByLatAndLon(updateEvent.getLocation().getLat(),
+                            updateEvent.getLocation().getLat())
+                    .orElseGet(() -> locationRepository.save(LocationMapper.toLocation(updateEvent.getLocation())));
+            log.info("ПРОВЕРКА СМЕНЫ ЛОКАЦИИ " + location);
+            event.setLocation(location);
+        }
         Optional.ofNullable(updateEvent.getEventDate()).ifPresent(event::setEventDate);
         Optional.ofNullable(updateEvent.getAnnotation()).ifPresent(event::setAnnotation);
         Optional.ofNullable(updateEvent.getDescription()).ifPresent(event::setDescription);
-        Optional.ofNullable(updateEvent.getLocation()).ifPresent(event::setLocation);
         Optional.ofNullable(updateEvent.getPaid()).ifPresent(event::setPaid);
         Optional.ofNullable(updateEvent.getParticipantLimit()).ifPresent(event::setParticipantLimit);
         Optional.ofNullable(updateEvent.getRequestModeration()).ifPresent(event::setRequestModeration);

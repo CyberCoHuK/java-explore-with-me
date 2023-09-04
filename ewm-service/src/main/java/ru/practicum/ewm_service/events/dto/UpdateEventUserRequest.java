@@ -3,10 +3,11 @@ package ru.practicum.ewm_service.events.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-import ru.practicum.ewm_service.events.model.Location;
 import ru.practicum.ewm_service.utils.StateAction;
 
+import javax.validation.Valid;
 import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
@@ -24,8 +25,10 @@ public class UpdateEventUserRequest {
     String description;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime eventDate;
-    Location location;
+    @Valid
+    LocationDto location;
     Boolean paid;
+    @PositiveOrZero
     Long participantLimit;
     Boolean requestModeration;
     StateAction stateAction;

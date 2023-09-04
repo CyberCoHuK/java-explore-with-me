@@ -8,6 +8,7 @@ import ru.practicum.ewm_service.events.dto.EventDto;
 import ru.practicum.ewm_service.events.mapper.EventMapper;
 import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.events.repository.EventRepository;
+import ru.practicum.ewm_service.exceptions.exception.BadRequestException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
 import ru.practicum.ewm_service.statclient.Client;
 import ru.practicum.ewm_service.utils.Sorts;
@@ -33,7 +34,7 @@ public class EventPublicServiceImpl implements EventPublicService {
                                           LocalDateTime rangeEnd, Boolean onlyAvailable, Sorts sorts, int from,
                                           int size, HttpServletRequest request) {
         if (rangeEnd != null && rangeStart != null && rangeStart.isAfter(rangeEnd)) {
-            throw new IllegalArgumentException("Недопустимый временной промежуток.");
+            throw new BadRequestException("Недопустимый временной промежуток.");
         }
         PageRequest page = PageRequest.of(from / size, size);
         List<EventDto> answer;
