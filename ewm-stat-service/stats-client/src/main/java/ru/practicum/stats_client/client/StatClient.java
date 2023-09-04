@@ -9,6 +9,7 @@ import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.dto.EndpointHitDto;
+import ru.practicum.ewm_service.exceptions.exception.BadRequestException;
 
 import java.net.URLEncoder;
 import java.nio.charset.Charset;
@@ -35,7 +36,7 @@ public class StatClient extends BaseClient {
 
     public ResponseEntity<Object> getStats(LocalDateTime start, LocalDateTime end, List<String> uris, Boolean unique) {
         if (start == null || end == null || start.isAfter(end)) {
-            throw new IllegalArgumentException("Недопустимый временной промежуток.");
+            throw new BadRequestException("Недопустимый временной промежуток.");
         }
         Map<String, Object> parameters;
         if (uris != null) {
