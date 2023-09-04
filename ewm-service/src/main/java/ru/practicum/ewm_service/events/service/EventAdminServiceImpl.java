@@ -14,6 +14,8 @@ import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.events.model.Location;
 import ru.practicum.ewm_service.events.repository.EventRepository;
 import ru.practicum.ewm_service.events.repository.LocationRepository;
+import ru.practicum.ewm_service.exceptions.exception.BadRequestException;
+import ru.practicum.ewm_service.exceptions.exception.ConflictException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
 import ru.practicum.ewm_service.utils.State;
 
@@ -23,8 +25,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-import static ru.practicum.ewm_service.utils.State.CANCELED;
-import static ru.practicum.ewm_service.utils.State.PUBLISHED;
+import static ru.practicum.ewm_service.utils.State.*;
 
 @Service
 @RequiredArgsConstructor
@@ -54,12 +55,12 @@ public class EventAdminServiceImpl implements EventAdminService {
     public EventDto editEventByAdmin(Long eventId, UpdateEventAdminRequest updateEvent) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new ObjectNotFoundException("События с id = " + eventId + " не существует"));
-        if (updateEvent.getEventDate() != null && updateEvent.getEventDate().isAfter(LocalDateTime.now().plusHours(1))) {
-            throw new IllegalArgumentException("Недопустимый временной промежуток.");
+        if (updateEvent.getEventDate() != null && updateEvent.getEventDate().isBefore(LocalDateTime.now().plusHours(1))) {
+            throw new BadRequestException("Недопустимый временной промежуток.");
         }
         if (updateEvent.getStateAction() != null) {
-            if (event.getState().equals(PUBLISHED)) {
-                throw new IllegalArgumentException("Изменять опубликованные события нельзя");
+            if (!event.getState().equals(PENDING)) {
+                throw new ConflictException("Изменять можно только ожидающие события");
             }
             switch (updateEvent.getStateAction()) {
                 case REJECT_EVENT:

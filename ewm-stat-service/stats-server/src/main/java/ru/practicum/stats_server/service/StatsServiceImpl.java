@@ -36,6 +36,6 @@ public class StatsServiceImpl implements StatsService {
     @Override
     @Transactional(readOnly = true)
     public Long getView(long eventId) {
-        return hitsRepository.countDistinctByUri("/event/" + eventId).orElse(0L);
+        return hitsRepository.countDistinctByUri("/events/" + eventId).orElse(0L);
     }
 }

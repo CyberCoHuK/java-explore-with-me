@@ -55,7 +55,7 @@ status VARCHAR(50) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS compilations_events(
-compilations_id BIGINT NOT NULL REFERENCES compilations(id) ON DELETE CASCADE,
+compilation_id BIGINT NOT NULL REFERENCES compilations(id) ON DELETE CASCADE,
 event_id BIGINT NOT NULL REFERENCES events(id) ON DELETE CASCADE
 );
-ALTER TABLE compilations_events ADD CONSTRAINT unique_comp UNIQUE (compilations_id, event_id);
+ALTER TABLE compilations_events ADD CONSTRAINT unique_comp UNIQUE (compilation_id, event_id);

@@ -13,6 +13,8 @@ import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.events.model.Location;
 import ru.practicum.ewm_service.events.repository.EventRepository;
 import ru.practicum.ewm_service.events.repository.LocationRepository;
+import ru.practicum.ewm_service.exceptions.exception.BadRequestException;
+import ru.practicum.ewm_service.exceptions.exception.ConflictException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
 import ru.practicum.ewm_service.requests.dto.ParticipationRequestDto;
 import ru.practicum.ewm_service.requests.mapper.RequestMapper;
@@ -55,7 +57,7 @@ public class EventPrivateServiceImpl implements EventPrivateService {
     @Transactional
     public EventDto createNewEvent(Long userId, NewEventDto newEventDto) {
         if (newEventDto.getEventDate() != null && newEventDto.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
-            throw new IllegalArgumentException("Недопустимый временной промежуток.");
+            throw new BadRequestException("Недопустимый временной промежуток.");
         }
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
@@ -89,21 +91,18 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
         if (!event.getInitiator().equals(user)) {
-            throw new IllegalArgumentException("Событие не принадлежит данному пользователю");
+            throw new ConflictException("Событие не принадлежит данному пользователю");
         }
         if (event.getState().equals(PUBLISHED)) {
-            throw new IllegalArgumentException("Событие можно изменить только в состоянии ожидания или отмененные");
+            throw new ConflictException("Событие можно изменить только в состоянии ожидания или отмененные");
         }
-
         if (updateEvent.getCategory() != null) {
             event.setCategory(categoryRepository.findById(updateEvent.getCategory()).orElseThrow(() ->
                     new ObjectNotFoundException("Категории с id = " + updateEvent.getCategory() + " не существует")));
         }
-
         if (updateEvent.getEventDate() != null && updateEvent.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
-            throw new IllegalArgumentException("Недопустимый временной промежуток.");
+            throw new BadRequestException("Недопустимый временной промежуток.");
         }
-
         if (updateEvent.getStateAction() != null) {
             switch (updateEvent.getStateAction()) {
                 case CANCEL_REVIEW:
@@ -161,11 +160,11 @@ public class EventPrivateServiceImpl implements EventPrivateService {
             throw new IllegalArgumentException("Для события подтвреждение заявок не требуется");
         }
         if (event.getParticipantLimit().equals(requestRepository.findConfirmedRequests(eventId))) {
-            throw new IllegalArgumentException("Достигнут лимит заявок для события");
+            throw new ConflictException("Достигнут лимит заявок для события");
         }
         List<ParticipationRequest> requests = requestRepository.findAllByIdIn(eventRequestUpdate.getRequestIds());
         if (!requests.stream().map(ParticipationRequest::getStatus).allMatch(Status.PENDING::equals)) {
-            throw new IllegalArgumentException("Изменять можно только запросы находящиеся в ожидании");
+            throw new ConflictException("Изменять можно только запросы находящиеся в ожидании");
         }
         EventRequestStatusUpdateResult result = new EventRequestStatusUpdateResult();
 

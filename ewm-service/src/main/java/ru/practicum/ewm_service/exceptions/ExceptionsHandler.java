@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import ru.practicum.ewm_service.exceptions.exception.BadRequestException;
 import ru.practicum.ewm_service.exceptions.exception.CategoryIsNotEmpty;
-import ru.practicum.ewm_service.exceptions.exception.ObjectAlreadyExistException;
+import ru.practicum.ewm_service.exceptions.exception.ConflictException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
 
 @Slf4j
@@ -22,7 +22,7 @@ public class ExceptionsHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.CONFLICT)
-    public ErrorResponse handleObjectAlreadyExist(final ObjectAlreadyExistException e) {
+    public ErrorResponse handleConflict(final ConflictException e) {
         log.warn("ObjectAlreadyExistException: " + e.getMessage());
         return new ErrorResponse(e.getMessage());
     }

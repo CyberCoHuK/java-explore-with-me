@@ -1,11 +1,11 @@
 package ru.practicum.ewm_service.requests.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.events.repository.EventRepository;
+import ru.practicum.ewm_service.exceptions.exception.ConflictException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
 import ru.practicum.ewm_service.requests.dto.ParticipationRequestDto;
 import ru.practicum.ewm_service.requests.mapper.RequestMapper;
@@ -26,7 +26,6 @@ import static ru.practicum.ewm_service.utils.Status.PENDING;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class RequestPrivateServiceImpl implements RequestPrivateService {
     private final UserRepository userRepository;
     private final RequestRepository requestRepository;
@@ -44,36 +43,28 @@ public class RequestPrivateServiceImpl implements RequestPrivateService {
     @Override
     @Transactional
     public ParticipationRequestDto createRequest(Long userId, Long eventId) {
-        log.info("Я В МОМЕНТЕ");
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new ObjectNotFoundException("События с id = " + eventId + " не существует"));
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
-        log.info(event.getInitiator().toString());
-
         if (event.getInitiator().equals(user)) {
-            throw new IllegalArgumentException("Нельзя создать запрос на свое событие");
+            throw new ConflictException("Нельзя создать запрос на свое событие");
         }
-        log.info(event.getState().toString());
         if (!event.getState().equals(State.PUBLISHED)) {
-            throw new IllegalArgumentException("Событие должно быть опубликовано");
+            throw new ConflictException("Событие должно быть опубликовано");
         }
-        log.info("asdf " + requestRepository.existsByRequesterAndEvent(user, event));
         if (requestRepository.existsByRequesterAndEvent(user, event)) {
-            throw new IllegalArgumentException("Невозможно отправить повторный запрос");
+            throw new ConflictException("Невозможно отправить повторный запрос");
         }
         Long confirmedRequests = requestRepository.findConfirmedRequests(eventId);
-        log.info(confirmedRequests.toString());
-        log.info(event.getParticipantLimit().toString());
         if (event.getParticipantLimit() > 0 && Objects.equals(event.getParticipantLimit(), confirmedRequests)) {
-            throw new IllegalArgumentException("У события достигнут лимит запросов на участие.");
+            throw new ConflictException("У события достигнут лимит запросов на участие.");
         }
         ParticipationRequest request = ParticipationRequest.builder()
                 .created(LocalDateTime.now())
                 .requester(user)
                 .event(event)
                 .build();
-        log.info(event.getRequestModeration().toString());
         if (event.getRequestModeration() && event.getParticipantLimit() > 0) {
             request.setStatus(PENDING);
         } else {

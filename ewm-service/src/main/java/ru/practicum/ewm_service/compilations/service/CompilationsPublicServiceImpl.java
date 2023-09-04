@@ -17,8 +17,8 @@ import java.util.stream.Collectors;
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class CompilationsPublicServiceImpl implements CompilationsPublicService {
-    CompilationRepository compilationRepository;
-    CompilationMapper compilationMapper;
+    private final CompilationRepository compilationRepository;
+    private final CompilationMapper compilationMapper;
 
     @Override
     public Collection<CompilationDto> getCompilations(Boolean pinned, int from, int size) {

@@ -6,6 +6,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import ru.practicum.ewm_service.exceptions.exception.ConflictException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
 import ru.practicum.ewm_service.user.dto.NewUserDto;
 import ru.practicum.ewm_service.user.dto.UserDto;
@@ -34,6 +35,9 @@ public class UserServiceImpl implements UserService {
     @Transactional
     @Override
     public UserDto createUser(NewUserDto newUserDto) {
+        if(userRepository.findByNameContainingIgnoreCase(newUserDto.getName()) != null){
+            throw new ConflictException("Имя занято другим пользователем");
+        }
         User user = userRepository.save(UserMapper.toUser(newUserDto));
         return UserMapper.toUserDto(user);
     }

@@ -11,6 +11,7 @@ import ru.practicum.ewm_service.categories.model.Category;
 import ru.practicum.ewm_service.categories.repository.CategoryRepository;
 import ru.practicum.ewm_service.events.repository.EventRepository;
 import ru.practicum.ewm_service.exceptions.exception.CategoryIsNotEmpty;
+import ru.practicum.ewm_service.exceptions.exception.ConflictException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
 
 import java.util.Optional;
@@ -24,6 +25,7 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
 
     @Override
     public CategoryDto createCategory(NewCategoryDto categoryDto) {
+        checkName(categoryDto.getName());
         return CategoriesMapper.toCategoryDto(repository.save(CategoriesMapper.toCategory(categoryDto)));
     }
 
@@ -31,6 +33,7 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
     public CategoryDto updateCategory(long catId, CategoryDto categoryDto) {
         Category update = repository.findById(catId)
                 .orElseThrow(() -> new ObjectNotFoundException("Категории с id = " + catId + " не существует"));
+        checkName(categoryDto.getName());
         Optional.ofNullable(categoryDto.getName()).ifPresent(update::setName);
         return CategoriesMapper.toCategoryDto(repository.save(update));
     }
@@ -43,5 +46,12 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
             throw new CategoryIsNotEmpty("С категорией существуют связанные события");
         }
         repository.delete(delete);
+    }
+
+    private void checkName(String name) {
+        Category byName = repository.findByNameContainingIgnoreCase(name);
+        if (byName != null) {
+            throw new ConflictException("Данное имя занято другой категорией");
+        }
     }
 }

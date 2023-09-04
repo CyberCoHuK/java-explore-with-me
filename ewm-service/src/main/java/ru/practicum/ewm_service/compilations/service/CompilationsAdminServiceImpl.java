@@ -21,9 +21,9 @@ import java.util.Optional;
 @Transactional
 @RequiredArgsConstructor
 public class CompilationsAdminServiceImpl implements CompilationsAdminService {
-    EventRepository eventRepository;
-    CompilationRepository compilationRepository;
-    CompilationMapper compilationMapper;
+    private final EventRepository eventRepository;
+    private final CompilationRepository compilationRepository;
+    private final CompilationMapper compilationMapper;
 
     @Override
     public CompilationDto createCompilations(NewCompilationDto newCompilationDto) {

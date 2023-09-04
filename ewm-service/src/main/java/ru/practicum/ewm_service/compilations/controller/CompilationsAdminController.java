@@ -32,7 +32,7 @@ public class CompilationsAdminController {
 
     @PatchMapping("/{compId}")
     public CompilationDto editCompilationById(@PathVariable Long compId,
-                                              @RequestBody UpdateCompilationRequest updateCompilationRequest) {
+                                              @RequestBody @Valid UpdateCompilationRequest updateCompilationRequest) {
         return compilationsService.editCompilationById(compId, updateCompilationRequest);
     }
 }
