@@ -10,11 +10,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.util.DefaultUriBuilderFactory;
 import ru.practicum.dto.EndpointHitDto;
 
+import java.net.URLEncoder;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
-
-import static ru.practicum.utils.CommonUtils.DATE_TIME_FORMATTER;
 
 @Service
 @Slf4j
@@ -40,8 +40,8 @@ public class StatClient extends BaseClient {
         Map<String, Object> parameters;
         if (uris != null) {
             parameters = Map.of(
-                    "start", start.format(DATE_TIME_FORMATTER),
-                    "end", end.format(DATE_TIME_FORMATTER),
+                    "start", URLEncoder.encode(start.toString(), Charset.defaultCharset()),
+                    "end", URLEncoder.encode(end.toString(), Charset.defaultCharset()),
                     "uris", String.join(",", uris),
                     "unique", unique
             );
@@ -49,8 +49,8 @@ public class StatClient extends BaseClient {
             return get("/stats?start={start}&end={end}&uris={uris}&unique={unique}", parameters);
         } else {
             parameters = Map.of(
-                    "start", start.format(DATE_TIME_FORMATTER),
-                    "end", end.format(DATE_TIME_FORMATTER),
+                    "start", URLEncoder.encode(start.toString(), Charset.defaultCharset()),
+                    "end", URLEncoder.encode(end.toString(), Charset.defaultCharset()),
                     "unique", unique
             );
             log.info("Отправлен get запрос на сервер с данными " + parameters);

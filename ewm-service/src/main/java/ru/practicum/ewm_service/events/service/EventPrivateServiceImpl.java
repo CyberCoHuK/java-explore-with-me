@@ -114,13 +114,12 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         }
         if (updateEvent.getEventDate() != null && updateEvent.getEventDate().isBefore(LocalDateTime.now().plusHours(2))) {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
-        } else {
-            event.setEventDate(updateEvent.getEventDate());
         }
         if (updateEvent.getCategory() != null) {
             event.setCategory(categoryRepository.findById(updateEvent.getCategory()).orElseThrow(() ->
                     new ObjectNotFoundException("Категории с id = " + updateEvent.getCategory() + " не существует")));
         }
+        Optional.ofNullable(updateEvent.getEventDate()).ifPresent(event::setEventDate);
         Optional.ofNullable(updateEvent.getAnnotation()).ifPresent(event::setAnnotation);
         Optional.ofNullable(updateEvent.getDescription()).ifPresent(event::setDescription);
         Optional.ofNullable(updateEvent.getLocation()).ifPresent(event::setLocation);

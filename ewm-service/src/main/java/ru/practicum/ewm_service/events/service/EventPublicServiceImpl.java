@@ -20,8 +20,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static ru.practicum.ewm_service.utils.Sorts.EVENT_DATE;
-
 @Service
 @RequiredArgsConstructor
 public class EventPublicServiceImpl implements EventPublicService {
@@ -38,24 +36,31 @@ public class EventPublicServiceImpl implements EventPublicService {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
         PageRequest page = PageRequest.of(from / size, size);
-        Collection<Event> events;
+        List<EventDto> answer;
         if (rangeEnd == null && rangeStart == null) {
-            events = eventRepository.findAllByPublicNoDate(text, categories, paid, LocalDateTime.now(), onlyAvailable, page);
+            answer = eventRepository.findAllByPublicNoDate(text, categories, paid, LocalDateTime.now(), page).stream()
+                    .map(eventMapper::toEventDto).collect(Collectors.toList());
         } else {
-            events = eventRepository.findAllByPublic(text, categories, paid, rangeStart, rangeEnd, onlyAvailable, page);
+            answer = eventRepository.findAllByPublic(text, categories, paid, rangeStart, rangeEnd, page).stream()
+                    .map(eventMapper::toEventDto).collect(Collectors.toList());
+        }
+        if (sorts != null) {
+            switch (sorts) {
+                case EVENT_DATE:
+                    answer.sort(Comparator.comparing(EventDto::getEventDate));
+                    break;
+                case VIEWS:
+                    answer.sort(Comparator.comparing(EventDto::getViews));
+                    break;
+            }
+        }
+        if (onlyAvailable) {
+            return answer.stream()
+                    .filter(e -> e.getParticipantLimit() > e.getConfirmedRequests() || e.getParticipantLimit() == 0)
+                    .collect(Collectors.toList());
         }
         statClient.createStat(request);
-        if (sorts.equals(EVENT_DATE)) {
-            return events.stream()
-                    .map(eventMapper::toEventDto)
-                    .sorted(Comparator.comparing(EventDto::getEventDate))
-                    .collect(Collectors.toList());
-        } else {
-            return events.stream()
-                    .map(eventMapper::toEventDto)
-                    .sorted(Comparator.comparing(EventDto::getViews))
-                    .collect(Collectors.toList());
-        }
+        return answer;
     }
 
     @Override

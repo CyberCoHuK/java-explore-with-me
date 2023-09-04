@@ -7,10 +7,12 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.util.DefaultUriBuilderFactory;
+import ru.practicum.dto.EndpointHitDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Objects;
+
 
 @Component
 @Slf4j
