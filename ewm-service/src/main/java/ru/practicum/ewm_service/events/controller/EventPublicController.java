@@ -40,7 +40,7 @@ public class EventPublicController {
                 request);
     }
 
-    @PatchMapping("/{id}")
+    @GetMapping("/{id}")
     public EventDto getById(@PathVariable Long id, HttpServletRequest request) {
         return eventService.getById(id, request);
     }

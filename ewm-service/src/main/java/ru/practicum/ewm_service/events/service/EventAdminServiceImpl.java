@@ -33,10 +33,8 @@ public class EventAdminServiceImpl implements EventAdminService {
     @Transactional(readOnly = true)
     public Collection<EventDto> searchEvents(List<Long> users, List<State> states, List<Long> categories,
                                              LocalDateTime rangeStart, LocalDateTime rangeEnd, int from, int size) {
-        if (rangeEnd != null && rangeStart != null) {
-            if (rangeStart.isAfter(rangeEnd)) {
-                throw new IllegalArgumentException("Недопустимый временной промежуток.");
-            }
+        if (rangeEnd != null && rangeStart != null && rangeStart.isAfter(rangeEnd)) {
+            throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
         PageRequest page = PageRequest.of(from / size, size);
         return eventRepository.findAllAdminByData(users, states, categories, rangeStart, rangeEnd, page).stream()
