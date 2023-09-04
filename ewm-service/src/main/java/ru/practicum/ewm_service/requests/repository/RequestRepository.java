@@ -12,14 +12,16 @@ import java.util.List;
 
 @Repository
 public interface RequestRepository extends JpaRepository<ParticipationRequest, Long> {
-    Collection<ParticipationRequest> findAllByRequesterAndEvent(User user, Event event);
-
     List<ParticipationRequest> findAllByIdIn(List<Long> requestIds);
 
     List<ParticipationRequest> findAllByRequester(User user);
 
     boolean existsByRequesterAndEvent(User user, Event event);
 
-    @Query("SELECT count(PR.id) FROM ParticipationRequest AS PR WHERE PR.event.id in :eventId AND PR.status = 'CONFIRMED' ")
+    @Query("SELECT count(PR.id) FROM ParticipationRequest AS PR " +
+            "WHERE PR.event.id in :eventId " +
+            "AND PR.status = 'CONFIRMED' ")
     Long findConfirmedRequests(Long eventId);
+
+    Collection<ParticipationRequest> findAllByEvent(Event event);
 }

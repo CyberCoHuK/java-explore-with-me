@@ -59,6 +59,9 @@ public class StatClient extends BaseClient {
     }
 
     public ResponseEntity<Object> getView(Long eventId) {
-        return get("/view/" + eventId);
+        Map<String, Object> parameters = Map.of(
+                "eventId", eventId
+        );
+        return get("/view/{eventId}", parameters);
     }
 }

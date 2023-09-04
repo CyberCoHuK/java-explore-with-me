@@ -11,6 +11,7 @@ import ru.practicum.dto.EndpointHitDto;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -38,7 +39,10 @@ public class Client extends BaseClient {
     }
 
     public Long getView(Long eventId) {
-        String responseBody = Objects.requireNonNull(get("/view/" + eventId).getBody()).toString();
+        Map<String, Object> parameters = Map.of(
+                "eventId", eventId
+        );
+        String responseBody = (Objects.requireNonNullElse(get("/view/{eventId}", parameters).getBody(), 0L)).toString();
         return Long.parseLong(responseBody);
     }
 }

@@ -43,5 +43,5 @@ public interface HitsRepository extends JpaRepository<EndpointHit, Long> {
     @Query("SELECT COUNT(DISTINCT e.ip) " +
             "FROM EndpointHit AS e " +
             "WHERE e.uri = ?1")
-    Optional<Long> countDistinctByUri(String s);
+    Long countDistinctByUri(String s);
 }

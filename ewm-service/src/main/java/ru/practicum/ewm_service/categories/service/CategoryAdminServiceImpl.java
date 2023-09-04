@@ -25,7 +25,9 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
 
     @Override
     public CategoryDto createCategory(NewCategoryDto categoryDto) {
-        checkName(categoryDto.getName());
+        if (repository.findByName(categoryDto.getName()) != null) {
+            throw new ConflictException("Данное имя занято другой категорией");
+        }
         return CategoriesMapper.toCategoryDto(repository.save(CategoriesMapper.toCategory(categoryDto)));
     }
 
@@ -33,7 +35,9 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
     public CategoryDto updateCategory(long catId, CategoryDto categoryDto) {
         Category update = repository.findById(catId)
                 .orElseThrow(() -> new ObjectNotFoundException("Категории с id = " + catId + " не существует"));
-        checkName(categoryDto.getName());
+        if (repository.findByNameAndIdNot(categoryDto.getName(), catId) != null) {
+            throw new ConflictException("Данное имя занято другой категорией");
+        }
         Optional.ofNullable(categoryDto.getName()).ifPresent(update::setName);
         return CategoriesMapper.toCategoryDto(repository.save(update));
     }
@@ -49,9 +53,6 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
     }
 
     private void checkName(String name) {
-        Category byName = repository.findByNameContainingIgnoreCase(name);
-        if (byName != null) {
-            throw new ConflictException("Данное имя занято другой категорией");
-        }
+
     }
 }

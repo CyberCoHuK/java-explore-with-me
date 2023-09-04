@@ -66,8 +66,8 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         Location location = locationRepository.findByLatAndLon(newEventDto.getLocation().getLat(),
                         newEventDto.getLocation().getLat())
                 .orElseGet(() -> locationRepository.save(LocationMapper.toLocation(newEventDto.getLocation())));
-        Event event = eventMapper.toEvent(newEventDto, category, location, user, LocalDateTime.now(), PENDING);
-        return eventMapper.toEventDto(eventRepository.save(event));
+        Event event = eventRepository.save(eventMapper.toEvent(newEventDto, category, location, user, LocalDateTime.now(), PENDING));
+        return eventMapper.toEventDto(event);
     }
 
     @Override
@@ -141,7 +141,7 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         if (!event.getInitiator().equals(user)) {
             throw new IllegalArgumentException("Событие не принадлежит данному пользователю");
         }
-        return requestRepository.findAllByRequesterAndEvent(user, event).stream()
+        return requestRepository.findAllByEvent(event).stream()
                 .map(RequestMapper::toRequestDto).collect(Collectors.toList());
     }
 

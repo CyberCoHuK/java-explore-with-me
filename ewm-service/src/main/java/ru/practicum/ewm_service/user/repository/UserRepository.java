@@ -12,5 +12,5 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, Long> {
     Page<User> findAllByIdIn(List<Long> ids, PageRequest page);
 
-    User findByNameContainingIgnoreCase(String name);
+    User findByName(String name);
 }

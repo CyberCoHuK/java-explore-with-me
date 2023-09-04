@@ -12,6 +12,7 @@ import ru.practicum.stats_server.repository.HitsRepository;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -36,6 +37,7 @@ public class StatsServiceImpl implements StatsService {
     @Override
     @Transactional(readOnly = true)
     public Long getView(long eventId) {
-        return hitsRepository.countDistinctByUri("/events/" + eventId).orElse(0L);
+        Long view = hitsRepository.countDistinctByUri("/events/" + eventId);
+        return Objects.requireNonNullElse(view, 0L);
     }
 }

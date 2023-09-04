@@ -1,7 +1,6 @@
 package ru.practicum.ewm_service.events.service;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +28,6 @@ import static ru.practicum.ewm_service.utils.State.*;
 
 @Service
 @RequiredArgsConstructor
-@Slf4j
 public class EventAdminServiceImpl implements EventAdminService {
     private final EventRepository eventRepository;
     private final CategoryRepository categoryRepository;
@@ -46,7 +44,6 @@ public class EventAdminServiceImpl implements EventAdminService {
         PageRequest page = PageRequest.of(from / size, size);
         List<EventDto> answer = eventRepository.findAllAdminByData(users, states, categories, rangeStart, rangeEnd, page).stream()
                 .map(eventMapper::toEventDto).collect(Collectors.toList());
-        log.info(answer.toString());
         return answer;
     }
 
@@ -78,13 +75,11 @@ public class EventAdminServiceImpl implements EventAdminService {
             event.setCategory(categoryRepository.findById(updateEvent.getCategory()).orElseThrow(() ->
                     new ObjectNotFoundException("Категории с id = " + updateEvent.getCategory() + " не существует")));
         }
-        log.info("ПРОВЕРЯЮ НАЛИЧИЕ ЛОКАЦИИ " + updateEvent.getLocation());
         if (updateEvent.getLocation() != null) {
             System.out.println(updateEvent.getLocation());
             Location location = locationRepository.findByLatAndLon(updateEvent.getLocation().getLat(),
                             updateEvent.getLocation().getLat())
                     .orElseGet(() -> locationRepository.save(LocationMapper.toLocation(updateEvent.getLocation())));
-            log.info("ПРОВЕРКА СМЕНЫ ЛОКАЦИИ " + location);
             event.setLocation(location);
         }
         Optional.ofNullable(updateEvent.getEventDate()).ifPresent(event::setEventDate);
