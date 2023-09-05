@@ -51,8 +51,4 @@ public class CategoryAdminServiceImpl implements CategoryAdminService {
         }
         repository.delete(delete);
     }
-
-    private void checkName(String name) {
-
-    }
 }
