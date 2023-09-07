@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.requests.model.ParticipationRequest;
 import ru.practicum.ewm_service.user.model.User;
+import ru.practicum.ewm_service.utils.Status;
 
 import java.util.Collection;
 import java.util.List;
@@ -24,4 +25,6 @@ public interface RequestRepository extends JpaRepository<ParticipationRequest, L
     Long findConfirmedRequests(Long eventId);
 
     Collection<ParticipationRequest> findAllByEvent(Event event);
+
+    boolean existsByEventAndRequesterAndStatus(Event event, User user, Status confirmed);
 }
