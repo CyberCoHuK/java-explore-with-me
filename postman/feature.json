@@ -26,7 +26,7 @@
 									"pm.test(\"Test user 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be \"133\"').to.eql(133);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"135\"').to.eql(135);\r",
 									"});\r",
 									"pm.test(\"Test user 'email' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -85,7 +85,7 @@
 									"pm.test(\"Test user 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be \"134\"').to.eql(134);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"136\"').to.eql(136);\r",
 									"});\r",
 									"pm.test(\"Test user 'email' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -144,7 +144,7 @@
 									"pm.test(\"Test user 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be \"135\"').to.eql(135);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"137\"').to.eql(137);\r",
 									"});\r",
 									"pm.test(\"Test user 'email' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -203,7 +203,7 @@
 									"pm.test(\"Test user 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be \"136\"').to.eql(136);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"138\"').to.eql(138);\r",
 									"});\r",
 									"pm.test(\"Test user 'email' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -267,7 +267,7 @@
 									"pm.test(\"Test event 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be \"103\"').to.eql(103);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"106\"').to.eql(106);\r",
 									"});\r",
 									"pm.test(\"Test event 'annotation' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -299,7 +299,7 @@
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('initiator');\r",
 									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
-									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"136\"').to.eql(136);\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
 									"});\r",
 									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -399,7 +399,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "136"
+									"value": "138"
 								}
 							]
 						}
@@ -423,7 +423,7 @@
 									"pm.test(\"Test event 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be \"104\"').to.eql(104);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"107\"').to.eql(107);\r",
 									"});\r",
 									"pm.test(\"Test event 'annotation' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -455,7 +455,7 @@
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('initiator');\r",
 									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
-									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"136\"').to.eql(136);\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
 									"});\r",
 									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -555,7 +555,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "136"
+									"value": "138"
 								}
 							]
 						}
@@ -579,7 +579,7 @@
 									"pm.test(\"Test event 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be \"105\"').to.eql(105);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"108\"').to.eql(108);\r",
 									"});\r",
 									"pm.test(\"Test event 'annotation' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -611,7 +611,7 @@
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('initiator');\r",
 									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
-									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"136\"').to.eql(136);\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
 									"});\r",
 									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -711,7 +711,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "136"
+									"value": "138"
 								}
 							]
 						}
@@ -735,7 +735,7 @@
 									"pm.test(\"Test event 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be \"103\"').to.eql(103);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"106\"').to.eql(106);\r",
 									"});\r",
 									"pm.test(\"Test event 'annotation' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -767,7 +767,7 @@
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('initiator');\r",
 									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
-									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"136\"').to.eql(136);\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
 									"});\r",
 									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -867,7 +867,7 @@
 							"variable": [
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -891,7 +891,7 @@
 									"pm.test(\"Test event 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be \"104\"').to.eql(104);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"107\"').to.eql(107);\r",
 									"});\r",
 									"pm.test(\"Test event 'annotation' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -923,7 +923,7 @@
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('initiator');\r",
 									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
-									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"136\"').to.eql(136);\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
 									"});\r",
 									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -1023,7 +1023,7 @@
 							"variable": [
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							]
 						}
@@ -1047,7 +1047,7 @@
 									"pm.test(\"Test event 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be \"105\"').to.eql(105);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"108\"').to.eql(108);\r",
 									"});\r",
 									"pm.test(\"Test event 'annotation' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -1079,7 +1079,7 @@
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('initiator');\r",
 									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
-									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"136\"').to.eql(136);\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
 									"});\r",
 									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -1179,7 +1179,7 @@
 							"variable": [
 								{
 									"key": "eventId",
-									"value": "105"
+									"value": "108"
 								}
 							]
 						}
@@ -1213,12 +1213,12 @@
 									"pm.test(\"Test request 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"103\"').to.eql(103);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"106\"').to.eql(106);\r",
 									"});\r",
 									"pm.test(\"Test request 'requester' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('requester');\r",
-									"    pm.expect(jsonData.requester, '\"requester\" must be \"133\"').to.eql(133);\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"135\"').to.eql(135);\r",
 									"});\r",
 									"pm.test(\"Test request 'status' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -1257,7 +1257,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/users/:userId/requests?eventId=103",
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=106",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1269,13 +1269,13 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "133"
+									"value": "135"
 								}
 							]
 						}
@@ -1304,12 +1304,12 @@
 									"pm.test(\"Test request 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"104\"').to.eql(104);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"107\"').to.eql(107);\r",
 									"});\r",
 									"pm.test(\"Test request 'requester' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('requester');\r",
-									"    pm.expect(jsonData.requester, '\"requester\" must be \"133\"').to.eql(133);\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"135\"').to.eql(135);\r",
 									"});\r",
 									"pm.test(\"Test request 'status' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -1348,7 +1348,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/users/:userId/requests?eventId=104",
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=107",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1360,13 +1360,13 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "133"
+									"value": "135"
 								}
 							]
 						}
@@ -1395,12 +1395,12 @@
 									"pm.test(\"Test request 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"105\"').to.eql(105);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"108\"').to.eql(108);\r",
 									"});\r",
 									"pm.test(\"Test request 'requester' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('requester');\r",
-									"    pm.expect(jsonData.requester, '\"requester\" must be \"133\"').to.eql(133);\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"135\"').to.eql(135);\r",
 									"});\r",
 									"pm.test(\"Test request 'status' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -1439,7 +1439,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/users/:userId/requests?eventId=105",
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=108",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1451,13 +1451,13 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "105"
+									"value": "108"
 								}
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "133"
+									"value": "135"
 								}
 							]
 						}
@@ -1486,12 +1486,12 @@
 									"pm.test(\"Test request 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"103\"').to.eql(103);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"106\"').to.eql(106);\r",
 									"});\r",
 									"pm.test(\"Test request 'requester' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('requester');\r",
-									"    pm.expect(jsonData.requester, '\"requester\" must be \"134\"').to.eql(134);\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"136\"').to.eql(136);\r",
 									"});\r",
 									"pm.test(\"Test request 'status' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -1530,7 +1530,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/users/:userId/requests?eventId=103",
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=106",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1542,13 +1542,13 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "134"
+									"value": "136"
 								}
 							]
 						}
@@ -1577,12 +1577,12 @@
 									"pm.test(\"Test request 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"104\"').to.eql(104);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"107\"').to.eql(107);\r",
 									"});\r",
 									"pm.test(\"Test request 'requester' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('requester');\r",
-									"    pm.expect(jsonData.requester, '\"requester\" must be \"134\"').to.eql(134);\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"136\"').to.eql(136);\r",
 									"});\r",
 									"pm.test(\"Test request 'status' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -1621,7 +1621,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/users/:userId/requests?eventId=104",
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=107",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1633,13 +1633,13 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "134"
+									"value": "136"
 								}
 							]
 						}
@@ -1668,12 +1668,12 @@
 									"pm.test(\"Test request 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"105\"').to.eql(105);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"108\"').to.eql(108);\r",
 									"});\r",
 									"pm.test(\"Test request 'requester' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('requester');\r",
-									"    pm.expect(jsonData.requester, '\"requester\" must be \"134\"').to.eql(134);\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"136\"').to.eql(136);\r",
 									"});\r",
 									"pm.test(\"Test request 'status' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -1712,7 +1712,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/users/:userId/requests?eventId=105",
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=108",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1724,13 +1724,13 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "105"
+									"value": "108"
 								}
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "134"
+									"value": "136"
 								}
 							]
 						}
@@ -1759,12 +1759,12 @@
 									"pm.test(\"Test request 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"103\"').to.eql(103);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"106\"').to.eql(106);\r",
 									"});\r",
 									"pm.test(\"Test request 'requester' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('requester');\r",
-									"    pm.expect(jsonData.requester, '\"requester\" must be \"135\"').to.eql(135);\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"137\"').to.eql(137);\r",
 									"});\r",
 									"pm.test(\"Test request 'status' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -1803,7 +1803,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/users/:userId/requests?eventId=103",
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=106",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1815,13 +1815,13 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "137"
 								}
 							]
 						}
@@ -1850,12 +1850,12 @@
 									"pm.test(\"Test request 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"104\"').to.eql(104);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"107\"').to.eql(107);\r",
 									"});\r",
 									"pm.test(\"Test request 'requester' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('requester');\r",
-									"    pm.expect(jsonData.requester, '\"requester\" must be \"135\"').to.eql(135);\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"137\"').to.eql(137);\r",
 									"});\r",
 									"pm.test(\"Test request 'status' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -1894,7 +1894,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/users/:userId/requests?eventId=104",
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=107",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1906,13 +1906,13 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "137"
 								}
 							]
 						}
@@ -1941,12 +1941,12 @@
 									"pm.test(\"Test request 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"105\"').to.eql(105);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"108\"').to.eql(108);\r",
 									"});\r",
 									"pm.test(\"Test request 'requester' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('requester');\r",
-									"    pm.expect(jsonData.requester, '\"requester\" must be \"135\"').to.eql(135);\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"137\"').to.eql(137);\r",
 									"});\r",
 									"pm.test(\"Test request 'status' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -1985,7 +1985,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{baseUrl}}/users/:userId/requests?eventId=105",
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=108",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -1997,13 +1997,13 @@
 							"query": [
 								{
 									"key": "eventId",
-									"value": "105"
+									"value": "108"
 								}
 							],
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "137"
 								}
 							]
 						}
@@ -2046,12 +2046,12 @@
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"103\"').to.eql(103);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"106\"').to.eql(106);\r",
 									"});\r",
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('user');\r",
-									"    pm.expect(jsonData.user, '\"user\" must be \"133\"').to.eql(133);\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"135\"').to.eql(135);\r",
 									"});\r",
 									"pm.test(\"Test rate 'rate' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -2096,11 +2096,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "133"
+									"value": "135"
 								},
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -2138,12 +2138,12 @@
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"104\"').to.eql(104);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"107\"').to.eql(107);\r",
 									"});\r",
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('user');\r",
-									"    pm.expect(jsonData.user, '\"user\" must be \"133\"').to.eql(133);\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"135\"').to.eql(135);\r",
 									"});\r",
 									"pm.test(\"Test rate 'rate' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -2188,11 +2188,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "133"
+									"value": "135"
 								},
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							]
 						}
@@ -2230,12 +2230,12 @@
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"105\"').to.eql(105);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"108\"').to.eql(108);\r",
 									"});\r",
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('user');\r",
-									"    pm.expect(jsonData.user, '\"user\" must be \"133\"').to.eql(133);\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"135\"').to.eql(135);\r",
 									"});\r",
 									"pm.test(\"Test rate 'rate' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -2280,11 +2280,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "133"
+									"value": "135"
 								},
 								{
 									"key": "eventId",
-									"value": "105"
+									"value": "108"
 								}
 							]
 						}
@@ -2322,12 +2322,12 @@
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"103\"').to.eql(103);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"106\"').to.eql(106);\r",
 									"});\r",
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('user');\r",
-									"    pm.expect(jsonData.user, '\"user\" must be \"134\"').to.eql(134);\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"136\"').to.eql(136);\r",
 									"});\r",
 									"pm.test(\"Test rate 'rate' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -2372,11 +2372,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "134"
+									"value": "136"
 								},
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -2414,12 +2414,12 @@
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"104\"').to.eql(104);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"107\"').to.eql(107);\r",
 									"});\r",
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('user');\r",
-									"    pm.expect(jsonData.user, '\"user\" must be \"134\"').to.eql(134);\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"136\"').to.eql(136);\r",
 									"});\r",
 									"pm.test(\"Test rate 'rate' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -2464,11 +2464,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "134"
+									"value": "136"
 								},
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							]
 						}
@@ -2506,12 +2506,12 @@
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"105\"').to.eql(105);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"108\"').to.eql(108);\r",
 									"});\r",
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('user');\r",
-									"    pm.expect(jsonData.user, '\"user\" must be \"134\"').to.eql(134);\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"136\"').to.eql(136);\r",
 									"});\r",
 									"pm.test(\"Test rate 'rate' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -2556,11 +2556,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "134"
+									"value": "136"
 								},
 								{
 									"key": "eventId",
-									"value": "105"
+									"value": "108"
 								}
 							]
 						}
@@ -2598,12 +2598,12 @@
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"103\"').to.eql(103);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"106\"').to.eql(106);\r",
 									"});\r",
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('user');\r",
-									"    pm.expect(jsonData.user, '\"user\" must be \"135\"').to.eql(135);\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"137\"').to.eql(137);\r",
 									"});\r",
 									"pm.test(\"Test rate 'rate' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -2648,11 +2648,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "137"
 								},
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -2690,12 +2690,12 @@
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"104\"').to.eql(104);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"107\"').to.eql(107);\r",
 									"});\r",
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('user');\r",
-									"    pm.expect(jsonData.user, '\"user\" must be \"135\"').to.eql(135);\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"137\"').to.eql(137);\r",
 									"});\r",
 									"pm.test(\"Test rate 'rate' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -2740,11 +2740,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "137"
 								},
 								{
 									"key": "eventId",
-									"value": "104"
+									"value": "107"
 								}
 							]
 						}
@@ -2782,12 +2782,12 @@
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"105\"').to.eql(105);\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"108\"').to.eql(108);\r",
 									"});\r",
 									"pm.test(\"Test rate 'event' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('user');\r",
-									"    pm.expect(jsonData.user, '\"user\" must be \"135\"').to.eql(135);\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"137\"').to.eql(137);\r",
 									"});\r",
 									"pm.test(\"Test rate 'rate' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -2832,11 +2832,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "137"
 								},
 								{
 									"key": "eventId",
-									"value": "105"
+									"value": "108"
 								}
 							]
 						}
@@ -2863,17 +2863,17 @@
 									"pm.test(\"Test item[0] 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[0]).to.have.property('id');\r",
-									"    pm.expect(jsonData[0].id, '\"id\" must be 103').to.eql(103);\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 103').to.eql(106);\r",
 									"});\r",
 									"pm.test(\"Test item[1] 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[1]).to.have.property('id');\r",
-									"    pm.expect(jsonData[1].id, '\"id\" must be 104').to.eql(104);\r",
+									"    pm.expect(jsonData[1].id, '\"id\" must be 104').to.eql(107);\r",
 									"});\r",
 									"pm.test(\"Test item[2] 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[2]).to.have.property('id');\r",
-									"    pm.expect(jsonData[2].id, '\"id\" must be 105').to.eql(105);\r",
+									"    pm.expect(jsonData[2].id, '\"id\" must be 105').to.eql(108);\r",
 									"});\r",
 									"pm.test(\"Test item[0] 'like' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -2893,17 +2893,17 @@
 									"pm.test(\"Test item[0] 'dislike' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[0]).to.have.property('dislike');\r",
-									"    pm.expect(jsonData[0].dislike, '\"dislike\" must be 3').to.eql(3);\r",
+									"    pm.expect(jsonData[0].dislike, '\"dislike\" must be 0').to.eql(0);\r",
 									"});\r",
 									"pm.test(\"Test item[1] 'dislike' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[1]).to.have.property('dislike');\r",
-									"    pm.expect(jsonData[1].dislike, '\"dislike\" must be 2').to.eql(2);\r",
+									"    pm.expect(jsonData[1].dislike, '\"dislike\" must be 1').to.eql(1);\r",
 									"});\r",
 									"pm.test(\"Test item[2] 'dislike' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[2]).to.have.property('dislike');\r",
-									"    pm.expect(jsonData[2].dislike, '\"dislike\" must be 1').to.eql(1);\r",
+									"    pm.expect(jsonData[2].dislike, '\"dislike\" must be 2').to.eql(2);\r",
 									"});"
 								],
 								"type": "text/javascript"
@@ -2946,7 +2946,7 @@
 									"pm.test(\"Test item[0] 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[0]).to.have.property('id');\r",
-									"    pm.expect(jsonData[0].id, '\"id\" must be 136').to.eql(136);\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 136').to.eql(138);\r",
 									"});\r",
 									"pm.test(\"Test item[0] 'like' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -3004,17 +3004,17 @@
 									"pm.test(\"Test item[0] 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[0]).to.have.property('id');\r",
-									"    pm.expect(jsonData[0].id, '\"id\" must be 103').to.eql(103);\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 103').to.eql(106);\r",
 									"});\r",
 									"pm.test(\"Test item[1] 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[1]).to.have.property('id');\r",
-									"    pm.expect(jsonData[1].id, '\"id\" must be 104').to.eql(104);\r",
+									"    pm.expect(jsonData[1].id, '\"id\" must be 104').to.eql(107);\r",
 									"});\r",
 									"pm.test(\"Test item[2] 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[2]).to.have.property('id');\r",
-									"    pm.expect(jsonData[2].id, '\"id\" must be 105').to.eql(105);\r",
+									"    pm.expect(jsonData[2].id, '\"id\" must be 105').to.eql(108);\r",
 									"});\r",
 									"pm.test(\"Test item[0] 'like' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -3082,17 +3082,17 @@
 									"pm.test(\"Test item[0] 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[0]).to.have.property('id');\r",
-									"    pm.expect(jsonData[0].id, '\"id\" must be 105').to.eql(105);\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 105').to.eql(108);\r",
 									"});\r",
 									"pm.test(\"Test item[1] 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[1]).to.have.property('id');\r",
-									"    pm.expect(jsonData[1].id, '\"id\" must be 104').to.eql(104);\r",
+									"    pm.expect(jsonData[1].id, '\"id\" must be 104').to.eql(107);\r",
 									"});\r",
 									"pm.test(\"Test item[2] 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData[2]).to.have.property('id');\r",
-									"    pm.expect(jsonData[2].id, '\"id\" must be 103').to.eql(103);\r",
+									"    pm.expect(jsonData[2].id, '\"id\" must be 103').to.eql(106);\r",
 									"});\r",
 									"pm.test(\"Test item[0] 'dislike' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -3193,21 +3193,29 @@
 					"name": "LIKE Not Confirmed User",
 					"event": [
 						{
-							"listen": "prerequest",
+							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([409]);\r",
+									"});\r",
+									"pm.test(\"Has error create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test error 'error' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('error');\r",
+									"    pm.expect(jsonData.error, '\"error\" must be \"Пользователь должен посетить событие для постановки оценки\"').to.eql('Пользователь должен посетить событие для постановки оценки');\r",
+									"});"
 								],
 								"type": "text/javascript"
 							}
 						},
 						{
-							"listen": "test",
+							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 400\", function () {\r",
-									"    pm.expect(pm.response.code).to.be.oneOf([400]);\r",
-									"});\r",
 									""
 								],
 								"type": "text/javascript"
@@ -3247,11 +3255,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "137"
+									"value": "139"
 								},
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -3262,45 +3270,30 @@
 					"name": "LIKE For your Event",
 					"event": [
 						{
-							"listen": "prerequest",
+							"listen": "test",
 							"script": {
 								"exec": [
-									""
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([409]);\r",
+									"});\r",
+									"pm.test(\"Has error create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test error 'error' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('error');\r",
+									"    pm.expect(jsonData.error, '\"error\" must be \"Нельзя поставить оценку своему событию\"').to.eql('Нельзя поставить оценку своему событию');\r",
+									"});"
 								],
 								"type": "text/javascript"
 							}
 						},
 						{
-							"listen": "test",
+							"listen": "prerequest",
 							"script": {
 								"exec": [
-									"pm.test(\"Status code is 201\", function () {\r",
-									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
-									"});\r",
-									"pm.test(\"Has rate create response\", function () {\r",
-									"    pm.response.to.be.withBody;\r",
-									"    pm.response.to.be.json;\r",
-									"});\r",
-									"pm.test(\"Test rate 'id' field\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be \"1\"').to.eql(1);\r",
-									"});\r",
-									"pm.test(\"Test rate 'event' field\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('event');\r",
-									"    pm.expect(jsonData.event, '\"event\" must be \"103\"').to.eql(103);\r",
-									"});\r",
-									"pm.test(\"Test rate 'event' field\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('user');\r",
-									"    pm.expect(jsonData.user, '\"user\" must be \"133\"').to.eql(133);\r",
-									"});\r",
-									"pm.test(\"Test rate 'rate' field\", function () {\r",
-									"    var jsonData = pm.response.json();\r",
-									"    pm.expect(jsonData).to.have.property('rate');\r",
-									"    pm.expect(jsonData.rate, '\"rate\" must be \"true\"').to.eql(true);\r",
-									"});"
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -3339,11 +3332,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "136"
+									"value": "138"
 								},
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -3416,11 +3409,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "133"
+									"value": "135"
 								},
 								{
 									"key": "eventId",
-									"value": "103"
+									"value": "106"
 								}
 							]
 						}
@@ -3444,12 +3437,12 @@
 									"pm.test(\"Test event 'id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('id');\r",
-									"    pm.expect(jsonData.id, '\"id\" must be \"103\"').to.eql(103);\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"109\"').to.eql(109);\r",
 									"});\r",
 									"pm.test(\"Test event 'annotation' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('annotation');\r",
-									"    pm.expect(jsonData.annotation, '\"annotation\" must be \"1 annotation for my event in this tetst\"').to.eql('1 annotation for my event in this tetst');\r",
+									"    pm.expect(jsonData.annotation, '\"annotation\" must be \"4 annotation for my event in this tetst\"').to.eql('4 annotation for my event in this tetst');\r",
 									"});\r",
 									"pm.test(\"Test event 'category.id' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -3476,7 +3469,7 @@
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('initiator');\r",
 									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
-									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"136\"').to.eql(136);\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"133\"').to.eql(133);\r",
 									"});\r",
 									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -3520,7 +3513,7 @@
 									"pm.test(\"Test event 'title' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('title');\r",
-									"    pm.expect(jsonData.title, '\"title\" must be \"Best name for 1 event\"').to.eql('Best name for 1 event');\r",
+									"    pm.expect(jsonData.title, '\"title\" must be \"Best name for 4 event\"').to.eql('Best name for 4 event');\r",
 									"});\r",
 									"pm.test(\"Test event 'views' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -3556,7 +3549,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "\r\n    {\r\n        \"annotation\": \"1 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 1 event\"\r\n    }",
+							"raw": "\r\n    {\r\n        \"annotation\": \"4 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 4 event\"\r\n    }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -3576,7 +3569,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "136"
+									"value": "135"
 								}
 							]
 						}
@@ -3586,15 +3579,6 @@
 				{
 					"name": "Add like for PENDING Event",
 					"event": [
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									""
-								],
-								"type": "text/javascript"
-							}
-						},
 						{
 							"listen": "test",
 							"script": {
@@ -3609,8 +3593,17 @@
 									"pm.test(\"Test error 'error' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('error');\r",
-									"    pm.expect(jsonData.error, '\"error\" must be \"Поставить оценку повторно нельзя\"').to.eql('Поставить оценку повторно нельзя');\r",
+									"    pm.expect(jsonData.error, '\"error\" must be \"Событие должно быть опубликовано\"').to.eql('Событие должно быть опубликовано');\r",
 									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
 								],
 								"type": "text/javascript"
 							}
@@ -3649,11 +3642,11 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "133"
+									"value": "135"
 								},
 								{
 									"key": "eventId",
-									"value": "106"
+									"value": "109"
 								}
 							]
 						}
