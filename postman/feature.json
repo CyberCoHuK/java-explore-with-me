@@ -3469,7 +3469,7 @@
 									"    var jsonData = pm.response.json();\r",
 									"    pm.expect(jsonData).to.have.property('initiator');\r",
 									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
-									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"133\"').to.eql(133);\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
 									"});\r",
 									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
 									"    var jsonData = pm.response.json();\r",
@@ -3569,7 +3569,7 @@
 							"variable": [
 								{
 									"key": "userId",
-									"value": "135"
+									"value": "138"
 								}
 							]
 						}
