@@ -10,5 +10,7 @@ import java.util.Optional;
 public interface RateRepository extends JpaRepository<Rate, Long> {
     boolean existsByUserAndEvent(User user, Event event);
 
-    Optional<Rate> findByUserAndEventAndId(User user, Event event, Long rateId);
+    Optional<Rate> findByUserIdAndEventIdAndId(Long userId, Long eventId, Long rateId);
+
+    Long countByEventIdAndRateEquals(Long id, Boolean rate);
 }

@@ -42,9 +42,8 @@ public class EventAdminServiceImpl implements EventAdminService {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
         PageRequest page = PageRequest.of(from / size, size);
-        List<EventDto> answer = eventRepository.findAllAdminByData(users, states, categories, rangeStart, rangeEnd, page).stream()
+        return eventRepository.findAllAdminByData(users, states, categories, rangeStart, rangeEnd, page).stream()
                 .map(eventMapper::toEventDto).collect(Collectors.toList());
-        return answer;
     }
 
     @Override

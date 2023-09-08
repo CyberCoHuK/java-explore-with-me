@@ -6,4 +6,6 @@ public interface PrivateRatingService {
     RateDto addMark(Long userId, Long eventId, Boolean rate);
 
     RateDto changeMark(Long userId, Long eventId, Long rateId, Boolean rate);
+
+    void deleteRate(Long userId, Long eventId, Long rateId);
 }

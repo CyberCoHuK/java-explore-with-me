@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface EventPublicService {
     Collection<EventDto> getEvents(String text, List<Long> categories, Boolean paid, LocalDateTime rangeStart,
-                                   LocalDateTime rangeEnd, Boolean onlyAvailable, Sorts sorts, int from, int size,
+                                   LocalDateTime rangeEnd, Boolean onlyAvailable, Sorts sort, int from, int size,
                                    HttpServletRequest request);
 
     EventDto getById(Long id, HttpServletRequest request);

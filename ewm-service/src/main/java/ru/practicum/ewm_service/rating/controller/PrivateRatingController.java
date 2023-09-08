@@ -26,4 +26,10 @@ public class PrivateRatingController {
                               @RequestParam(defaultValue = "true") Boolean rate) {
         return privateRatingService.changeMark(userId, eventId, rateId, rate);
     }
+
+    @DeleteMapping("/{rateId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteRate(@PathVariable Long userId, @PathVariable Long eventId, @PathVariable Long rateId) {
+        privateRatingService.deleteRate(userId, eventId, rateId);
+    }
 }

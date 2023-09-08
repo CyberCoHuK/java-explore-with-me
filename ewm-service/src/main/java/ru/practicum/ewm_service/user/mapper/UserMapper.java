@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import ru.practicum.ewm_service.user.dto.NewUserDto;
 import ru.practicum.ewm_service.user.dto.UserDto;
+import ru.practicum.ewm_service.user.dto.UserDtoRate;
 import ru.practicum.ewm_service.user.dto.UserDtoShort;
 import ru.practicum.ewm_service.user.model.User;
 
@@ -29,6 +30,13 @@ public class UserMapper {
         return User.builder()
                 .name(newUserDto.getName())
                 .email(newUserDto.getEmail())
+                .build();
+    }
+
+    public static UserDtoRate toUserDtoRate(User user) {
+        return UserDtoRate.builder()
+                .name(user.getName())
+                .id(user.getId())
                 .build();
     }
 }

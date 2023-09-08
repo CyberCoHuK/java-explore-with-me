@@ -44,7 +44,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
                                 @Param("categories") List<Long> categories,
                                 @Param("paid") Boolean paid,
                                 @Param("rangeStart") LocalDateTime rangeStart,
-                                @Param("rangeEnd") LocalDateTime rangeEnd, PageRequest page);
+                                @Param("rangeEnd") LocalDateTime rangeEnd);
 
     @Query("SELECT e FROM Event e " +
             "WHERE e.state = 'PUBLISHED' " +
@@ -55,5 +55,5 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findAllByPublicNoDate(@Param("text") String text,
                                       @Param("categories") List<Long> categories,
                                       @Param("paid") Boolean paid,
-                                      @Param("now") LocalDateTime now, PageRequest page);
+                                      @Param("now") LocalDateTime now);
 }

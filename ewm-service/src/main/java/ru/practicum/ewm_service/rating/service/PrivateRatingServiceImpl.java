@@ -20,6 +20,7 @@ import static ru.practicum.ewm_service.utils.Status.CONFIRMED;
 
 @Service
 @RequiredArgsConstructor
+@Transactional
 public class PrivateRatingServiceImpl implements PrivateRatingService {
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
@@ -28,7 +29,6 @@ public class PrivateRatingServiceImpl implements PrivateRatingService {
     private final RequestRepository requestRepository;
 
     @Override
-    @Transactional
     public RateDto addMark(Long userId, Long eventId, Boolean rate) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new ObjectNotFoundException("События с id = " + eventId + " не существует"));
@@ -55,15 +55,17 @@ public class PrivateRatingServiceImpl implements PrivateRatingService {
     }
 
     @Override
-    @Transactional
     public RateDto changeMark(Long userId, Long eventId, Long rateId, Boolean rate) {
-        Event event = eventRepository.findById(eventId)
-                .orElseThrow(() -> new ObjectNotFoundException("События с id = " + eventId + " не существует"));
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
-        Rate rateUpdate = rateRepository.findByUserAndEventAndId(user, event, rateId)
+        Rate rateUpdate = rateRepository.findByUserIdAndEventIdAndId(userId, eventId, rateId)
                 .orElseThrow(() -> new ObjectNotFoundException("Оценки с id = " + rateId + " не существует"));
         rateUpdate.setRate(rate);
         return rateMapper.toRateDto(rateRepository.save(rateUpdate));
+    }
+
+    @Override
+    public void deleteRate(Long userId, Long eventId, Long rateId) {
+        rateRepository.findByUserIdAndEventIdAndId(userId, eventId, rateId)
+                .orElseThrow(() -> new ObjectNotFoundException("Оценки с id = " + rateId + " не существует"));
+        rateRepository.deleteById(eventId);
     }
 }

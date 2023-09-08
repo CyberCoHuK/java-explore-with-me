@@ -36,4 +36,6 @@ public class EventDto {
     State state;
     String title;
     Long views;
+    Long like;
+    Long dislike;
 }
