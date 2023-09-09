@@ -5,32 +5,21 @@ import org.springframework.stereotype.Component;
 import ru.practicum.ewm_service.categories.mapper.CategoriesMapper;
 import ru.practicum.ewm_service.categories.model.Category;
 import ru.practicum.ewm_service.events.dto.EventDto;
-import ru.practicum.ewm_service.events.dto.EventDtoRate;
 import ru.practicum.ewm_service.events.dto.EventDtoShort;
 import ru.practicum.ewm_service.events.dto.NewEventDto;
 import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.events.model.Location;
-import ru.practicum.ewm_service.rating.repository.RateRepository;
-import ru.practicum.ewm_service.requests.repository.RequestRepository;
-import ru.practicum.ewm_service.statclient.Client;
 import ru.practicum.ewm_service.user.mapper.UserMapper;
 import ru.practicum.ewm_service.user.model.User;
 import ru.practicum.ewm_service.utils.State;
 
 import java.time.LocalDateTime;
 
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
-
 @RequiredArgsConstructor
 @Component
 public class EventMapper {
-    private final Client client;
-    private final RequestRepository requestRepository;
-    private final RateRepository rateRepository;
-
-    public Event toEvent(NewEventDto newEventDto, Category category, Location location, User user, LocalDateTime now,
-                         State pending) {
+    public static Event toEvent(NewEventDto newEventDto, Category category, Location location, User user, LocalDateTime now,
+                                State pending) {
         return Event.builder()
                 .category(category)
                 .location(location)
@@ -47,11 +36,10 @@ public class EventMapper {
                 .build();
     }
 
-    public EventDto toEventDto(Event event) {
+    public static EventDto toEventDto(Event event) {
         return EventDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoriesMapper.toCategoryDto(event.getCategory()))
-                .confirmedRequests(requestRepository.findConfirmedRequests(event.getId()))
                 .createdOn(event.getCreatedOn())
                 .description(event.getDescription())
                 .eventDate(event.getEventDate())
@@ -64,37 +52,18 @@ public class EventMapper {
                 .requestModeration(event.getRequestModeration())
                 .state(event.getState())
                 .title(event.getTitle())
-                .views(client.getView(event.getId()))
-                .like(rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE))
-                .dislike(rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE))
                 .build();
     }
 
-    public EventDtoShort toEventDtoShort(Event event) {
+    public static EventDtoShort toEventDtoShort(Event event) {
         return EventDtoShort.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoriesMapper.toCategoryDto(event.getCategory()))
-                .confirmedRequests(requestRepository.findConfirmedRequests(event.getId()))
                 .eventDate(event.getEventDate())
                 .id(event.getId())
                 .initiator(UserMapper.toUserDtoShort(event.getInitiator()))
                 .paid(event.getPaid())
                 .title(event.getTitle())
-                .views(client.getView(event.getId()))
-                .build();
-    }
-
-    public EventDtoRate eventDtoRate(Event event) {
-        return EventDtoRate.builder()
-                .annotation(event.getAnnotation())
-                .category(CategoriesMapper.toCategoryDto(event.getCategory()))
-                .confirmedRequests(requestRepository.findConfirmedRequests(event.getId()))
-                .eventDate(event.getEventDate())
-                .id(event.getId())
-                .initiator(UserMapper.toUserDtoShort(event.getInitiator()))
-                .paid(event.getPaid())
-                .title(event.getTitle())
-                .views(client.getView(event.getId()))
                 .build();
     }
 }

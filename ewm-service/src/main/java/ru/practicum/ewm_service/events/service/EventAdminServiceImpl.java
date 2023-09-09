@@ -16,6 +16,8 @@ import ru.practicum.ewm_service.events.repository.LocationRepository;
 import ru.practicum.ewm_service.exceptions.exception.BadRequestException;
 import ru.practicum.ewm_service.exceptions.exception.ConflictException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
+import ru.practicum.ewm_service.requests.repository.RequestRepository;
+import ru.practicum.ewm_service.statclient.Client;
 import ru.practicum.ewm_service.utils.State;
 
 import java.time.LocalDateTime;
@@ -31,8 +33,9 @@ import static ru.practicum.ewm_service.utils.State.*;
 public class EventAdminServiceImpl implements EventAdminService {
     private final EventRepository eventRepository;
     private final CategoryRepository categoryRepository;
-    private final EventMapper eventMapper;
     private final LocationRepository locationRepository;
+    private final RequestRepository requestRepository;
+    private final Client statClient;
 
     @Override
     @Transactional(readOnly = true)
@@ -42,8 +45,14 @@ public class EventAdminServiceImpl implements EventAdminService {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
         PageRequest page = PageRequest.of(from / size, size);
-        return eventRepository.findAllAdminByData(users, states, categories, rangeStart, rangeEnd, page).stream()
-                .map(eventMapper::toEventDto).collect(Collectors.toList());
+        List<EventDto> answer = eventRepository.findAllAdminByData(users, states, categories, rangeStart, rangeEnd, page)
+                .stream()
+                .map(EventMapper::toEventDto)
+                .collect(Collectors.toList());
+        answer.forEach(e ->
+                e.setConfirmedRequests(requestRepository.findConfirmedRequests(e.getId())));
+        answer.forEach(e -> e.setViews(statClient.getView(e.getId())));
+        return answer;
     }
 
     @Override
@@ -88,6 +97,10 @@ public class EventAdminServiceImpl implements EventAdminService {
         Optional.ofNullable(updateEvent.getParticipantLimit()).ifPresent(event::setParticipantLimit);
         Optional.ofNullable(updateEvent.getRequestModeration()).ifPresent(event::setRequestModeration);
         Optional.ofNullable(updateEvent.getTitle()).ifPresent(event::setTitle);
-        return eventMapper.toEventDto(eventRepository.save(event));
+        eventRepository.save(event);
+        EventDto eventDto = EventMapper.toEventDto(event);
+        eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
+        eventDto.setViews(statClient.getView(eventDto.getId()));
+        return eventDto;
     }
 }
