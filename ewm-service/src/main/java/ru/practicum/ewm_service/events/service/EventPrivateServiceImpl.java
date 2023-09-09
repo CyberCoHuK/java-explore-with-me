@@ -20,6 +20,7 @@ import ru.practicum.ewm_service.requests.dto.ParticipationRequestDto;
 import ru.practicum.ewm_service.requests.mapper.RequestMapper;
 import ru.practicum.ewm_service.requests.model.ParticipationRequest;
 import ru.practicum.ewm_service.requests.repository.RequestRepository;
+import ru.practicum.ewm_service.statclient.Client;
 import ru.practicum.ewm_service.user.model.User;
 import ru.practicum.ewm_service.user.repository.UserRepository;
 import ru.practicum.ewm_service.utils.Status;
@@ -41,8 +42,8 @@ public class EventPrivateServiceImpl implements EventPrivateService {
     private final UserRepository userRepository;
     private final CategoryRepository categoryRepository;
     private final RequestRepository requestRepository;
-    private final EventMapper eventMapper;
     private final LocationRepository locationRepository;
+    private final Client statClient;
 
     @Override
     @Transactional(readOnly = true)
@@ -50,7 +51,13 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
         PageRequest page = PageRequest.of(from / size, size);
-        return eventRepository.findAllByInitiator(user, page).stream().map(eventMapper::toEventDtoShort).collect(Collectors.toList());
+        List<EventDtoShort> answer = eventRepository.findAllByInitiator(user, page).stream()
+                .map(EventMapper::toEventDtoShort)
+                .collect(Collectors.toList());
+        answer.forEach(e ->
+                e.setConfirmedRequests(requestRepository.findConfirmedRequests(e.getId())));
+        answer.forEach(e -> e.setViews(statClient.getView(e.getId())));
+        return answer;
     }
 
     @Override
@@ -66,8 +73,11 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         Location location = locationRepository.findByLatAndLon(newEventDto.getLocation().getLat(),
                         newEventDto.getLocation().getLat())
                 .orElseGet(() -> locationRepository.save(LocationMapper.toLocation(newEventDto.getLocation())));
-        Event event = eventRepository.save(eventMapper.toEvent(newEventDto, category, location, user, LocalDateTime.now(), PENDING));
-        return eventMapper.toEventDto(event);
+        Event event = eventRepository.save(EventMapper.toEvent(newEventDto, category, location, user, LocalDateTime.now(), PENDING));
+        EventDto eventDto = EventMapper.toEventDto(event);
+        eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
+        eventDto.setViews(statClient.getView(eventDto.getId()));
+        return eventDto;
     }
 
     @Override
@@ -80,7 +90,10 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         if (!event.getInitiator().equals(user)) {
             throw new IllegalArgumentException("Событие не принадлежит данному пользователю");
         }
-        return eventMapper.toEventDto(event);
+        EventDto eventDto = EventMapper.toEventDto(event);
+        eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
+        eventDto.setViews(statClient.getView(eventDto.getId()));
+        return eventDto;
     }
 
     @Override
@@ -128,7 +141,10 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         Optional.ofNullable(updateEvent.getParticipantLimit()).ifPresent(event::setParticipantLimit);
         Optional.ofNullable(updateEvent.getRequestModeration()).ifPresent(event::setRequestModeration);
         Optional.ofNullable(updateEvent.getTitle()).ifPresent(event::setTitle);
-        return eventMapper.toEventDto(eventRepository.save(event));
+        EventDto eventDto = EventMapper.toEventDto(event);
+        eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
+        eventDto.setViews(statClient.getView(eventDto.getId()));
+        return eventDto;
     }
 
     @Override
@@ -142,7 +158,8 @@ public class EventPrivateServiceImpl implements EventPrivateService {
             throw new IllegalArgumentException("Событие не принадлежит данному пользователю");
         }
         return requestRepository.findAllByEvent(event).stream()
-                .map(RequestMapper::toRequestDto).collect(Collectors.toList());
+                .map(RequestMapper::toRequestDto)
+                .collect(Collectors.toList());
     }
 
     @Override
