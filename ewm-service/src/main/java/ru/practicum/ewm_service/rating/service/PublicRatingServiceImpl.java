@@ -9,6 +9,8 @@ import ru.practicum.ewm_service.events.dto.EventDtoRate;
 import ru.practicum.ewm_service.events.mapper.EventMapper;
 import ru.practicum.ewm_service.rating.model.Rate;
 import ru.practicum.ewm_service.rating.repository.RateRepository;
+import ru.practicum.ewm_service.requests.repository.RequestRepository;
+import ru.practicum.ewm_service.statclient.Client;
 import ru.practicum.ewm_service.user.dto.UserDtoRate;
 import ru.practicum.ewm_service.user.mapper.UserMapper;
 
@@ -24,7 +26,9 @@ import static java.lang.Boolean.TRUE;
 @Transactional(readOnly = true)
 public class PublicRatingServiceImpl implements PublicRatingService {
     private final RateRepository rateRepository;
-    private final EventMapper eventMapper;
+    private final RequestRepository requestRepository;
+    private final Client statClient;
+
 
     @Override
     public Collection<EventDtoRate> getEventsRating(Boolean sort, int size, int from) {
@@ -32,9 +36,12 @@ public class PublicRatingServiceImpl implements PublicRatingService {
         Page<Rate> rateList = rateRepository.findAll(page);
         List<EventDtoRate> events = rateList.stream()
                 .map(Rate::getEvent)
-                .map(eventMapper::eventDtoRate)
+                .map(EventMapper::eventDtoRate)
                 .distinct()
                 .collect(Collectors.toList());
+        events.forEach(e ->
+                e.setConfirmedRequests(requestRepository.findConfirmedRequests(e.getId())));
+        events.forEach(e -> e.setViews(statClient.getView(e.getId())));
         for (EventDtoRate event : events) {
             Long like = rateList.stream()
                     .filter(rate -> rate.getRate().equals(TRUE))

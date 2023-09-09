@@ -3,6 +3,7 @@ package ru.practicum.ewm_service.events.mapper;
 import ru.practicum.ewm_service.categories.mapper.CategoriesMapper;
 import ru.practicum.ewm_service.categories.model.Category;
 import ru.practicum.ewm_service.events.dto.EventDto;
+import ru.practicum.ewm_service.events.dto.EventDtoRate;
 import ru.practicum.ewm_service.events.dto.EventDtoShort;
 import ru.practicum.ewm_service.events.dto.NewEventDto;
 import ru.practicum.ewm_service.events.model.Event;
@@ -12,6 +13,7 @@ import ru.practicum.ewm_service.user.model.User;
 import ru.practicum.ewm_service.utils.State;
 
 import java.time.LocalDateTime;
+
 public class EventMapper {
     public static Event toEvent(NewEventDto newEventDto, Category category, Location location, User user, LocalDateTime now,
                                 State pending) {
@@ -52,6 +54,18 @@ public class EventMapper {
 
     public static EventDtoShort toEventDtoShort(Event event) {
         return EventDtoShort.builder()
+                .annotation(event.getAnnotation())
+                .category(CategoriesMapper.toCategoryDto(event.getCategory()))
+                .eventDate(event.getEventDate())
+                .id(event.getId())
+                .initiator(UserMapper.toUserDtoShort(event.getInitiator()))
+                .paid(event.getPaid())
+                .title(event.getTitle())
+                .build();
+    }
+
+    public static EventDtoRate eventDtoRate(Event event) {
+        return EventDtoRate.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoriesMapper.toCategoryDto(event.getCategory()))
                 .eventDate(event.getEventDate())
