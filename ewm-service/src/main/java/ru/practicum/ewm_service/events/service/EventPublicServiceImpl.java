@@ -10,6 +10,7 @@ import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.events.repository.EventRepository;
 import ru.practicum.ewm_service.exceptions.exception.BadRequestException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
+import ru.practicum.ewm_service.requests.repository.RequestRepository;
 import ru.practicum.ewm_service.statclient.Client;
 import ru.practicum.ewm_service.utils.Sorts;
 import ru.practicum.ewm_service.utils.State;
@@ -25,8 +26,8 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class EventPublicServiceImpl implements EventPublicService {
     private final EventRepository eventRepository;
-    private final EventMapper eventMapper;
     private final Client statClient;
+    private final RequestRepository requestRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -40,11 +41,14 @@ public class EventPublicServiceImpl implements EventPublicService {
         List<EventDto> answer;
         if (rangeEnd == null && rangeStart == null) {
             answer = eventRepository.findAllByPublicNoDate(text, categories, paid, LocalDateTime.now(), page).stream()
-                    .map(eventMapper::toEventDto).collect(Collectors.toList());
+                    .map(EventMapper::toEventDto).collect(Collectors.toList());
         } else {
             answer = eventRepository.findAllByPublic(text, categories, paid, rangeStart, rangeEnd, page).stream()
-                    .map(eventMapper::toEventDto).collect(Collectors.toList());
+                    .map(EventMapper::toEventDto).collect(Collectors.toList());
         }
+        answer.forEach(e ->
+                e.setConfirmedRequests(requestRepository.findConfirmedRequests(e.getId())));
+        answer.forEach(e -> e.setViews(statClient.getView(e.getId())));
         if (sorts != null) {
             switch (sorts) {
                 case EVENT_DATE:
@@ -72,7 +76,10 @@ public class EventPublicServiceImpl implements EventPublicService {
         if (!event.getState().equals(State.PUBLISHED)) {
             throw new ObjectNotFoundException("Событие должно быть опубликовано");
         }
+        EventDto eventDto = EventMapper.toEventDto(event);
+        eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
+        eventDto.setViews(statClient.getView(eventDto.getId()));
         statClient.createStat(request);
-        return eventMapper.toEventDto(event);
+        return eventDto;
     }
 }
