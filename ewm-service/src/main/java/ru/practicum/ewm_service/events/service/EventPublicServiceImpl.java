@@ -2,6 +2,7 @@ package ru.practicum.ewm_service.events.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm_service.events.dto.EventDto;
@@ -18,6 +19,7 @@ import ru.practicum.ewm_service.utils.State;
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -32,38 +34,48 @@ public class EventPublicServiceImpl implements EventPublicService {
     @Override
     @Transactional(readOnly = true)
     public Collection<EventDto> getEvents(String text, List<Long> categories, Boolean paid, LocalDateTime rangeStart,
-                                          LocalDateTime rangeEnd, Boolean onlyAvailable, Sorts sorts, int from,
+                                          LocalDateTime rangeEnd, Boolean onlyAvailable, Sorts sort, int from,
                                           int size, HttpServletRequest request) {
         if (rangeEnd != null && rangeStart != null && rangeStart.isAfter(rangeEnd)) {
             throw new BadRequestException("Недопустимый временной промежуток.");
         }
-        PageRequest page = PageRequest.of(from / size, size);
-        List<EventDto> answer;
+        Pageable page = PageRequest.of(from / size, size);
+        List<EventDto> eventsDto;
         if (rangeEnd == null && rangeStart == null) {
-            answer = eventRepository.findAllByPublicNoDate(text, categories, paid, LocalDateTime.now(), page).stream()
+            eventsDto = eventRepository.findAllByPublicNoDate(text, categories, paid, LocalDateTime.now()).stream()
                     .map(EventMapper::toEventDto).collect(Collectors.toList());
         } else {
-            answer = eventRepository.findAllByPublic(text, categories, paid, rangeStart, rangeEnd, page).stream()
+            eventsDto = eventRepository.findAllByPublic(text, categories, paid, rangeStart, rangeEnd).stream()
                     .map(EventMapper::toEventDto).collect(Collectors.toList());
         }
-        answer.forEach(e ->
+        eventsDto.forEach(e ->
                 e.setConfirmedRequests(requestRepository.findConfirmedRequests(e.getId())));
-        answer.forEach(e -> e.setViews(statClient.getView(e.getId())));
-        if (sorts != null) {
-            switch (sorts) {
-                case EVENT_DATE:
-                    answer.sort(Comparator.comparing(EventDto::getEventDate));
-                    break;
-                case VIEWS:
-                    answer.sort(Comparator.comparing(EventDto::getViews));
-                    break;
-            }
-        }
+        eventsDto.forEach(e -> e.setViews(statClient.getView(e.getId())));
         if (onlyAvailable) {
-            return answer.stream()
+            eventsDto = eventsDto.stream()
                     .filter(e -> e.getParticipantLimit() > e.getConfirmedRequests() || e.getParticipantLimit() == 0)
                     .collect(Collectors.toList());
         }
+        if (sort != null) {
+            switch (sort) {
+                case EVENT_DATE:
+                    eventsDto.sort(Comparator.comparing(EventDto::getEventDate));
+                    break;
+                case VIEWS:
+                    eventsDto.sort(Comparator.comparingLong(EventDto::getViews));
+                    break;
+                case LIKE:
+                    eventsDto.sort(Comparator.comparingLong(EventDto::getLike));
+                    break;
+                case DISLIKE:
+                    eventsDto.sort(Comparator.comparingLong(EventDto::getDislike));
+                    break;
+            }
+        }
+        Collections.reverse(eventsDto);
+        int start = (int) page.getOffset();
+        int end = Math.min((start + page.getPageSize()), eventsDto.size());
+        List<EventDto> answer = eventsDto.subList(start, end);
         statClient.createStat(request);
         return answer;
     }
