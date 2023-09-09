@@ -25,7 +25,6 @@ public class PrivateRatingServiceImpl implements PrivateRatingService {
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
     private final RateRepository rateRepository;
-    private final RateMapper rateMapper;
     private final RequestRepository requestRepository;
 
     @Override
@@ -51,7 +50,7 @@ public class PrivateRatingServiceImpl implements PrivateRatingService {
                 .user(user)
                 .rate(rate)
                 .build();
-        return rateMapper.toRateDto(rateRepository.save(newRate));
+        return RateMapper.toRateDto(rateRepository.save(newRate));
     }
 
     @Override
@@ -59,7 +58,7 @@ public class PrivateRatingServiceImpl implements PrivateRatingService {
         Rate rateUpdate = rateRepository.findByUserIdAndEventIdAndId(userId, eventId, rateId)
                 .orElseThrow(() -> new ObjectNotFoundException("Оценки с id = " + rateId + " не существует"));
         rateUpdate.setRate(rate);
-        return rateMapper.toRateDto(rateRepository.save(rateUpdate));
+        return RateMapper.toRateDto(rateRepository.save(rateUpdate));
     }
 
     @Override
