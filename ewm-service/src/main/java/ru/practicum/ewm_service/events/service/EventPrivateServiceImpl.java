@@ -16,6 +16,7 @@ import ru.practicum.ewm_service.events.repository.LocationRepository;
 import ru.practicum.ewm_service.exceptions.exception.BadRequestException;
 import ru.practicum.ewm_service.exceptions.exception.ConflictException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
+import ru.practicum.ewm_service.rating.repository.RateRepository;
 import ru.practicum.ewm_service.requests.dto.ParticipationRequestDto;
 import ru.practicum.ewm_service.requests.mapper.RequestMapper;
 import ru.practicum.ewm_service.requests.model.ParticipationRequest;
@@ -31,6 +32,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static ru.practicum.ewm_service.utils.State.*;
 import static ru.practicum.ewm_service.utils.Status.CONFIRMED;
 import static ru.practicum.ewm_service.utils.Status.REJECTED;
@@ -43,6 +46,7 @@ public class EventPrivateServiceImpl implements EventPrivateService {
     private final CategoryRepository categoryRepository;
     private final RequestRepository requestRepository;
     private final LocationRepository locationRepository;
+    private final RateRepository rateRepository;
     private final Client statClient;
 
     @Override
@@ -77,6 +81,8 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         EventDto eventDto = EventMapper.toEventDto(event);
         eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
         eventDto.setViews(statClient.getView(eventDto.getId()));
+        eventDto.setLike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), TRUE));
+        eventDto.setDislike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), FALSE));
         return eventDto;
     }
 
@@ -93,6 +99,8 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         EventDto eventDto = EventMapper.toEventDto(event);
         eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
         eventDto.setViews(statClient.getView(eventDto.getId()));
+        eventDto.setLike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), TRUE));
+        eventDto.setDislike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), FALSE));
         return eventDto;
     }
 
@@ -144,6 +152,8 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         EventDto eventDto = EventMapper.toEventDto(event);
         eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
         eventDto.setViews(statClient.getView(eventDto.getId()));
+        eventDto.setLike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), TRUE));
+        eventDto.setDislike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), FALSE));
         return eventDto;
     }
 

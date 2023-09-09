@@ -11,6 +11,7 @@ import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.events.repository.EventRepository;
 import ru.practicum.ewm_service.exceptions.exception.BadRequestException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
+import ru.practicum.ewm_service.rating.repository.RateRepository;
 import ru.practicum.ewm_service.requests.repository.RequestRepository;
 import ru.practicum.ewm_service.statclient.Client;
 import ru.practicum.ewm_service.utils.Sorts;
@@ -24,12 +25,16 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
+
 @Service
 @RequiredArgsConstructor
 public class EventPublicServiceImpl implements EventPublicService {
     private final EventRepository eventRepository;
     private final Client statClient;
     private final RequestRepository requestRepository;
+    private final RateRepository rateRepository;
 
     @Override
     @Transactional(readOnly = true)
@@ -51,6 +56,8 @@ public class EventPublicServiceImpl implements EventPublicService {
         eventsDto.forEach(e ->
                 e.setConfirmedRequests(requestRepository.findConfirmedRequests(e.getId())));
         eventsDto.forEach(e -> e.setViews(statClient.getView(e.getId())));
+        eventsDto.forEach(e -> e.setLike(rateRepository.countByEventIdAndRateEquals(e.getId(), TRUE)));
+        eventsDto.forEach(e -> e.setDislike(rateRepository.countByEventIdAndRateEquals(e.getId(), FALSE)));
         if (onlyAvailable) {
             eventsDto = eventsDto.stream()
                     .filter(e -> e.getParticipantLimit() > e.getConfirmedRequests() || e.getParticipantLimit() == 0)
@@ -91,6 +98,8 @@ public class EventPublicServiceImpl implements EventPublicService {
         EventDto eventDto = EventMapper.toEventDto(event);
         eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
         eventDto.setViews(statClient.getView(eventDto.getId()));
+        eventDto.setLike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), TRUE));
+        eventDto.setDislike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), FALSE));
         statClient.createStat(request);
         return eventDto;
     }
