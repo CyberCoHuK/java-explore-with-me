@@ -1,7 +1,5 @@
 package ru.practicum.ewm_service.events.mapper;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import ru.practicum.ewm_service.categories.mapper.CategoriesMapper;
 import ru.practicum.ewm_service.categories.model.Category;
 import ru.practicum.ewm_service.events.dto.EventDto;
@@ -14,9 +12,6 @@ import ru.practicum.ewm_service.user.model.User;
 import ru.practicum.ewm_service.utils.State;
 
 import java.time.LocalDateTime;
-
-@RequiredArgsConstructor
-@Component
 public class EventMapper {
     public static Event toEvent(NewEventDto newEventDto, Category category, Location location, User user, LocalDateTime now,
                                 State pending) {
