@@ -38,6 +38,7 @@ import static ru.practicum.ewm_service.utils.Status.REJECTED;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class EventPrivateServiceImpl implements EventPrivateService {
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
@@ -48,7 +49,6 @@ public class EventPrivateServiceImpl implements EventPrivateService {
     private final Client statClient;
 
     @Override
-    @Transactional(readOnly = true)
     public Collection<EventDtoShort> getAllEventsByUser(Long userId, int from, int size) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
@@ -83,17 +83,15 @@ public class EventPrivateServiceImpl implements EventPrivateService {
                         newEventDto.getLocation().getLat())
                 .orElseGet(() -> locationRepository.save(LocationMapper.toLocation(newEventDto.getLocation())));
         Event event = eventRepository.save(EventMapper.toEvent(newEventDto, category, location, user, LocalDateTime.now(), PENDING));
-        EventDto eventDto = EventMapper.toEventDto(event,
+        return EventMapper.toEventDto(event,
                 requestRepository.findConfirmedRequest(event.getId()),
                 statClient.getView(event.getId()),
                 rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
                 rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
         );
-        return eventDto;
     }
 
     @Override
-    @Transactional(readOnly = true)
     public EventDto getEventsByUser(Long userId, Long eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new ObjectNotFoundException("События с id = " + eventId + " не существует"));
@@ -102,13 +100,12 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         if (!event.getInitiator().equals(user)) {
             throw new IllegalArgumentException("Событие не принадлежит данному пользователю");
         }
-        EventDto eventDto = EventMapper.toEventDto(event,
+        return EventMapper.toEventDto(event,
                 requestRepository.findConfirmedRequest(event.getId()),
                 statClient.getView(event.getId()),
                 rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
                 rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
         );
-        return eventDto;
     }
 
     @Override
@@ -156,17 +153,15 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         Optional.ofNullable(updateEvent.getParticipantLimit()).ifPresent(event::setParticipantLimit);
         Optional.ofNullable(updateEvent.getRequestModeration()).ifPresent(event::setRequestModeration);
         Optional.ofNullable(updateEvent.getTitle()).ifPresent(event::setTitle);
-        EventDto eventDto = EventMapper.toEventDto(event,
+        return EventMapper.toEventDto(event,
                 requestRepository.findConfirmedRequest(event.getId()),
                 statClient.getView(event.getId()),
                 rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
                 rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
         );
-        return eventDto;
     }
 
     @Override
-    @Transactional(readOnly = true)
     public Collection<ParticipationRequestDto> getRequestsByUser(Long userId, Long eventId) {
         Event event = eventRepository.findById(eventId)
                 .orElseThrow(() -> new ObjectNotFoundException("События с id = " + eventId + " не существует"));
