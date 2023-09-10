@@ -8,9 +8,11 @@ import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.user.model.User;
 
 import javax.persistence.*;
+import java.util.Objects;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "marks")
@@ -18,7 +20,6 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class Rate {
     @Id
-    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     @ManyToOne
@@ -30,4 +31,17 @@ public class Rate {
     @OnDelete(action = OnDeleteAction.CASCADE)
     Event event;
     Boolean rate;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Rate rate = (Rate) o;
+        return id.equals(rate.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

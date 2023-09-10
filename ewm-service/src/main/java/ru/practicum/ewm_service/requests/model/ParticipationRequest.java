@@ -10,9 +10,11 @@ import ru.practicum.ewm_service.utils.Status;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Data
+@Getter
+@Setter
 @Entity
 @Builder
 @NoArgsConstructor
@@ -36,4 +38,17 @@ public class ParticipationRequest {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     Status status;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ParticipationRequest request = (ParticipationRequest) o;
+        return id.equals(request.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
