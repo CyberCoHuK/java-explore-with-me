@@ -55,15 +55,15 @@ public class EventAdminServiceImpl implements EventAdminService {
         Map<Long, Long> dislikes = new HashMap<>();
         requestRepository.findConfirmedRequests(eventsId)
                 .forEach(stat -> requests.put(stat.getEventId(), stat.getConfirmedRequests()));
-        statClient.getViews(eventsId).
-                forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
+        statClient.getViews(eventsId)
+                .forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
         rateRepository.findRate(eventsId, TRUE).forEach(like -> likes.put(like.getEvent(), like.getRate()));
         rateRepository.findRate(eventsId, TRUE).forEach(dislike -> dislikes.put(dislike.getEvent(), dislike.getRate()));
         return answer.stream().map(event -> EventMapper.toEventDto(event,
-                        requests.getOrDefault(event.getId(), 0L),
-                        views.getOrDefault(event.getId(), 0L),
-                        likes.getOrDefault(event.getId(), 0L),
-                        dislikes.getOrDefault(event.getId(), 0L)))
+                requests.getOrDefault(event.getId(), 0L),
+                views.getOrDefault(event.getId(), 0L),
+                likes.getOrDefault(event.getId(), 0L),
+                dislikes.getOrDefault(event.getId(), 0L)))
                 .collect(Collectors.toList());
     }
 

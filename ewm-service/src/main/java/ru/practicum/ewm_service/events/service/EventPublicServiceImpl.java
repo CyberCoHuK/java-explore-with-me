@@ -55,8 +55,8 @@ public class EventPublicServiceImpl implements EventPublicService {
         Map<Long, Long> dislikes = new HashMap<>();
         requestRepository.findConfirmedRequests(eventsId)
                 .forEach(stat -> requests.put(stat.getEventId(), stat.getConfirmedRequests()));
-        statClient.getViews(eventsId).
-                forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
+        statClient.getViews(eventsId)
+                .forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
         rateRepository.findRate(eventsId, TRUE).forEach(like -> likes.put(like.getEvent(), like.getRate()));
         rateRepository.findRate(eventsId, TRUE).forEach(dislike -> dislikes.put(dislike.getEvent(), dislike.getRate()));
         List<EventDto> eventDto = events.stream().map(event -> EventMapper.toEventDto(event,

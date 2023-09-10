@@ -59,8 +59,8 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         Map<Long, Long> views = new HashMap<>();
         requestRepository.findConfirmedRequests(eventsId)
                 .forEach(stat -> requests.put(stat.getEventId(), stat.getConfirmedRequests()));
-        statClient.getViews(eventsId).
-                forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
+        statClient.getViews(eventsId)
+                .forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
         return answer.stream().map(event -> EventMapper.toEventDtoShort(event,
                         requests.getOrDefault(event.getId(), 0L),
                         views.getOrDefault(event.getId(), 0L)))
