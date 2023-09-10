@@ -59,13 +59,11 @@ public class EventAdminServiceImpl implements EventAdminService {
                 forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
         rateRepository.findRate(eventsId, TRUE).forEach(like -> likes.put(like.getEvent(), like.getRate()));
         rateRepository.findRate(eventsId, TRUE).forEach(dislike -> dislikes.put(dislike.getEvent(), dislike.getRate()));
-        return answer.stream().map(event -> EventMapper.toEventDto(
-                        event,
+        return answer.stream().map(event -> EventMapper.toEventDto(event,
                         requests.getOrDefault(event.getId(), 0L),
                         views.getOrDefault(event.getId(), 0L),
                         likes.getOrDefault(event.getId(), 0L),
-                        dislikes.getOrDefault(event.getId(), 0L)
-                ))
+                        dislikes.getOrDefault(event.getId(), 0L)))
                 .collect(Collectors.toList());
     }
 
@@ -112,12 +110,9 @@ public class EventAdminServiceImpl implements EventAdminService {
         Optional.ofNullable(updateEvent.getRequestModeration()).ifPresent(event::setRequestModeration);
         Optional.ofNullable(updateEvent.getTitle()).ifPresent(event::setTitle);
         eventRepository.save(event);
-        EventDto eventDto = EventMapper.toEventDto(event,
-                requestRepository.findConfirmedRequest(event.getId()),
-                statClient.getView(event.getId()),
-                rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
+        return EventMapper.toEventDto(event, requestRepository.findConfirmedRequest(event.getId()),
+                statClient.getView(event.getId()), rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
                 rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
         );
-        return eventDto;
     }
 }

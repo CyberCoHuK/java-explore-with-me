@@ -61,11 +61,9 @@ public class EventPrivateServiceImpl implements EventPrivateService {
                 .forEach(stat -> requests.put(stat.getEventId(), stat.getConfirmedRequests()));
         statClient.getViews(eventsId).
                 forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
-        return answer.stream().map(event -> EventMapper.toEventDtoShort(
-                        event,
+        return answer.stream().map(event -> EventMapper.toEventDtoShort(event,
                         requests.getOrDefault(event.getId(), 0L),
-                        views.getOrDefault(event.getId(), 0L)
-                ))
+                        views.getOrDefault(event.getId(), 0L)))
                 .collect(Collectors.toList());
     }
 
@@ -83,10 +81,8 @@ public class EventPrivateServiceImpl implements EventPrivateService {
                         newEventDto.getLocation().getLat())
                 .orElseGet(() -> locationRepository.save(LocationMapper.toLocation(newEventDto.getLocation())));
         Event event = eventRepository.save(EventMapper.toEvent(newEventDto, category, location, user, LocalDateTime.now(), PENDING));
-        return EventMapper.toEventDto(event,
-                requestRepository.findConfirmedRequest(event.getId()),
-                statClient.getView(event.getId()),
-                rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
+        return EventMapper.toEventDto(event, requestRepository.findConfirmedRequest(event.getId()),
+                statClient.getView(event.getId()), rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
                 rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
         );
     }
@@ -100,10 +96,8 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         if (!event.getInitiator().equals(user)) {
             throw new IllegalArgumentException("Событие не принадлежит данному пользователю");
         }
-        return EventMapper.toEventDto(event,
-                requestRepository.findConfirmedRequest(event.getId()),
-                statClient.getView(event.getId()),
-                rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
+        return EventMapper.toEventDto(event, requestRepository.findConfirmedRequest(event.getId()),
+                statClient.getView(event.getId()), rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
                 rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
         );
     }
@@ -153,10 +147,8 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         Optional.ofNullable(updateEvent.getParticipantLimit()).ifPresent(event::setParticipantLimit);
         Optional.ofNullable(updateEvent.getRequestModeration()).ifPresent(event::setRequestModeration);
         Optional.ofNullable(updateEvent.getTitle()).ifPresent(event::setTitle);
-        return EventMapper.toEventDto(event,
-                requestRepository.findConfirmedRequest(event.getId()),
-                statClient.getView(event.getId()),
-                rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
+        return EventMapper.toEventDto(event, requestRepository.findConfirmedRequest(event.getId()),
+                statClient.getView(event.getId()), rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
                 rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
         );
     }

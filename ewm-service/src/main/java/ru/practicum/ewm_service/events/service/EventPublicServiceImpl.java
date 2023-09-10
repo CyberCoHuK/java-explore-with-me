@@ -59,13 +59,11 @@ public class EventPublicServiceImpl implements EventPublicService {
                 forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
         rateRepository.findRate(eventsId, TRUE).forEach(like -> likes.put(like.getEvent(), like.getRate()));
         rateRepository.findRate(eventsId, TRUE).forEach(dislike -> dislikes.put(dislike.getEvent(), dislike.getRate()));
-        List<EventDto> eventDto = events.stream().map(event -> EventMapper.toEventDto(
-                        event,
+        List<EventDto> eventDto = events.stream().map(event -> EventMapper.toEventDto(event,
                         requests.getOrDefault(event.getId(), 0L),
                         views.getOrDefault(event.getId(), 0L),
                         likes.getOrDefault(event.getId(), 0L),
-                        dislikes.getOrDefault(event.getId(), 0L)
-                ))
+                        dislikes.getOrDefault(event.getId(), 0L)))
                 .collect(Collectors.toList());
         if (onlyAvailable) {
             eventDto = eventDto.stream()
@@ -104,13 +102,9 @@ public class EventPublicServiceImpl implements EventPublicService {
         if (!event.getState().equals(State.PUBLISHED)) {
             throw new ObjectNotFoundException("Событие должно быть опубликовано");
         }
-        EventDto eventDto = EventMapper.toEventDto(event,
-                requestRepository.findConfirmedRequest(event.getId()),
-                statClient.getView(event.getId()),
-                rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
-                rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
-        );
         statClient.createStat(request);
-        return eventDto;
+        return EventMapper.toEventDto(event, requestRepository.findConfirmedRequest(event.getId()),
+                statClient.getView(event.getId()), rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE));
     }
 }
