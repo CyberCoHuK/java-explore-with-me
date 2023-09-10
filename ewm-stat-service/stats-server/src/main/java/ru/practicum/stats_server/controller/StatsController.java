@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.practicum.dto.EndpointHitDto;
 import ru.practicum.dto.ViewStatsDto;
+import ru.practicum.dto.ViewsDto;
 import ru.practicum.stats_server.service.StatsService;
 
 import javax.validation.Valid;
@@ -39,4 +40,11 @@ public class StatsController {
     public Long getView(@PathVariable long eventId) {
         return statsService.getView(eventId);
     }
+
+    @GetMapping("/views")
+    public List<ViewsDto> getViews(@RequestParam List<String> eventsId) {
+        return statsService.getViews(eventsId);
+    }
+
+
 }

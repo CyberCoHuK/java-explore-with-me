@@ -65,4 +65,11 @@ public class StatClient extends BaseClient {
         );
         return get("/view/{eventId}", parameters);
     }
+
+    public ResponseEntity<Object> getViews(List<String> eventsId) {
+        Map<String, Object> parameters = Map.of(
+                "eventsId", String.join(",", eventsId)
+        );
+        return get("/views?eventsId={eventsId}", parameters);
+    }
 }

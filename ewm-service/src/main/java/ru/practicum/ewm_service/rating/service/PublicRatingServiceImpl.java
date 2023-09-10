@@ -40,7 +40,7 @@ public class PublicRatingServiceImpl implements PublicRatingService {
                 .distinct()
                 .collect(Collectors.toList());
         events.forEach(e ->
-                e.setConfirmedRequests(requestRepository.findConfirmedRequests(e.getId())));
+                e.setConfirmedRequests(requestRepository.findConfirmedRequest(e.getId())));
         events.forEach(e -> e.setViews(statClient.getView(e.getId())));
         for (EventDtoRate event : events) {
             Long like = rateList.stream()

@@ -27,9 +27,7 @@ import ru.practicum.ewm_service.user.repository.UserRepository;
 import ru.practicum.ewm_service.utils.Status;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.lang.Boolean.FALSE;
@@ -55,13 +53,20 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ObjectNotFoundException("Пользователя с id = " + userId + " не существует"));
         PageRequest page = PageRequest.of(from / size, size);
-        List<EventDtoShort> answer = eventRepository.findAllByInitiator(user, page).stream()
-                .map(EventMapper::toEventDtoShort)
+        List<Event> answer = eventRepository.findAllByInitiator(user, page);
+        List<Long> eventsId = answer.stream().map(Event::getId).collect(Collectors.toList());
+        Map<Long, Long> requests = new HashMap<>();
+        Map<Long, Long> views = new HashMap<>();
+        requestRepository.findConfirmedRequests(eventsId)
+                .forEach(stat -> requests.put(stat.getEventId(), stat.getConfirmedRequests()));
+        statClient.getViews(eventsId).
+                forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
+        return answer.stream().map(event -> EventMapper.toEventDtoShort(
+                        event,
+                        requests.getOrDefault(event.getId(), 0L),
+                        views.getOrDefault(event.getId(), 0L)
+                ))
                 .collect(Collectors.toList());
-        answer.forEach(e ->
-                e.setConfirmedRequests(requestRepository.findConfirmedRequests(e.getId())));
-        answer.forEach(e -> e.setViews(statClient.getView(e.getId())));
-        return answer;
     }
 
     @Override
@@ -78,11 +83,12 @@ public class EventPrivateServiceImpl implements EventPrivateService {
                         newEventDto.getLocation().getLat())
                 .orElseGet(() -> locationRepository.save(LocationMapper.toLocation(newEventDto.getLocation())));
         Event event = eventRepository.save(EventMapper.toEvent(newEventDto, category, location, user, LocalDateTime.now(), PENDING));
-        EventDto eventDto = EventMapper.toEventDto(event);
-        eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
-        eventDto.setViews(statClient.getView(eventDto.getId()));
-        eventDto.setLike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), TRUE));
-        eventDto.setDislike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), FALSE));
+        EventDto eventDto = EventMapper.toEventDto(event,
+                requestRepository.findConfirmedRequest(event.getId()),
+                statClient.getView(event.getId()),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
+        );
         return eventDto;
     }
 
@@ -96,11 +102,12 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         if (!event.getInitiator().equals(user)) {
             throw new IllegalArgumentException("Событие не принадлежит данному пользователю");
         }
-        EventDto eventDto = EventMapper.toEventDto(event);
-        eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
-        eventDto.setViews(statClient.getView(eventDto.getId()));
-        eventDto.setLike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), TRUE));
-        eventDto.setDislike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), FALSE));
+        EventDto eventDto = EventMapper.toEventDto(event,
+                requestRepository.findConfirmedRequest(event.getId()),
+                statClient.getView(event.getId()),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
+        );
         return eventDto;
     }
 
@@ -149,11 +156,12 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         Optional.ofNullable(updateEvent.getParticipantLimit()).ifPresent(event::setParticipantLimit);
         Optional.ofNullable(updateEvent.getRequestModeration()).ifPresent(event::setRequestModeration);
         Optional.ofNullable(updateEvent.getTitle()).ifPresent(event::setTitle);
-        EventDto eventDto = EventMapper.toEventDto(event);
-        eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
-        eventDto.setViews(statClient.getView(eventDto.getId()));
-        eventDto.setLike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), TRUE));
-        eventDto.setDislike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), FALSE));
+        EventDto eventDto = EventMapper.toEventDto(event,
+                requestRepository.findConfirmedRequest(event.getId()),
+                statClient.getView(event.getId()),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
+        );
         return eventDto;
     }
 
@@ -186,7 +194,7 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         if (event.getParticipantLimit() == 0 || !event.getRequestModeration()) {
             throw new IllegalArgumentException("Для события подтвреждение заявок не требуется");
         }
-        if (event.getParticipantLimit().equals(requestRepository.findConfirmedRequests(eventId))) {
+        if (event.getParticipantLimit().equals(requestRepository.findConfirmedRequest(eventId))) {
             throw new ConflictException("Достигнут лимит заявок для события");
         }
         List<ParticipationRequest> requests = requestRepository.findAllByIdIn(eventRequestUpdate.getRequestIds());
@@ -202,7 +210,7 @@ public class EventPrivateServiceImpl implements EventPrivateService {
         }
         if (eventRequestUpdate.getStatus().equals(CONFIRMED)) {
             for (ParticipationRequest r : requests) {
-                if (requestRepository.findConfirmedRequests(eventId).equals(event.getParticipantLimit())) {
+                if (requestRepository.findConfirmedRequest(eventId).equals(event.getParticipantLimit())) {
                     r.setStatus(REJECTED);
                     result.getRejectedRequests().add(RequestMapper.toRequestDto(requestRepository.save(r)));
                 } else {

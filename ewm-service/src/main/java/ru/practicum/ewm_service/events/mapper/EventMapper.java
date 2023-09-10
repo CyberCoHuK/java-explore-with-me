@@ -33,7 +33,7 @@ public class EventMapper {
                 .build();
     }
 
-    public static EventDto toEventDto(Event event) {
+    public static EventDto toEventDto(Event event, Long confirmedRequest, Long view, Long like, Long dislike) {
         return EventDto.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoriesMapper.toCategoryDto(event.getCategory()))
@@ -49,10 +49,14 @@ public class EventMapper {
                 .requestModeration(event.getRequestModeration())
                 .state(event.getState())
                 .title(event.getTitle())
+                .confirmedRequests(confirmedRequest)
+                .views(view)
+                .like(like)
+                .dislike(dislike)
                 .build();
     }
 
-    public static EventDtoShort toEventDtoShort(Event event) {
+    public static EventDtoShort toEventDtoShort(Event event, Long confirmedRequest, Long view) {
         return EventDtoShort.builder()
                 .annotation(event.getAnnotation())
                 .category(CategoriesMapper.toCategoryDto(event.getCategory()))
@@ -61,6 +65,8 @@ public class EventMapper {
                 .initiator(UserMapper.toUserDtoShort(event.getInitiator()))
                 .paid(event.getPaid())
                 .title(event.getTitle())
+                .confirmedRequests(confirmedRequest)
+                .views(view)
                 .build();
     }
 

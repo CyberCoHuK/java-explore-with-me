@@ -19,10 +19,7 @@ import ru.practicum.ewm_service.utils.State;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static java.lang.Boolean.FALSE;
@@ -45,44 +42,56 @@ public class EventPublicServiceImpl implements EventPublicService {
             throw new BadRequestException("Недопустимый временной промежуток.");
         }
         Pageable page = PageRequest.of(from / size, size);
-        List<EventDto> eventsDto;
+        List<Event> events;
         if (rangeEnd == null && rangeStart == null) {
-            eventsDto = eventRepository.findAllByPublicNoDate(text, categories, paid, LocalDateTime.now()).stream()
-                    .map(EventMapper::toEventDto).collect(Collectors.toList());
+            events = eventRepository.findAllByPublicNoDate(text, categories, paid, LocalDateTime.now());
         } else {
-            eventsDto = eventRepository.findAllByPublic(text, categories, paid, rangeStart, rangeEnd).stream()
-                    .map(EventMapper::toEventDto).collect(Collectors.toList());
+            events = eventRepository.findAllByPublic(text, categories, paid, rangeStart, rangeEnd);
         }
-        eventsDto.forEach(e ->
-                e.setConfirmedRequests(requestRepository.findConfirmedRequests(e.getId())));
-        eventsDto.forEach(e -> e.setViews(statClient.getView(e.getId())));
-        eventsDto.forEach(e -> e.setLike(rateRepository.countByEventIdAndRateEquals(e.getId(), TRUE)));
-        eventsDto.forEach(e -> e.setDislike(rateRepository.countByEventIdAndRateEquals(e.getId(), FALSE)));
+        List<Long> eventsId = events.stream().map(Event::getId).collect(Collectors.toList());
+        Map<Long, Long> requests = new HashMap<>();
+        Map<Long, Long> views = new HashMap<>();
+        Map<Long, Long> likes = new HashMap<>();
+        Map<Long, Long> dislikes = new HashMap<>();
+        requestRepository.findConfirmedRequests(eventsId)
+                .forEach(stat -> requests.put(stat.getEventId(), stat.getConfirmedRequests()));
+        statClient.getViews(eventsId).
+                forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
+        rateRepository.findRate(eventsId, TRUE).forEach(like -> likes.put(like.getEvent(), like.getRate()));
+        rateRepository.findRate(eventsId, TRUE).forEach(dislike -> dislikes.put(dislike.getEvent(), dislike.getRate()));
+        List<EventDto> eventDto = events.stream().map(event -> EventMapper.toEventDto(
+                        event,
+                        requests.getOrDefault(event.getId(), 0L),
+                        views.getOrDefault(event.getId(), 0L),
+                        likes.getOrDefault(event.getId(), 0L),
+                        dislikes.getOrDefault(event.getId(), 0L)
+                ))
+                .collect(Collectors.toList());
         if (onlyAvailable) {
-            eventsDto = eventsDto.stream()
+            eventDto = eventDto.stream()
                     .filter(e -> e.getParticipantLimit() > e.getConfirmedRequests() || e.getParticipantLimit() == 0)
                     .collect(Collectors.toList());
         }
         if (sort != null) {
             switch (sort) {
                 case EVENT_DATE:
-                    eventsDto.sort(Comparator.comparing(EventDto::getEventDate));
+                    eventDto.sort(Comparator.comparing(EventDto::getEventDate));
                     break;
                 case VIEWS:
-                    eventsDto.sort(Comparator.comparingLong(EventDto::getViews));
+                    eventDto.sort(Comparator.comparingLong(EventDto::getViews));
                     break;
                 case LIKE:
-                    eventsDto.sort(Comparator.comparingLong(EventDto::getLike));
+                    eventDto.sort(Comparator.comparingLong(EventDto::getLike));
                     break;
                 case DISLIKE:
-                    eventsDto.sort(Comparator.comparingLong(EventDto::getDislike));
+                    eventDto.sort(Comparator.comparingLong(EventDto::getDislike));
                     break;
             }
         }
-        Collections.reverse(eventsDto);
+        Collections.reverse(eventDto);
         int start = (int) page.getOffset();
-        int end = Math.min((start + page.getPageSize()), eventsDto.size());
-        List<EventDto> answer = eventsDto.subList(start, end);
+        int end = Math.min((start + page.getPageSize()), eventDto.size());
+        List<EventDto> answer = eventDto.subList(start, end);
         statClient.createStat(request);
         return answer;
     }
@@ -95,11 +104,12 @@ public class EventPublicServiceImpl implements EventPublicService {
         if (!event.getState().equals(State.PUBLISHED)) {
             throw new ObjectNotFoundException("Событие должно быть опубликовано");
         }
-        EventDto eventDto = EventMapper.toEventDto(event);
-        eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
-        eventDto.setViews(statClient.getView(eventDto.getId()));
-        eventDto.setLike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), TRUE));
-        eventDto.setDislike(rateRepository.countByEventIdAndRateEquals(eventDto.getId(), FALSE));
+        EventDto eventDto = EventMapper.toEventDto(event,
+                requestRepository.findConfirmedRequest(event.getId()),
+                statClient.getView(event.getId()),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
+        );
         statClient.createStat(request);
         return eventDto;
     }
