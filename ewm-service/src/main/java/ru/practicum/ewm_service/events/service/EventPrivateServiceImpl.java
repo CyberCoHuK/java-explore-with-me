@@ -81,8 +81,10 @@ public class EventPrivateServiceImpl implements EventPrivateService {
                         newEventDto.getLocation().getLat())
                 .orElseGet(() -> locationRepository.save(LocationMapper.toLocation(newEventDto.getLocation())));
         Event event = eventRepository.save(EventMapper.toEvent(newEventDto, category, location, user, LocalDateTime.now(), PENDING));
-        return EventMapper.toEventDto(event, requestRepository.findConfirmedRequest(event.getId()),
-                statClient.getView(event.getId()), rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
+        return EventMapper.toEventDto(event,
+                requestRepository.findConfirmedRequest(event.getId()),
+                statClient.getView(event.getId()),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
                 rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
         );
     }

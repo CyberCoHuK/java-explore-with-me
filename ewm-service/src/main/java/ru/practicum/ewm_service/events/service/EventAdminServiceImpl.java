@@ -58,7 +58,7 @@ public class EventAdminServiceImpl implements EventAdminService {
         statClient.getViews(eventsId)
                 .forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
         rateRepository.findRate(eventsId, TRUE).forEach(like -> likes.put(like.getEvent(), like.getRate()));
-        rateRepository.findRate(eventsId, TRUE).forEach(dislike -> dislikes.put(dislike.getEvent(), dislike.getRate()));
+        rateRepository.findRate(eventsId, FALSE).forEach(dislike -> dislikes.put(dislike.getEvent(), dislike.getRate()));
         return answer.stream().map(event -> EventMapper.toEventDto(event,
                 requests.getOrDefault(event.getId(), 0L),
                 views.getOrDefault(event.getId(), 0L),
