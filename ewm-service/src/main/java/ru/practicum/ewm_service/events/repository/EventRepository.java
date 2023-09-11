@@ -22,8 +22,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "WHERE (COALESCE(:users, NULL) IS NULL OR e.initiator.id IN :users) " +
             "AND (COALESCE(:states, NULL) IS NULL OR e.state IN :states) " +
             "AND (COALESCE(:categories, NULL) IS NULL OR e.category.id IN :categories) " +
-            "AND (:rangeStart IS NULL OR e.eventDate >= :rangeStart) " +
-            "AND (:rangeEnd IS NULL OR e.eventDate <= :rangeEnd) ")
+            "AND (COALESCE(:rangeStart, NULL) IS NULL OR e.eventDate >= :rangeStart) " +
+            "AND (COALESCE(:rangeEnd, NULL) IS NULL OR e.eventDate <= :rangeEnd) ")
     List<Event> findAllAdminByData(@Param("users") List<Long> users,
                                    @Param("states") List<State> states,
                                    @Param("categories") List<Long> categories,
@@ -37,8 +37,8 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "AND (COALESCE(:text, NULL) IS NULL OR (LOWER(e.annotation) LIKE LOWER(concat('%', :text, '%')) OR LOWER(e.description) LIKE LOWER(concat('%', :text, '%')))) " +
             "AND (COALESCE(:categories, NULL) IS NULL OR e.category.id IN :categories) " +
             "AND (COALESCE(:paid, NULL) IS NULL OR e.paid = :paid) " +
-            "AND (:rangeStart IS NULL OR e.eventDate >= :rangeStart) " +
-            "AND (:rangeEnd IS NULL OR e.eventDate <= :rangeEnd) ")
+            "AND (COALESCE(:rangeStart, NULL) IS NULL OR e.eventDate >= :rangeStart) " +
+            "AND (COALESCE(:rangeEnd, NULL) IS NULL OR e.eventDate <= :rangeEnd)")
     List<Event> findAllByPublic(@Param("text") String text,
                                 @Param("categories") List<Long> categories,
                                 @Param("paid") Boolean paid,
