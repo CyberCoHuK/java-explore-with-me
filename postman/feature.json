@@ -1,0 +1,3686 @@
+{
+	"info": {
+		"_postman_id": "a8a91970-d5b9-4a86-83bc-32d3f32cbe78",
+		"name": "feature",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "26733324"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Add user",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test user 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"135\"').to.eql(135);\r",
+									"});\r",
+									"pm.test(\"Test user 'email' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('email');\r",
+									"    pm.expect(jsonData.email, '\"email\" must be \"User1@mail.com\"').to.eql('User1@mail.com');\r",
+									"});\r",
+									"pm.test(\"Test user 'name' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('name');\r",
+									"    pm.expect(jsonData.name, '\"name\" must be \"User1\"').to.eql('User1');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"User1\",\r\n    \"email\":\"User1@mail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test user 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"136\"').to.eql(136);\r",
+									"});\r",
+									"pm.test(\"Test user 'email' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('email');\r",
+									"    pm.expect(jsonData.email, '\"email\" must be \"User2@mail.com\"').to.eql('User2@mail.com');\r",
+									"});\r",
+									"pm.test(\"Test user 'name' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('name');\r",
+									"    pm.expect(jsonData.name, '\"name\" must be \"User2\"').to.eql('User2');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"User2\",\r\n    \"email\":\"User2@mail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test user 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"137\"').to.eql(137);\r",
+									"});\r",
+									"pm.test(\"Test user 'email' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('email');\r",
+									"    pm.expect(jsonData.email, '\"email\" must be \"User3@mail.com\"').to.eql('User3@mail.com');\r",
+									"});\r",
+									"pm.test(\"Test user 'name' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('name');\r",
+									"    pm.expect(jsonData.name, '\"name\" must be \"User3\"').to.eql('User3');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"User3\",\r\n    \"email\":\"User3@mail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add user 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test user 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"138\"').to.eql(138);\r",
+									"});\r",
+									"pm.test(\"Test user 'email' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('email');\r",
+									"    pm.expect(jsonData.email, '\"email\" must be \"User4@mail.com\"').to.eql('User4@mail.com');\r",
+									"});\r",
+									"pm.test(\"Test user 'name' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('name');\r",
+									"    pm.expect(jsonData.name, '\"name\" must be \"User4\"').to.eql('User4');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"User4\",\r\n    \"email\":\"User4@mail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Events",
+			"item": [
+				{
+					"name": "Add Event 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has event create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test event 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"106\"').to.eql(106);\r",
+									"});\r",
+									"pm.test(\"Test event 'annotation' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('annotation');\r",
+									"    pm.expect(jsonData.annotation, '\"annotation\" must be \"1 annotation for my event in this tetst\"').to.eql('1 annotation for my event in this tetst');\r",
+									"});\r",
+									"pm.test(\"Test event 'category.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('category');\r",
+									"    pm.expect(jsonData.category).to.have.property('id');\r",
+									"    pm.expect(jsonData.category.id, '\"id\" must be \"1\"').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test event 'confirmedRequests' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('confirmedRequests');\r",
+									"    pm.expect(jsonData.confirmedRequests, '\"confirmedRequests\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'description' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('description');\r",
+									"    pm.expect(jsonData.description, '\"description\" must be \"Some big description for my test with 50 char in the row\"').to.eql('Some big description for my test with 50 char in the row');\r",
+									"});\r",
+									"pm.test(\"Test event 'eventDate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('eventDate');\r",
+									"    pm.expect(jsonData.eventDate, '\"eventDate\" must be \"2024-09-08 15:36:00\"').to.eql('2024-09-08 15:36:00');\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('name');\r",
+									"    pm.expect(jsonData.initiator.name, '\"name\" must be \"User4\"').to.eql(\"User4\");\r",
+									"});\r",
+									"pm.test(\"Test event 'location' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('location');\r",
+									"    pm.expect(jsonData.location).to.have.property('lat');\r",
+									"    pm.expect(jsonData.location).to.have.property('lon');\r",
+									"    pm.expect(jsonData.location.lat, '\"lot\" must be \"50.4746\"').to.eql(50.4746);\r",
+									"    pm.expect(jsonData.location.lon, '\"lon\" must be \"-13.0497\"').to.eql(-13.0497);\r",
+									"});\r",
+									"pm.test(\"Test event 'paid' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('paid');\r",
+									"    pm.expect(jsonData.paid, '\"paid\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'participantLimit' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('participantLimit');\r",
+									"    pm.expect(jsonData.participantLimit, '\"participantLimit\" must be \"666\"').to.eql(666);\r",
+									"});\r",
+									"pm.test(\"Test event 'publishedOn' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('publishedOn');\r",
+									"    pm.expect(jsonData.publishedOn, '\"publishedOn\" must be \"null\"').to.eql(null);\r",
+									"});\r",
+									"pm.test(\"Test event 'requestModeration' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requestModeration');\r",
+									"    pm.expect(jsonData.requestModeration, '\"requestModeration\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'state' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('state');\r",
+									"    pm.expect(jsonData.state, '\"state\" must be \"PENDING\"').to.eql('PENDING');\r",
+									"});\r",
+									"pm.test(\"Test event 'title' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('title');\r",
+									"    pm.expect(jsonData.title, '\"title\" must be \"Best name for 1 event\"').to.eql('Best name for 1 event');\r",
+									"});\r",
+									"pm.test(\"Test event 'views' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('views');\r",
+									"    pm.expect(jsonData.views, '\"views\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('like');\r",
+									"    pm.expect(jsonData.like, '\"like\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('dislike');\r",
+									"    pm.expect(jsonData.dislike, '\"dislike\" must be \"0\"').to.eql(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"1 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 1 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "138"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Event 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has event create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test event 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"107\"').to.eql(107);\r",
+									"});\r",
+									"pm.test(\"Test event 'annotation' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('annotation');\r",
+									"    pm.expect(jsonData.annotation, '\"annotation\" must be \"2 annotation for my event in this tetst\"').to.eql('2 annotation for my event in this tetst');\r",
+									"});\r",
+									"pm.test(\"Test event 'category.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('category');\r",
+									"    pm.expect(jsonData.category).to.have.property('id');\r",
+									"    pm.expect(jsonData.category.id, '\"id\" must be \"1\"').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test event 'confirmedRequests' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('confirmedRequests');\r",
+									"    pm.expect(jsonData.confirmedRequests, '\"confirmedRequests\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'description' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('description');\r",
+									"    pm.expect(jsonData.description, '\"description\" must be \"Some big description for my test with 50 char in the row\"').to.eql('Some big description for my test with 50 char in the row');\r",
+									"});\r",
+									"pm.test(\"Test event 'eventDate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('eventDate');\r",
+									"    pm.expect(jsonData.eventDate, '\"eventDate\" must be \"2024-09-08 15:36:00\"').to.eql('2024-09-08 15:36:00');\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('name');\r",
+									"    pm.expect(jsonData.initiator.name, '\"name\" must be \"User4\"').to.eql(\"User4\");\r",
+									"});\r",
+									"pm.test(\"Test event 'location' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('location');\r",
+									"    pm.expect(jsonData.location).to.have.property('lat');\r",
+									"    pm.expect(jsonData.location).to.have.property('lon');\r",
+									"    pm.expect(jsonData.location.lat, '\"lot\" must be \"50.4746\"').to.eql(50.4746);\r",
+									"    pm.expect(jsonData.location.lon, '\"lon\" must be \"-13.0497\"').to.eql(-13.0497);\r",
+									"});\r",
+									"pm.test(\"Test event 'paid' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('paid');\r",
+									"    pm.expect(jsonData.paid, '\"paid\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'participantLimit' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('participantLimit');\r",
+									"    pm.expect(jsonData.participantLimit, '\"participantLimit\" must be \"666\"').to.eql(666);\r",
+									"});\r",
+									"pm.test(\"Test event 'publishedOn' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('publishedOn');\r",
+									"    pm.expect(jsonData.publishedOn, '\"publishedOn\" must be \"null\"').to.eql(null);\r",
+									"});\r",
+									"pm.test(\"Test event 'requestModeration' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requestModeration');\r",
+									"    pm.expect(jsonData.requestModeration, '\"requestModeration\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'state' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('state');\r",
+									"    pm.expect(jsonData.state, '\"state\" must be \"PENDING\"').to.eql('PENDING');\r",
+									"});\r",
+									"pm.test(\"Test event 'title' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('title');\r",
+									"    pm.expect(jsonData.title, '\"title\" must be \"Best name for 2 event\"').to.eql('Best name for 2 event');\r",
+									"});\r",
+									"pm.test(\"Test event 'views' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('views');\r",
+									"    pm.expect(jsonData.views, '\"views\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('like');\r",
+									"    pm.expect(jsonData.like, '\"like\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('dislike');\r",
+									"    pm.expect(jsonData.dislike, '\"dislike\" must be \"0\"').to.eql(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"2 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 2 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "138"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Event 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has event create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test event 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"108\"').to.eql(108);\r",
+									"});\r",
+									"pm.test(\"Test event 'annotation' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('annotation');\r",
+									"    pm.expect(jsonData.annotation, '\"annotation\" must be \"3 annotation for my event in this tetst\"').to.eql('3 annotation for my event in this tetst');\r",
+									"});\r",
+									"pm.test(\"Test event 'category.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('category');\r",
+									"    pm.expect(jsonData.category).to.have.property('id');\r",
+									"    pm.expect(jsonData.category.id, '\"id\" must be \"1\"').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test event 'confirmedRequests' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('confirmedRequests');\r",
+									"    pm.expect(jsonData.confirmedRequests, '\"confirmedRequests\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'description' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('description');\r",
+									"    pm.expect(jsonData.description, '\"description\" must be \"Some big description for my test with 50 char in the row\"').to.eql('Some big description for my test with 50 char in the row');\r",
+									"});\r",
+									"pm.test(\"Test event 'eventDate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('eventDate');\r",
+									"    pm.expect(jsonData.eventDate, '\"eventDate\" must be \"2024-09-08 15:36:00\"').to.eql('2024-09-08 15:36:00');\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('name');\r",
+									"    pm.expect(jsonData.initiator.name, '\"name\" must be \"User4\"').to.eql(\"User4\");\r",
+									"});\r",
+									"pm.test(\"Test event 'location' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('location');\r",
+									"    pm.expect(jsonData.location).to.have.property('lat');\r",
+									"    pm.expect(jsonData.location).to.have.property('lon');\r",
+									"    pm.expect(jsonData.location.lat, '\"lot\" must be \"50.4746\"').to.eql(50.4746);\r",
+									"    pm.expect(jsonData.location.lon, '\"lon\" must be \"-13.0497\"').to.eql(-13.0497);\r",
+									"});\r",
+									"pm.test(\"Test event 'paid' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('paid');\r",
+									"    pm.expect(jsonData.paid, '\"paid\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'participantLimit' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('participantLimit');\r",
+									"    pm.expect(jsonData.participantLimit, '\"participantLimit\" must be \"666\"').to.eql(666);\r",
+									"});\r",
+									"pm.test(\"Test event 'publishedOn' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('publishedOn');\r",
+									"    pm.expect(jsonData.publishedOn, '\"publishedOn\" must be \"null\"').to.eql(null);\r",
+									"});\r",
+									"pm.test(\"Test event 'requestModeration' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requestModeration');\r",
+									"    pm.expect(jsonData.requestModeration, '\"requestModeration\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'state' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('state');\r",
+									"    pm.expect(jsonData.state, '\"state\" must be \"PENDING\"').to.eql('PENDING');\r",
+									"});\r",
+									"pm.test(\"Test event 'title' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('title');\r",
+									"    pm.expect(jsonData.title, '\"title\" must be \"Best name for 3 event\"').to.eql('Best name for 3 event');\r",
+									"});\r",
+									"pm.test(\"Test event 'views' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('views');\r",
+									"    pm.expect(jsonData.views, '\"views\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('like');\r",
+									"    pm.expect(jsonData.like, '\"like\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('dislike');\r",
+									"    pm.expect(jsonData.dislike, '\"dislike\" must be \"0\"').to.eql(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"3 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 3 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "138"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event 1 change Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test event 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"106\"').to.eql(106);\r",
+									"});\r",
+									"pm.test(\"Test event 'annotation' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('annotation');\r",
+									"    pm.expect(jsonData.annotation, '\"annotation\" must be \"1 annotation for my event in this tetst\"').to.eql('1 annotation for my event in this tetst');\r",
+									"});\r",
+									"pm.test(\"Test event 'category.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('category');\r",
+									"    pm.expect(jsonData.category).to.have.property('id');\r",
+									"    pm.expect(jsonData.category.id, '\"id\" must be \"1\"').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test event 'confirmedRequests' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('confirmedRequests');\r",
+									"    pm.expect(jsonData.confirmedRequests, '\"confirmedRequests\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'description' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('description');\r",
+									"    pm.expect(jsonData.description, '\"description\" must be \"Some big description for my test with 50 char in the row\"').to.eql('Some big description for my test with 50 char in the row');\r",
+									"});\r",
+									"pm.test(\"Test event 'eventDate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('eventDate');\r",
+									"    pm.expect(jsonData.eventDate, '\"eventDate\" must be \"2024-09-08 15:36:00\"').to.eql('2024-09-08 15:36:00');\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('name');\r",
+									"    pm.expect(jsonData.initiator.name, '\"name\" must be \"User4\"').to.eql(\"User4\");\r",
+									"});\r",
+									"pm.test(\"Test event 'location' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('location');\r",
+									"    pm.expect(jsonData.location).to.have.property('lat');\r",
+									"    pm.expect(jsonData.location).to.have.property('lon');\r",
+									"    pm.expect(jsonData.location.lat, '\"lot\" must be \"50.4746\"').to.eql(50.4746);\r",
+									"    pm.expect(jsonData.location.lon, '\"lon\" must be \"-13.0497\"').to.eql(-13.0497);\r",
+									"});\r",
+									"pm.test(\"Test event 'paid' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('paid');\r",
+									"    pm.expect(jsonData.paid, '\"paid\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'participantLimit' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('participantLimit');\r",
+									"    pm.expect(jsonData.participantLimit, '\"participantLimit\" must be \"666\"').to.eql(666);\r",
+									"});\r",
+									"pm.test(\"Test event 'publishedOn' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('publishedOn');\r",
+									"    pm.expect(jsonData.publishedOn, '\"publishedOn\" must be \"null\"').to.not.be.null;\r",
+									"});\r",
+									"pm.test(\"Test event 'requestModeration' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requestModeration');\r",
+									"    pm.expect(jsonData.requestModeration, '\"requestModeration\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'state' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('state');\r",
+									"    pm.expect(jsonData.state, '\"state\" must be \"PUBLISHED\"').to.eql('PUBLISHED');\r",
+									"});\r",
+									"pm.test(\"Test event 'title' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('title');\r",
+									"    pm.expect(jsonData.title, '\"title\" must be \"Best name for 1 event\"').to.eql('Best name for 1 event');\r",
+									"});\r",
+									"pm.test(\"Test event 'views' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('views');\r",
+									"    pm.expect(jsonData.views, '\"views\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('like');\r",
+									"    pm.expect(jsonData.like, '\"like\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('dislike');\r",
+									"    pm.expect(jsonData.dislike, '\"dislike\" must be \"0\"').to.eql(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\"stateAction\":\"PUBLISH_EVENT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/events/:eventId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "106"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event 2 change Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test event 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"107\"').to.eql(107);\r",
+									"});\r",
+									"pm.test(\"Test event 'annotation' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('annotation');\r",
+									"    pm.expect(jsonData.annotation, '\"annotation\" must be \"2 annotation for my event in this tetst\"').to.eql('2 annotation for my event in this tetst');\r",
+									"});\r",
+									"pm.test(\"Test event 'category.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('category');\r",
+									"    pm.expect(jsonData.category).to.have.property('id');\r",
+									"    pm.expect(jsonData.category.id, '\"id\" must be \"1\"').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test event 'confirmedRequests' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('confirmedRequests');\r",
+									"    pm.expect(jsonData.confirmedRequests, '\"confirmedRequests\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'description' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('description');\r",
+									"    pm.expect(jsonData.description, '\"description\" must be \"Some big description for my test with 50 char in the row\"').to.eql('Some big description for my test with 50 char in the row');\r",
+									"});\r",
+									"pm.test(\"Test event 'eventDate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('eventDate');\r",
+									"    pm.expect(jsonData.eventDate, '\"eventDate\" must be \"2024-09-08 15:36:00\"').to.eql('2024-09-08 15:36:00');\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('name');\r",
+									"    pm.expect(jsonData.initiator.name, '\"name\" must be \"User4\"').to.eql(\"User4\");\r",
+									"});\r",
+									"pm.test(\"Test event 'location' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('location');\r",
+									"    pm.expect(jsonData.location).to.have.property('lat');\r",
+									"    pm.expect(jsonData.location).to.have.property('lon');\r",
+									"    pm.expect(jsonData.location.lat, '\"lot\" must be \"50.4746\"').to.eql(50.4746);\r",
+									"    pm.expect(jsonData.location.lon, '\"lon\" must be \"-13.0497\"').to.eql(-13.0497);\r",
+									"});\r",
+									"pm.test(\"Test event 'paid' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('paid');\r",
+									"    pm.expect(jsonData.paid, '\"paid\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'participantLimit' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('participantLimit');\r",
+									"    pm.expect(jsonData.participantLimit, '\"participantLimit\" must be \"666\"').to.eql(666);\r",
+									"});\r",
+									"pm.test(\"Test event 'publishedOn' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('publishedOn');\r",
+									"    pm.expect(jsonData.publishedOn, '\"publishedOn\" must be \"null\"').to.not.be.null;\r",
+									"});\r",
+									"pm.test(\"Test event 'requestModeration' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requestModeration');\r",
+									"    pm.expect(jsonData.requestModeration, '\"requestModeration\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'state' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('state');\r",
+									"    pm.expect(jsonData.state, '\"state\" must be \"PUBLISHED\"').to.eql('PUBLISHED');\r",
+									"});\r",
+									"pm.test(\"Test event 'title' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('title');\r",
+									"    pm.expect(jsonData.title, '\"title\" must be \"Best name for 2 event\"').to.eql('Best name for 2 event');\r",
+									"});\r",
+									"pm.test(\"Test event 'views' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('views');\r",
+									"    pm.expect(jsonData.views, '\"views\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('like');\r",
+									"    pm.expect(jsonData.like, '\"like\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('dislike');\r",
+									"    pm.expect(jsonData.dislike, '\"dislike\" must be \"0\"').to.eql(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n\"stateAction\":\"PUBLISH_EVENT\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/events/:eventId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "107"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Event 3 change Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([200]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test event 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"108\"').to.eql(108);\r",
+									"});\r",
+									"pm.test(\"Test event 'annotation' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('annotation');\r",
+									"    pm.expect(jsonData.annotation, '\"annotation\" must be \"3 annotation for my event in this tetst\"').to.eql('3 annotation for my event in this tetst');\r",
+									"});\r",
+									"pm.test(\"Test event 'category.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('category');\r",
+									"    pm.expect(jsonData.category).to.have.property('id');\r",
+									"    pm.expect(jsonData.category.id, '\"id\" must be \"1\"').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test event 'confirmedRequests' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('confirmedRequests');\r",
+									"    pm.expect(jsonData.confirmedRequests, '\"confirmedRequests\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'description' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('description');\r",
+									"    pm.expect(jsonData.description, '\"description\" must be \"Some big description for my test with 50 char in the row\"').to.eql('Some big description for my test with 50 char in the row');\r",
+									"});\r",
+									"pm.test(\"Test event 'eventDate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('eventDate');\r",
+									"    pm.expect(jsonData.eventDate, '\"eventDate\" must be \"2024-09-08 15:36:00\"').to.eql('2024-09-08 15:36:00');\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"138\"').to.eql(138);\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('name');\r",
+									"    pm.expect(jsonData.initiator.name, '\"name\" must be \"User4\"').to.eql(\"User4\");\r",
+									"});\r",
+									"pm.test(\"Test event 'location' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('location');\r",
+									"    pm.expect(jsonData.location).to.have.property('lat');\r",
+									"    pm.expect(jsonData.location).to.have.property('lon');\r",
+									"    pm.expect(jsonData.location.lat, '\"lot\" must be \"50.4746\"').to.eql(50.4746);\r",
+									"    pm.expect(jsonData.location.lon, '\"lon\" must be \"-13.0497\"').to.eql(-13.0497);\r",
+									"});\r",
+									"pm.test(\"Test event 'paid' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('paid');\r",
+									"    pm.expect(jsonData.paid, '\"paid\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'participantLimit' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('participantLimit');\r",
+									"    pm.expect(jsonData.participantLimit, '\"participantLimit\" must be \"666\"').to.eql(666);\r",
+									"});\r",
+									"pm.test(\"Test event 'publishedOn' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('publishedOn');\r",
+									"    pm.expect(jsonData.publishedOn, '\"publishedOn\" must be \"null\"').to.not.be.null;\r",
+									"});\r",
+									"pm.test(\"Test event 'requestModeration' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requestModeration');\r",
+									"    pm.expect(jsonData.requestModeration, '\"requestModeration\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'state' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('state');\r",
+									"    pm.expect(jsonData.state, '\"state\" must be \"PUBLISHED\"').to.eql('PUBLISHED');\r",
+									"});\r",
+									"pm.test(\"Test event 'title' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('title');\r",
+									"    pm.expect(jsonData.title, '\"title\" must be \"Best name for 3 event\"').to.eql('Best name for 3 event');\r",
+									"});\r",
+									"pm.test(\"Test event 'views' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('views');\r",
+									"    pm.expect(jsonData.views, '\"views\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('like');\r",
+									"    pm.expect(jsonData.like, '\"like\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('dislike');\r",
+									"    pm.expect(jsonData.dislike, '\"dislike\" must be \"0\"').to.eql(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n\"stateAction\":\"PUBLISH_EVENT\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/events/:eventId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"events",
+								":eventId"
+							],
+							"variable": [
+								{
+									"key": "eventId",
+									"value": "108"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Request",
+			"item": [
+				{
+					"name": "Add request User1 to Event1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has request create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test request 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"14\"').to.eql(14);\r",
+									"});\r",
+									"pm.test(\"Test request 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"106\"').to.eql(106);\r",
+									"});\r",
+									"pm.test(\"Test request 'requester' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requester');\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"135\"').to.eql(135);\r",
+									"});\r",
+									"pm.test(\"Test request 'status' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\"status\" must be \"CONFIRMED\"').to.eql('CONFIRMED');\r",
+									"});\r",
+									"pm.test(\"Test request 'created' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('created');\r",
+									"    pm.expect(jsonData.created, '\"created\" must be \"Not null\"').to.not.be.null;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"1 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 1 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=106",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "106"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "135"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add request User1 to Event2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has request create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test request 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"15\"').to.eql(15);\r",
+									"});\r",
+									"pm.test(\"Test request 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"107\"').to.eql(107);\r",
+									"});\r",
+									"pm.test(\"Test request 'requester' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requester');\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"135\"').to.eql(135);\r",
+									"});\r",
+									"pm.test(\"Test request 'status' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\"status\" must be \"CONFIRMED\"').to.eql('CONFIRMED');\r",
+									"});\r",
+									"pm.test(\"Test request 'created' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('created');\r",
+									"    pm.expect(jsonData.created, '\"created\" must be \"Not null\"').to.not.be.null;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"1 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 1 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=107",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "107"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "135"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add request User1 to Event3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has request create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test request 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"16\"').to.eql(16);\r",
+									"});\r",
+									"pm.test(\"Test request 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"108\"').to.eql(108);\r",
+									"});\r",
+									"pm.test(\"Test request 'requester' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requester');\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"135\"').to.eql(135);\r",
+									"});\r",
+									"pm.test(\"Test request 'status' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\"status\" must be \"CONFIRMED\"').to.eql('CONFIRMED');\r",
+									"});\r",
+									"pm.test(\"Test request 'created' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('created');\r",
+									"    pm.expect(jsonData.created, '\"created\" must be \"Not null\"').to.not.be.null;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"1 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 1 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=108",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "108"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "135"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add request User2 to Event1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has request create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test request 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"17\"').to.eql(17);\r",
+									"});\r",
+									"pm.test(\"Test request 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"106\"').to.eql(106);\r",
+									"});\r",
+									"pm.test(\"Test request 'requester' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requester');\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"136\"').to.eql(136);\r",
+									"});\r",
+									"pm.test(\"Test request 'status' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\"status\" must be \"CONFIRMED\"').to.eql('CONFIRMED');\r",
+									"});\r",
+									"pm.test(\"Test request 'created' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('created');\r",
+									"    pm.expect(jsonData.created, '\"created\" must be \"Not null\"').to.not.be.null;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"1 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 1 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=106",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "106"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "136"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add request User2 to Event2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has request create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test request 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"18\"').to.eql(18);\r",
+									"});\r",
+									"pm.test(\"Test request 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"107\"').to.eql(107);\r",
+									"});\r",
+									"pm.test(\"Test request 'requester' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requester');\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"136\"').to.eql(136);\r",
+									"});\r",
+									"pm.test(\"Test request 'status' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\"status\" must be \"CONFIRMED\"').to.eql('CONFIRMED');\r",
+									"});\r",
+									"pm.test(\"Test request 'created' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('created');\r",
+									"    pm.expect(jsonData.created, '\"created\" must be \"Not null\"').to.not.be.null;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"1 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 1 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=107",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "107"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "136"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add request User2 to Event3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has request create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test request 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"19\"').to.eql(19);\r",
+									"});\r",
+									"pm.test(\"Test request 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"108\"').to.eql(108);\r",
+									"});\r",
+									"pm.test(\"Test request 'requester' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requester');\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"136\"').to.eql(136);\r",
+									"});\r",
+									"pm.test(\"Test request 'status' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\"status\" must be \"CONFIRMED\"').to.eql('CONFIRMED');\r",
+									"});\r",
+									"pm.test(\"Test request 'created' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('created');\r",
+									"    pm.expect(jsonData.created, '\"created\" must be \"Not null\"').to.not.be.null;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"1 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 1 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=108",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "108"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "136"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add request User3 to Event1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has request create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test request 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"20\"').to.eql(20);\r",
+									"});\r",
+									"pm.test(\"Test request 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"106\"').to.eql(106);\r",
+									"});\r",
+									"pm.test(\"Test request 'requester' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requester');\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"137\"').to.eql(137);\r",
+									"});\r",
+									"pm.test(\"Test request 'status' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\"status\" must be \"CONFIRMED\"').to.eql('CONFIRMED');\r",
+									"});\r",
+									"pm.test(\"Test request 'created' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('created');\r",
+									"    pm.expect(jsonData.created, '\"created\" must be \"Not null\"').to.not.be.null;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"1 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 1 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=106",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "106"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add request User3 to Event2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has request create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test request 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"21\"').to.eql(21);\r",
+									"});\r",
+									"pm.test(\"Test request 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"107\"').to.eql(107);\r",
+									"});\r",
+									"pm.test(\"Test request 'requester' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requester');\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"137\"').to.eql(137);\r",
+									"});\r",
+									"pm.test(\"Test request 'status' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\"status\" must be \"CONFIRMED\"').to.eql('CONFIRMED');\r",
+									"});\r",
+									"pm.test(\"Test request 'created' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('created');\r",
+									"    pm.expect(jsonData.created, '\"created\" must be \"Not null\"').to.not.be.null;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"1 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 1 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=107",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "107"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add request User3 to Event3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has request create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test request 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"22\"').to.eql(22);\r",
+									"});\r",
+									"pm.test(\"Test request 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"108\"').to.eql(108);\r",
+									"});\r",
+									"pm.test(\"Test request 'requester' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requester');\r",
+									"    pm.expect(jsonData.requester, '\"requester\" must be \"137\"').to.eql(137);\r",
+									"});\r",
+									"pm.test(\"Test request 'status' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('status');\r",
+									"    pm.expect(jsonData.status, '\"status\" must be \"CONFIRMED\"').to.eql('CONFIRMED');\r",
+									"});\r",
+									"pm.test(\"Test request 'created' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('created');\r",
+									"    pm.expect(jsonData.created, '\"created\" must be \"Not null\"').to.not.be.null;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"1 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 1 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/requests?eventId=108",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"requests"
+							],
+							"query": [
+								{
+									"key": "eventId",
+									"value": "108"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Rating",
+			"item": [
+				{
+					"name": "Add like from User1 to Event1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has rate create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test rate 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"1\"').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"106\"').to.eql(106);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"135\"').to.eql(135);\r",
+									"});\r",
+									"pm.test(\"Test rate 'rate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('rate');\r",
+									"    pm.expect(jsonData.rate, '\"rate\" must be \"true\"').to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "135"
+								},
+								{
+									"key": "eventId",
+									"value": "106"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like from User1 to Event2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has rate create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test rate 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"2\"').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"107\"').to.eql(107);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"135\"').to.eql(135);\r",
+									"});\r",
+									"pm.test(\"Test rate 'rate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('rate');\r",
+									"    pm.expect(jsonData.rate, '\"rate\" must be \"true\"').to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "135"
+								},
+								{
+									"key": "eventId",
+									"value": "107"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like from User1 to Event3",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has rate create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test rate 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"3\"').to.eql(3);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"108\"').to.eql(108);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"135\"').to.eql(135);\r",
+									"});\r",
+									"pm.test(\"Test rate 'rate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('rate');\r",
+									"    pm.expect(jsonData.rate, '\"rate\" must be \"true\"').to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "135"
+								},
+								{
+									"key": "eventId",
+									"value": "108"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like from User2 to Event1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has rate create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test rate 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"4\"').to.eql(4);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"106\"').to.eql(106);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"136\"').to.eql(136);\r",
+									"});\r",
+									"pm.test(\"Test rate 'rate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('rate');\r",
+									"    pm.expect(jsonData.rate, '\"rate\" must be \"true\"').to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": null
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "136"
+								},
+								{
+									"key": "eventId",
+									"value": "106"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like from User2 to Event2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has rate create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test rate 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"5\"').to.eql(5);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"107\"').to.eql(107);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"136\"').to.eql(136);\r",
+									"});\r",
+									"pm.test(\"Test rate 'rate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('rate');\r",
+									"    pm.expect(jsonData.rate, '\"rate\" must be \"true\"').to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": null
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "136"
+								},
+								{
+									"key": "eventId",
+									"value": "107"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add dislike from User2 to Event3",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has rate create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test rate 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"6\"').to.eql(6);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"108\"').to.eql(108);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"136\"').to.eql(136);\r",
+									"});\r",
+									"pm.test(\"Test rate 'rate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('rate');\r",
+									"    pm.expect(jsonData.rate, '\"rate\" must be \"false\"').to.eql(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate=false",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": "false"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "136"
+								},
+								{
+									"key": "eventId",
+									"value": "108"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like from User3 to Event1",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has rate create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test rate 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"7\"').to.eql(7);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"106\"').to.eql(106);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"137\"').to.eql(137);\r",
+									"});\r",
+									"pm.test(\"Test rate 'rate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('rate');\r",
+									"    pm.expect(jsonData.rate, '\"rate\" must be \"true\"').to.eql(true);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "106"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add dislike from User3 to Event2",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has rate create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test rate 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"8\"').to.eql(8);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"107\"').to.eql(107);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"137\"').to.eql(137);\r",
+									"});\r",
+									"pm.test(\"Test rate 'rate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('rate');\r",
+									"    pm.expect(jsonData.rate, '\"rate\" must be \"false\"').to.eql(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate=false",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": "false"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "107"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add dislike from User3 to Event3",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has rate create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test rate 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"9\"').to.eql(9);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('event');\r",
+									"    pm.expect(jsonData.event, '\"event\" must be \"108\"').to.eql(108);\r",
+									"});\r",
+									"pm.test(\"Test rate 'event' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('user');\r",
+									"    pm.expect(jsonData.user, '\"user\" must be \"137\"').to.eql(137);\r",
+									"});\r",
+									"pm.test(\"Test rate 'rate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('rate');\r",
+									"    pm.expect(jsonData.rate, '\"rate\" must be \"false\"').to.eql(false);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate=false",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": "false"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "137"
+								},
+								{
+									"key": "eventId",
+									"value": "108"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Events rating by Like",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"});\r",
+									"pm.test(\"Test list item response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length, 'List length must be 3').to.eql(3);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test item[0] 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 103').to.eql(106);\r",
+									"});\r",
+									"pm.test(\"Test item[1] 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('id');\r",
+									"    pm.expect(jsonData[1].id, '\"id\" must be 104').to.eql(107);\r",
+									"});\r",
+									"pm.test(\"Test item[2] 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[2]).to.have.property('id');\r",
+									"    pm.expect(jsonData[2].id, '\"id\" must be 105').to.eql(108);\r",
+									"});\r",
+									"pm.test(\"Test item[0] 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('like');\r",
+									"    pm.expect(jsonData[0].like, '\"like\" must be 3').to.eql(3);\r",
+									"});\r",
+									"pm.test(\"Test item[1] 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('like');\r",
+									"    pm.expect(jsonData[1].like, '\"like\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test item[2] 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[2]).to.have.property('like');\r",
+									"    pm.expect(jsonData[2].like, '\"like\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test item[0] 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('dislike');\r",
+									"    pm.expect(jsonData[0].dislike, '\"dislike\" must be 0').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test item[1] 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('dislike');\r",
+									"    pm.expect(jsonData[1].dislike, '\"dislike\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test item[2] 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[2]).to.have.property('dislike');\r",
+									"    pm.expect(jsonData[2].dislike, '\"dislike\" must be 2').to.eql(2);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/rating/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"rating",
+								"events"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Users rating by Like",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"});\r",
+									"pm.test(\"Test list item response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length, 'List length must be 1').to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test item[0] 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 136').to.eql(138);\r",
+									"});\r",
+									"pm.test(\"Test item[0] 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('like');\r",
+									"    pm.expect(jsonData[0].like, '\"like\" must be 6').to.eql(6);\r",
+									"});\r",
+									"pm.test(\"Test item[0] 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('dislike');\r",
+									"    pm.expect(jsonData[0].dislike, '\"dislike\" must be 3').to.eql(3);\r",
+									"});\r",
+									"pm.test(\"Test item[0] 'name' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('name');\r",
+									"    pm.expect(jsonData[0].name, '\"name\" must be \"User4\"').to.eql('User4');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/rating/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"rating",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Public All Events sort by Like",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"});\r",
+									"pm.test(\"Test list item response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length, 'List length must be 10').to.eql(10);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test item[0] 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 103').to.eql(106);\r",
+									"});\r",
+									"pm.test(\"Test item[1] 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('id');\r",
+									"    pm.expect(jsonData[1].id, '\"id\" must be 104').to.eql(107);\r",
+									"});\r",
+									"pm.test(\"Test item[2] 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[2]).to.have.property('id');\r",
+									"    pm.expect(jsonData[2].id, '\"id\" must be 105').to.eql(108);\r",
+									"});\r",
+									"pm.test(\"Test item[0] 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('like');\r",
+									"    pm.expect(jsonData[0].like, '\"like\" must be 3').to.eql(3);\r",
+									"});\r",
+									"pm.test(\"Test item[1] 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('like');\r",
+									"    pm.expect(jsonData[1].like, '\"like\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test item[2] 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[2]).to.have.property('like');\r",
+									"    pm.expect(jsonData[2].like, '\"like\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test item[3] 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[3]).to.have.property('like');\r",
+									"    pm.expect(jsonData[3].like, '\"like\" must be 0').to.eql(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/events?sort=LIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "LIKE"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Public All Events sort by Dislike",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.be.ok;\r",
+									"});\r",
+									"pm.test(\"Test list item response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.length, 'List length must be 10').to.eql(10);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Test item[0] 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('id');\r",
+									"    pm.expect(jsonData[0].id, '\"id\" must be 105').to.eql(108);\r",
+									"});\r",
+									"pm.test(\"Test item[1] 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('id');\r",
+									"    pm.expect(jsonData[1].id, '\"id\" must be 104').to.eql(107);\r",
+									"});\r",
+									"pm.test(\"Test item[2] 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[2]).to.have.property('id');\r",
+									"    pm.expect(jsonData[2].id, '\"id\" must be 103').to.eql(106);\r",
+									"});\r",
+									"pm.test(\"Test item[0] 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[0]).to.have.property('dislike');\r",
+									"    pm.expect(jsonData[0].dislike, '\"dislike\" must be 2').to.eql(2);\r",
+									"});\r",
+									"pm.test(\"Test item[1] 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[1]).to.have.property('dislike');\r",
+									"    pm.expect(jsonData[1].dislike, '\"dislike\" must be 1').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test item[2] 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[2]).to.have.property('dislike');\r",
+									"    pm.expect(jsonData[2].dislike, '\"dislike\" must be 0').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test item[3] 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData[3]).to.have.property('dislike');\r",
+									"    pm.expect(jsonData[3].dislike, '\"dislike\" must be 0').to.eql(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/events?sort=DISLIKE",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"events"
+							],
+							"query": [
+								{
+									"key": "sort",
+									"value": "DISLIKE"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Wrong add",
+			"item": [
+				{
+					"name": "Add user for check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has user create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"UserCheck\",\r\n    \"email\":\"UserCheck@mail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/admin/users",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"admin",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIKE Not Confirmed User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([409]);\r",
+									"});\r",
+									"pm.test(\"Has error create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test error 'error' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('error');\r",
+									"    pm.expect(jsonData.error, '\"error\" must be \"Пользователь должен посетить событие для постановки оценки\"').to.eql('Пользователь должен посетить событие для постановки оценки');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "139"
+								},
+								{
+									"key": "eventId",
+									"value": "106"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LIKE For your Event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([409]);\r",
+									"});\r",
+									"pm.test(\"Has error create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test error 'error' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('error');\r",
+									"    pm.expect(jsonData.error, '\"error\" must be \"Нельзя поставить оценку своему событию\"').to.eql('Нельзя поставить оценку своему событию');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "138"
+								},
+								{
+									"key": "eventId",
+									"value": "106"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add double like",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([409]);\r",
+									"});\r",
+									"pm.test(\"Has error create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test error 'error' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('error');\r",
+									"    pm.expect(jsonData.error, '\"error\" must be \"Поставить оценку повторно нельзя\"').to.eql('Поставить оценку повторно нельзя');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "135"
+								},
+								{
+									"key": "eventId",
+									"value": "106"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Event for check",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 201\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([201]);\r",
+									"});\r",
+									"pm.test(\"Has event create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test event 'id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('id');\r",
+									"    pm.expect(jsonData.id, '\"id\" must be \"109\"').to.eql(109);\r",
+									"});\r",
+									"pm.test(\"Test event 'annotation' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('annotation');\r",
+									"    pm.expect(jsonData.annotation, '\"annotation\" must be \"4 annotation for my event in this tetst\"').to.eql('4 annotation for my event in this tetst');\r",
+									"});\r",
+									"pm.test(\"Test event 'category.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('category');\r",
+									"    pm.expect(jsonData.category).to.have.property('id');\r",
+									"    pm.expect(jsonData.category.id, '\"id\" must be \"1\"').to.eql(1);\r",
+									"});\r",
+									"pm.test(\"Test event 'confirmedRequests' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('confirmedRequests');\r",
+									"    pm.expect(jsonData.confirmedRequests, '\"confirmedRequests\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'description' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('description');\r",
+									"    pm.expect(jsonData.description, '\"description\" must be \"Some big description for my test with 50 char in the row\"').to.eql('Some big description for my test with 50 char in the row');\r",
+									"});\r",
+									"pm.test(\"Test event 'eventDate' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('eventDate');\r",
+									"    pm.expect(jsonData.eventDate, '\"eventDate\" must be \"2024-09-08 15:36:00\"').to.eql('2024-09-08 15:36:00');\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.id' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('id');\r",
+									"    pm.expect(jsonData.initiator.id, '\"initiator\" must be \"135\"').to.eql(135);\r",
+									"});\r",
+									"pm.test(\"Test event 'initiator.name' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('initiator');\r",
+									"    pm.expect(jsonData.initiator).to.have.property('name');\r",
+									"    pm.expect(jsonData.initiator.name, '\"name\" must be \"User1\"').to.eql(\"User1\");\r",
+									"});\r",
+									"pm.test(\"Test event 'location' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('location');\r",
+									"    pm.expect(jsonData.location).to.have.property('lat');\r",
+									"    pm.expect(jsonData.location).to.have.property('lon');\r",
+									"    pm.expect(jsonData.location.lat, '\"lot\" must be \"50.4746\"').to.eql(50.4746);\r",
+									"    pm.expect(jsonData.location.lon, '\"lon\" must be \"-13.0497\"').to.eql(-13.0497);\r",
+									"});\r",
+									"pm.test(\"Test event 'paid' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('paid');\r",
+									"    pm.expect(jsonData.paid, '\"paid\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'participantLimit' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('participantLimit');\r",
+									"    pm.expect(jsonData.participantLimit, '\"participantLimit\" must be \"666\"').to.eql(666);\r",
+									"});\r",
+									"pm.test(\"Test event 'publishedOn' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('publishedOn');\r",
+									"    pm.expect(jsonData.publishedOn, '\"publishedOn\" must be \"null\"').to.eql(null);\r",
+									"});\r",
+									"pm.test(\"Test event 'requestModeration' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('requestModeration');\r",
+									"    pm.expect(jsonData.requestModeration, '\"requestModeration\" must be \"false\"').to.eql(false);\r",
+									"});\r",
+									"pm.test(\"Test event 'state' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('state');\r",
+									"    pm.expect(jsonData.state, '\"state\" must be \"PENDING\"').to.eql('PENDING');\r",
+									"});\r",
+									"pm.test(\"Test event 'title' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('title');\r",
+									"    pm.expect(jsonData.title, '\"title\" must be \"Best name for 4 event\"').to.eql('Best name for 4 event');\r",
+									"});\r",
+									"pm.test(\"Test event 'views' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('views');\r",
+									"    pm.expect(jsonData.views, '\"views\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'like' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('like');\r",
+									"    pm.expect(jsonData.like, '\"like\" must be \"0\"').to.eql(0);\r",
+									"});\r",
+									"pm.test(\"Test event 'dislike' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('dislike');\r",
+									"    pm.expect(jsonData.dislike, '\"dislike\" must be \"0\"').to.eql(0);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n    {\r\n        \"annotation\": \"4 annotation for my event in this tetst\",\r\n        \"category\":1,\r\n        \"confirmedRequests\": 0,\r\n        \"description\": \"Some big description for my test with 50 char in the row\",\r\n        \"eventDate\": \"2024-09-08 15:36:00\",\r\n        \"location\": {\r\n            \"lat\": 50.4746,\r\n            \"lon\": -13.0497\r\n        },\r\n        \"paid\": false,\r\n        \"participantLimit\": 666,\r\n        \"requestModeration\": false,\r\n        \"title\": \"Best name for 4 event\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events"
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "135"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add like for PENDING Event",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 409\", function () {\r",
+									"    pm.expect(pm.response.code).to.be.oneOf([409]);\r",
+									"});\r",
+									"pm.test(\"Has error create response\", function () {\r",
+									"    pm.response.to.be.withBody;\r",
+									"    pm.response.to.be.json;\r",
+									"});\r",
+									"pm.test(\"Test error 'error' field\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData).to.have.property('error');\r",
+									"    pm.expect(jsonData.error, '\"error\" must be \"Событие должно быть опубликовано\"').to.eql('Событие должно быть опубликовано');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/users/:userId/events/:eventId/rate?rate=true",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"users",
+								":userId",
+								"events",
+								":eventId",
+								"rate"
+							],
+							"query": [
+								{
+									"key": "rate",
+									"value": "true"
+								}
+							],
+							"variable": [
+								{
+									"key": "userId",
+									"value": "139"
+								},
+								{
+									"key": "eventId",
+									"value": "109"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}

@@ -16,7 +16,9 @@ import ru.practicum.ewm_service.requests.repository.RequestRepository;
 import ru.practicum.ewm_service.statclient.Client;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -48,11 +50,16 @@ public class CompilationsPublicServiceImpl implements CompilationsPublicService 
     }
 
     private List<EventDtoShort> getDto(List<Event> events) {
-        List<EventDtoShort> eventDtoShort = events.stream()
-                .map(EventMapper::toEventDtoShort)
+        List<Long> eventsId = events.stream().map(Event::getId).collect(Collectors.toList());
+        Map<Long, Long> requests = new HashMap<>();
+        Map<Long, Long> views = new HashMap<>();
+        requestRepository.findConfirmedRequests(eventsId)
+                .forEach(stat -> requests.put(stat.getEventId(), stat.getConfirmedRequests()));
+        statClient.getViews(eventsId)
+                .forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
+        return events.stream().map(event -> EventMapper.toEventDtoShort(event,
+                        requests.getOrDefault(event.getId(), 0L),
+                        views.getOrDefault(event.getId(), 0L)))
                 .collect(Collectors.toList());
-        eventDtoShort.forEach(e -> e.setConfirmedRequests(requestRepository.findConfirmedRequests(e.getId())));
-        eventDtoShort.forEach(e -> e.setViews(statClient.getView(e.getId())));
-        return eventDtoShort;
     }
 }

@@ -2,6 +2,7 @@ package ru.practicum.ewm_service.events.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.practicum.ewm_service.events.dto.EventDto;
@@ -10,6 +11,7 @@ import ru.practicum.ewm_service.events.model.Event;
 import ru.practicum.ewm_service.events.repository.EventRepository;
 import ru.practicum.ewm_service.exceptions.exception.BadRequestException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
+import ru.practicum.ewm_service.rating.repository.RateRepository;
 import ru.practicum.ewm_service.requests.repository.RequestRepository;
 import ru.practicum.ewm_service.statclient.Client;
 import ru.practicum.ewm_service.utils.Sorts;
@@ -17,10 +19,11 @@ import ru.practicum.ewm_service.utils.State;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
+
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 
 @Service
 @RequiredArgsConstructor
@@ -28,42 +31,65 @@ public class EventPublicServiceImpl implements EventPublicService {
     private final EventRepository eventRepository;
     private final Client statClient;
     private final RequestRepository requestRepository;
+    private final RateRepository rateRepository;
 
     @Override
     @Transactional(readOnly = true)
     public Collection<EventDto> getEvents(String text, List<Long> categories, Boolean paid, LocalDateTime rangeStart,
-                                          LocalDateTime rangeEnd, Boolean onlyAvailable, Sorts sorts, int from,
+                                          LocalDateTime rangeEnd, Boolean onlyAvailable, Sorts sort, int from,
                                           int size, HttpServletRequest request) {
         if (rangeEnd != null && rangeStart != null && rangeStart.isAfter(rangeEnd)) {
             throw new BadRequestException("Недопустимый временной промежуток.");
         }
-        PageRequest page = PageRequest.of(from / size, size);
-        List<EventDto> answer;
+        Pageable page = PageRequest.of(from / size, size);
+        List<Event> events;
         if (rangeEnd == null && rangeStart == null) {
-            answer = eventRepository.findAllByPublicNoDate(text, categories, paid, LocalDateTime.now(), page).stream()
-                    .map(EventMapper::toEventDto).collect(Collectors.toList());
+            events = eventRepository.findAllByPublicNoDate(text, categories, paid, LocalDateTime.now());
         } else {
-            answer = eventRepository.findAllByPublic(text, categories, paid, rangeStart, rangeEnd, page).stream()
-                    .map(EventMapper::toEventDto).collect(Collectors.toList());
+            events = eventRepository.findAllByPublic(text, categories, paid, rangeStart, rangeEnd);
         }
-        answer.forEach(e ->
-                e.setConfirmedRequests(requestRepository.findConfirmedRequests(e.getId())));
-        answer.forEach(e -> e.setViews(statClient.getView(e.getId())));
-        if (sorts != null) {
-            switch (sorts) {
-                case EVENT_DATE:
-                    answer.sort(Comparator.comparing(EventDto::getEventDate));
-                    break;
-                case VIEWS:
-                    answer.sort(Comparator.comparing(EventDto::getViews));
-                    break;
-            }
-        }
+        List<Long> eventsId = events.stream().map(Event::getId).collect(Collectors.toList());
+        Map<Long, Long> requests = new HashMap<>();
+        Map<Long, Long> views = new HashMap<>();
+        Map<Long, Long> likes = new HashMap<>();
+        Map<Long, Long> dislikes = new HashMap<>();
+        requestRepository.findConfirmedRequests(eventsId)
+                .forEach(stat -> requests.put(stat.getEventId(), stat.getConfirmedRequests()));
+        statClient.getViews(eventsId)
+                .forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
+        rateRepository.findRate(eventsId, TRUE).forEach(like -> likes.put(like.getEvent(), like.getRate()));
+        rateRepository.findRate(eventsId, FALSE).forEach(dislike -> dislikes.put(dislike.getEvent(), dislike.getRate()));
+        List<EventDto> eventDto = events.stream().map(event -> EventMapper.toEventDto(event,
+                        requests.getOrDefault(event.getId(), 0L),
+                        views.getOrDefault(event.getId(), 0L),
+                        likes.getOrDefault(event.getId(), 0L),
+                        dislikes.getOrDefault(event.getId(), 0L)))
+                .collect(Collectors.toList());
         if (onlyAvailable) {
-            return answer.stream()
+            eventDto = eventDto.stream()
                     .filter(e -> e.getParticipantLimit() > e.getConfirmedRequests() || e.getParticipantLimit() == 0)
                     .collect(Collectors.toList());
         }
+        if (sort != null) {
+            switch (sort) {
+                case EVENT_DATE:
+                    eventDto.sort(Comparator.comparing(EventDto::getEventDate));
+                    break;
+                case VIEWS:
+                    eventDto.sort(Comparator.comparingLong(EventDto::getViews));
+                    break;
+                case LIKE:
+                    eventDto.sort(Comparator.comparingLong(EventDto::getLike));
+                    break;
+                case DISLIKE:
+                    eventDto.sort(Comparator.comparingLong(EventDto::getDislike));
+                    break;
+            }
+        }
+        Collections.reverse(eventDto);
+        int start = (int) page.getOffset();
+        int end = Math.min((start + page.getPageSize()), eventDto.size());
+        List<EventDto> answer = eventDto.subList(start, end);
         statClient.createStat(request);
         return answer;
     }
@@ -76,10 +102,11 @@ public class EventPublicServiceImpl implements EventPublicService {
         if (!event.getState().equals(State.PUBLISHED)) {
             throw new ObjectNotFoundException("Событие должно быть опубликовано");
         }
-        EventDto eventDto = EventMapper.toEventDto(event);
-        eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
-        eventDto.setViews(statClient.getView(eventDto.getId()));
         statClient.createStat(request);
-        return eventDto;
+        return EventMapper.toEventDto(event,
+                requestRepository.findConfirmedRequest(event.getId()),
+                statClient.getView(event.getId()),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE));
     }
 }

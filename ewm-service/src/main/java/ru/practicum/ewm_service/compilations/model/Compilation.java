@@ -1,17 +1,16 @@
 package ru.practicum.ewm_service.compilations.model;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import ru.practicum.ewm_service.events.model.Event;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Objects;
 
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "compilations")
@@ -32,4 +31,17 @@ public class Compilation {
     private Boolean pinned;
     @Column(nullable = false, unique = true)
     private String title;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Compilation that = (Compilation) o;
+        return id.equals(that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

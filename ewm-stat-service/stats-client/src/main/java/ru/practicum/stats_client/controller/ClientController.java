@@ -42,4 +42,12 @@ public class ClientController {
     public ResponseEntity<Object> getView(@PathVariable long eventId) {
         return statClient.getView(eventId);
     }
+
+    @GetMapping("/views")
+    public ResponseEntity<Object> getViews(@RequestParam List<String> eventsId) {
+        System.out.println("----------------------------------------------------------------------------------------");
+        System.out.println(eventsId);
+        System.out.println("----------------------------------------------------------------------------------------");
+        return statClient.getViews(eventsId);
+    }
 }

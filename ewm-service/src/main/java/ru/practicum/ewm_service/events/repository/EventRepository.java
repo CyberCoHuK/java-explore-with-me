@@ -10,7 +10,6 @@ import ru.practicum.ewm_service.user.model.User;
 import ru.practicum.ewm_service.utils.State;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.List;
 
 @Repository
@@ -31,7 +30,7 @@ public interface EventRepository extends JpaRepository<Event, Long> {
                                    @Param("rangeStart") LocalDateTime rangeStart,
                                    @Param("rangeEnd") LocalDateTime rangeEnd, PageRequest page);
 
-    Collection<Event> findAllByInitiator(User user, PageRequest page);
+    List<Event> findAllByInitiator(User user, PageRequest page);
 
     @Query("SELECT e FROM Event e " +
             "WHERE e.state = 'PUBLISHED' " +
@@ -39,12 +38,12 @@ public interface EventRepository extends JpaRepository<Event, Long> {
             "AND (COALESCE(:categories, NULL) IS NULL OR e.category.id IN :categories) " +
             "AND (COALESCE(:paid, NULL) IS NULL OR e.paid = :paid) " +
             "AND (COALESCE(:rangeStart, NULL) IS NULL OR e.eventDate >= :rangeStart) " +
-            "AND (COALESCE(:rangeEnd, NULL) IS NULL OR e.eventDate <= :rangeEnd) ")
+            "AND (COALESCE(:rangeEnd, NULL) IS NULL OR e.eventDate <= :rangeEnd)")
     List<Event> findAllByPublic(@Param("text") String text,
                                 @Param("categories") List<Long> categories,
                                 @Param("paid") Boolean paid,
                                 @Param("rangeStart") LocalDateTime rangeStart,
-                                @Param("rangeEnd") LocalDateTime rangeEnd, PageRequest page);
+                                @Param("rangeEnd") LocalDateTime rangeEnd);
 
     @Query("SELECT e FROM Event e " +
             "WHERE e.state = 'PUBLISHED' " +
@@ -55,5 +54,5 @@ public interface EventRepository extends JpaRepository<Event, Long> {
     List<Event> findAllByPublicNoDate(@Param("text") String text,
                                       @Param("categories") List<Long> categories,
                                       @Param("paid") Boolean paid,
-                                      @Param("now") LocalDateTime now, PageRequest page);
+                                      @Param("now") LocalDateTime now);
 }

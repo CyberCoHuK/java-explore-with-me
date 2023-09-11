@@ -10,9 +10,11 @@ import ru.practicum.ewm_service.utils.State;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Data
+@Getter
+@Setter
 @Builder
 @Entity
 @Table(name = "events")
@@ -20,7 +22,6 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Event {
     @Id
-    @EqualsAndHashCode.Include
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
     String annotation;
@@ -51,4 +52,17 @@ public class Event {
     @Enumerated(EnumType.STRING)
     State state;
     String title;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Event event = (Event) o;
+        return id.equals(event.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

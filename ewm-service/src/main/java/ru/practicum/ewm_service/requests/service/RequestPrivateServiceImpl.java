@@ -56,7 +56,7 @@ public class RequestPrivateServiceImpl implements RequestPrivateService {
         if (requestRepository.existsByRequesterAndEvent(user, event)) {
             throw new ConflictException("Невозможно отправить повторный запрос");
         }
-        Long confirmedRequests = requestRepository.findConfirmedRequests(eventId);
+        Long confirmedRequests = requestRepository.findConfirmedRequest(eventId);
         if (event.getParticipantLimit() > 0 && Objects.equals(event.getParticipantLimit(), confirmedRequests)) {
             throw new ConflictException("У события достигнут лимит запросов на участие.");
         }

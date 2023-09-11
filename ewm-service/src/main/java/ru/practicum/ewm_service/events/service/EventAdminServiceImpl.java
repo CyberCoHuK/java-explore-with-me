@@ -16,16 +16,17 @@ import ru.practicum.ewm_service.events.repository.LocationRepository;
 import ru.practicum.ewm_service.exceptions.exception.BadRequestException;
 import ru.practicum.ewm_service.exceptions.exception.ConflictException;
 import ru.practicum.ewm_service.exceptions.exception.ObjectNotFoundException;
+import ru.practicum.ewm_service.rating.repository.RateRepository;
 import ru.practicum.ewm_service.requests.repository.RequestRepository;
 import ru.practicum.ewm_service.statclient.Client;
 import ru.practicum.ewm_service.utils.State;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
 import static ru.practicum.ewm_service.utils.State.*;
 
 @Service
@@ -35,6 +36,7 @@ public class EventAdminServiceImpl implements EventAdminService {
     private final CategoryRepository categoryRepository;
     private final LocationRepository locationRepository;
     private final RequestRepository requestRepository;
+    private final RateRepository rateRepository;
     private final Client statClient;
 
     @Override
@@ -45,14 +47,24 @@ public class EventAdminServiceImpl implements EventAdminService {
             throw new IllegalArgumentException("Недопустимый временной промежуток.");
         }
         PageRequest page = PageRequest.of(from / size, size);
-        List<EventDto> answer = eventRepository.findAllAdminByData(users, states, categories, rangeStart, rangeEnd, page)
-                .stream()
-                .map(EventMapper::toEventDto)
+        List<Event> answer = eventRepository.findAllAdminByData(users, states, categories, rangeStart, rangeEnd, page);
+        List<Long> eventsId = answer.stream().map(Event::getId).collect(Collectors.toList());
+        Map<Long, Long> requests = new HashMap<>();
+        Map<Long, Long> views = new HashMap<>();
+        Map<Long, Long> likes = new HashMap<>();
+        Map<Long, Long> dislikes = new HashMap<>();
+        requestRepository.findConfirmedRequests(eventsId)
+                .forEach(stat -> requests.put(stat.getEventId(), stat.getConfirmedRequests()));
+        statClient.getViews(eventsId)
+                .forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
+        rateRepository.findRate(eventsId, TRUE).forEach(like -> likes.put(like.getEvent(), like.getRate()));
+        rateRepository.findRate(eventsId, FALSE).forEach(dislike -> dislikes.put(dislike.getEvent(), dislike.getRate()));
+        return answer.stream().map(event -> EventMapper.toEventDto(event,
+                requests.getOrDefault(event.getId(), 0L),
+                views.getOrDefault(event.getId(), 0L),
+                likes.getOrDefault(event.getId(), 0L),
+                dislikes.getOrDefault(event.getId(), 0L)))
                 .collect(Collectors.toList());
-        answer.forEach(e ->
-                e.setConfirmedRequests(requestRepository.findConfirmedRequests(e.getId())));
-        answer.forEach(e -> e.setViews(statClient.getView(e.getId())));
-        return answer;
     }
 
     @Override
@@ -98,9 +110,9 @@ public class EventAdminServiceImpl implements EventAdminService {
         Optional.ofNullable(updateEvent.getRequestModeration()).ifPresent(event::setRequestModeration);
         Optional.ofNullable(updateEvent.getTitle()).ifPresent(event::setTitle);
         eventRepository.save(event);
-        EventDto eventDto = EventMapper.toEventDto(event);
-        eventDto.setConfirmedRequests(requestRepository.findConfirmedRequests(eventDto.getId()));
-        eventDto.setViews(statClient.getView(eventDto.getId()));
-        return eventDto;
+        return EventMapper.toEventDto(event, requestRepository.findConfirmedRequest(event.getId()),
+                statClient.getView(event.getId()), rateRepository.countByEventIdAndRateEquals(event.getId(), TRUE),
+                rateRepository.countByEventIdAndRateEquals(event.getId(), FALSE)
+        );
     }
 }
