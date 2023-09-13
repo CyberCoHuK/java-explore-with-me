@@ -37,8 +37,8 @@
 5. Приложение будет запущено на порту 8080. Вы можете открыть свой веб-браузер и перейти по адресу `http://localhost:8080`, чтобы получить доступ к приложению ExploreWithMe.
 
 ## Спецификация API
-1. Спецификация ewm-stat-service - 
-2. Спецификация ewm-service - 
+1. Спецификация [ewm-stat-service](https://editor.swagger.io/?url=https://raw.githubusercontent.com/CyberCoHuK/java-explore-with-me/main/ewm-stats-service-spec.json)
+2. Спецификация [ewm-service](https://editor.swagger.io/?url=https://raw.githubusercontent.com/CyberCoHuK/java-explore-with-me/main/ewm-main-service-spec.json) 
 ## Private Endpoint for feature:
 
 PATCH: http://localhost:8080/users/{userId}/events/{eventId}/rate/{rateId}
