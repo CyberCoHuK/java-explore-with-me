@@ -12,6 +12,9 @@
 2. Ожидание публикации. В статус ожидания публикации событие переходит сразу после создания.
 3. Публикация. В это состояние событие переводит администратор.
 4. Отмена публикации. В это состояние событие переходит в двух случаях. Первый — если администратор решил, что его нельзя публиковать. Второй — когда инициатор события решил отменить его на этапе ожидания публикации.
+## Спецификация API
+1. Спецификация [ewm-stat-service](https://editor.swagger.io/?url=https://raw.githubusercontent.com/CyberCoHuK/java-explore-with-me/main/ewm-stats-service-spec.json)
+2. Спецификация [ewm-service](https://editor.swagger.io/?url=https://raw.githubusercontent.com/CyberCoHuK/java-explore-with-me/main/ewm-main-service-spec.json) 
 ## Схема БД
 #### DB Diagram ewm-service
 ![DB Diagram ewm-service](https://github.com/CyberCoHuK/java-explore-with-me/assets/108213849/3483f7fe-7e21-4d21-a960-0558f7a0767d)
@@ -35,7 +38,3 @@
    $  docker-compose up
    ```
 5. Приложение будет запущено на порту 8080. Вы можете открыть свой веб-браузер и перейти по адресу `http://localhost:8080`, чтобы получить доступ к приложению ExploreWithMe.
-
-## Спецификация API
-1. Спецификация [ewm-stat-service](https://editor.swagger.io/?url=https://raw.githubusercontent.com/CyberCoHuK/java-explore-with-me/main/ewm-stats-service-spec.json)
-2. Спецификация [ewm-service](https://editor.swagger.io/?url=https://raw.githubusercontent.com/CyberCoHuK/java-explore-with-me/main/ewm-main-service-spec.json) 
