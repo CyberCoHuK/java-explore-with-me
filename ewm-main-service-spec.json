@@ -1993,6 +1993,49 @@
           "Private: Запросы на участие"
         ]
       }
+    },
+    "/users/{userId}/events/{eventId}/rate": {
+      "post": {
+        "operationId": "cancelRequest",
+        "parameters": [
+          {
+            "description": "id текущего пользователя",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "description": "id оцениваемого события",
+            "in": "path",
+            "name": "eventId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RateDto"
+                }
+              }
+            },
+            "description": "Оценка поставлена"
+          }
+        },
+        "summary": "Добавление оценки событию от текущего пользователя",
+        "tags": [
+          "Private: Оценки"
+        ]
+      }
     }
   },
   "components": {
@@ -2854,7 +2897,7 @@
             "format": "int64",
             "example": 1
           },
-            "rate": {
+          "rate": {
             "type": "boolean",
             "description": "Понравилось не понравилось событие",
             "example": true
@@ -2871,13 +2914,13 @@
         ],
         "type": "object",
         "properties": {
-            "id": {
+          "id": {
             "type": "integer",
             "description": "Индентификатор",
             "format": "int64",
             "example": 1
           },
-            "user": {
+          "user": {
             "type": "integer",
             "description": "Индентификатор пользователя",
             "format": "int64",
@@ -2889,7 +2932,7 @@
             "format": "int64",
             "example": 1
           },
-            "rate": {
+          "rate": {
             "type": "boolean",
             "description": "Понравилось или не понравилось событие",
             "example": true

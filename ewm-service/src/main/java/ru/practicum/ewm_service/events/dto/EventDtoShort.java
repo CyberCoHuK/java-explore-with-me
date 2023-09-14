@@ -22,4 +22,6 @@ public class EventDtoShort {
     Boolean paid;
     String title;
     Long views;
+    Long like;
+    Long dislike;
 }

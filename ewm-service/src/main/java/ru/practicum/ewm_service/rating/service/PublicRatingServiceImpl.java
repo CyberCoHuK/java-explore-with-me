@@ -5,7 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.practicum.ewm_service.events.dto.EventDtoRate;
+import ru.practicum.ewm_service.events.dto.EventDtoShort;
 import ru.practicum.ewm_service.events.mapper.EventMapper;
 import ru.practicum.ewm_service.rating.model.Rate;
 import ru.practicum.ewm_service.rating.repository.RateRepository;
@@ -15,7 +15,9 @@ import ru.practicum.ewm_service.user.dto.UserDtoRate;
 import ru.practicum.ewm_service.user.mapper.UserMapper;
 
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import static java.lang.Boolean.FALSE;
@@ -31,18 +33,22 @@ public class PublicRatingServiceImpl implements PublicRatingService {
 
 
     @Override
-    public Collection<EventDtoRate> getEventsRating(Boolean sort, int size, int from) {
+    public Collection<EventDtoShort> getEventsRating(Boolean sort, int size, int from) {
         PageRequest page = PageRequest.of(from / size, size);
         Page<Rate> rateList = rateRepository.findAll(page);
-        List<EventDtoRate> events = rateList.stream()
-                .map(Rate::getEvent)
-                .map(EventMapper::eventDtoRate)
+        List<Long> eventsId = rateList.stream().map(rate -> rate.getEvent().getId()).collect(Collectors.toList());
+        Map<Long, Long> requests = new HashMap<>();
+        Map<Long, Long> views = new HashMap<>();
+        requestRepository.findConfirmedRequests(eventsId)
+                .forEach(stat -> requests.put(stat.getEventId(), stat.getConfirmedRequests()));
+        statClient.getViews(eventsId)
+                .forEach(view -> views.put(Long.parseLong(view.getEventUri().split("/", 0)[2]), view.getView()));
+        List<EventDtoShort> events = rateList.stream().map(rate -> EventMapper.toEventDtoShort(rate.getEvent(),
+                        requests.getOrDefault(rate.getEvent().getId(), 0L),
+                        views.getOrDefault(rate.getEvent().getId(), 0L)))
                 .distinct()
                 .collect(Collectors.toList());
-        events.forEach(e ->
-                e.setConfirmedRequests(requestRepository.findConfirmedRequest(e.getId())));
-        events.forEach(e -> e.setViews(statClient.getView(e.getId())));
-        for (EventDtoRate event : events) {
+        for (EventDtoShort event : events) {
             Long like = rateList.stream()
                     .filter(rate -> rate.getRate().equals(TRUE))
                     .filter(rate -> rate.getEvent().getId().equals(event.getId()))
