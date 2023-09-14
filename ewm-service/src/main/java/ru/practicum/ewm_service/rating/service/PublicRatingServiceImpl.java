@@ -46,6 +46,7 @@ public class PublicRatingServiceImpl implements PublicRatingService {
         List<EventDtoShort> events = rateList.stream().map(rate -> EventMapper.toEventDtoShort(rate.getEvent(),
                         requests.getOrDefault(rate.getEvent().getId(), 0L),
                         views.getOrDefault(rate.getEvent().getId(), 0L)))
+                .distinct()
                 .collect(Collectors.toList());
         for (EventDtoShort event : events) {
             Long like = rateList.stream()
