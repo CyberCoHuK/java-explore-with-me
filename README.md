@@ -39,21 +39,3 @@
 ## Спецификация API
 1. Спецификация [ewm-stat-service](https://editor.swagger.io/?url=https://raw.githubusercontent.com/CyberCoHuK/java-explore-with-me/main/ewm-stats-service-spec.json)
 2. Спецификация [ewm-service](https://editor.swagger.io/?url=https://raw.githubusercontent.com/CyberCoHuK/java-explore-with-me/main/ewm-main-service-spec.json) 
-## Private Endpoint for feature:
-
-PATCH: http://localhost:8080/users/{userId}/events/{eventId}/rate/{rateId}
-Изменение оценки события
-
-POST: http://localhost:8080/users/{userId}/events/{eventId}/rate
-Создание оценки события
-
-DELETE: http://localhost:8080/users/{userId}/events/{eventId}/rate/{rateId}
-Удаление оценки события
-
-## Public Endpoint for feature:
-
-GET: http://localhost:8080//rating/users
-Рейтинг пользователей (только с оценками)
-
-GET: http://localhost:8080//rating/events
-Рейтинг событий (только с оценками)
