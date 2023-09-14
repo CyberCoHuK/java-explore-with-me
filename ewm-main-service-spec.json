@@ -2601,19 +2601,19 @@
             "type": "integer",
             "description": "Количество просмотрев события",
             "format": "int64",
-            "example": 999
+            "example": 5
           },
           "like": {
             "type": "integer",
             "description": "Количество лайков события",
             "format": "int64",
-            "example": 999
+            "example": 2
           },
           "dislike": {
             "type": "integer",
             "description": "Количество дизлайков события",
             "format": "int64",
-            "example": 999
+            "example": 1
           }
         }
       },
@@ -2717,19 +2717,19 @@
             "type": "integer",
             "description": "Количество просмотрев события",
             "format": "int64",
-            "example": 999
+            "example": 5
           },
           "like": {
             "type": "integer",
             "description": "Количество лайков события",
             "format": "int64",
-            "example": 999
+            "example": 2
           },
           "dislike": {
             "type": "integer",
             "description": "Количество дизлайков события",
             "format": "int64",
-            "example": 999
+            "example": 1
           }
         },
         "description": "Краткая информация о событии",
@@ -2749,7 +2749,9 @@
             },
             "paid": true,
             "title": "Знаменитое шоу 'Летающая кукуруза'",
-            "views": 999
+            "views": 999,
+            "like": 5,
+            "dislike": 2
           },
           {
             "annotation": "За почти три десятилетия группа 'Java Core' закрепились на сцене как группа, объединяющая поколения.",
@@ -2766,7 +2768,9 @@
             },
             "paid": true,
             "title": "Концерт рок-группы 'Java Core'",
-            "views": 991
+            "views": 991,
+            "like": 800,
+            "dislike": 0
           }
         ]
       },
