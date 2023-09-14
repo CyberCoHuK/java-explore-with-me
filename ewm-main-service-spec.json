@@ -47,6 +47,14 @@
     {
       "description": "API для работы с подборками событий",
       "name": "Admin: Подборки событий"
+    },
+    {
+      "description": "Приватный API для работы с оценками",
+      "name": "Private: Оценки"
+    },
+    {
+      "description": "Публичный API для работы с оценками",
+      "name": "Public: Оценки"
     }
   ],
   "paths": {
@@ -1143,7 +1151,9 @@
               "type": "string",
               "enum": [
                 "EVENT_DATE",
-                "VIEWS"
+                "VIEWS",
+                "LIKE",
+                "DISLIKE"
               ]
             }
           },
