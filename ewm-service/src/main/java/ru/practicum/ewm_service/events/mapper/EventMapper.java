@@ -3,7 +3,6 @@ package ru.practicum.ewm_service.events.mapper;
 import ru.practicum.ewm_service.categories.mapper.CategoriesMapper;
 import ru.practicum.ewm_service.categories.model.Category;
 import ru.practicum.ewm_service.events.dto.EventDto;
-import ru.practicum.ewm_service.events.dto.EventDtoRate;
 import ru.practicum.ewm_service.events.dto.EventDtoShort;
 import ru.practicum.ewm_service.events.dto.NewEventDto;
 import ru.practicum.ewm_service.events.model.Event;
@@ -67,18 +66,6 @@ public class EventMapper {
                 .title(event.getTitle())
                 .confirmedRequests(confirmedRequest)
                 .views(view)
-                .build();
-    }
-
-    public static EventDtoRate eventDtoRate(Event event) {
-        return EventDtoRate.builder()
-                .annotation(event.getAnnotation())
-                .category(CategoriesMapper.toCategoryDto(event.getCategory()))
-                .eventDate(event.getEventDate())
-                .id(event.getId())
-                .initiator(UserMapper.toUserDtoShort(event.getInitiator()))
-                .paid(event.getPaid())
-                .title(event.getTitle())
                 .build();
     }
 }

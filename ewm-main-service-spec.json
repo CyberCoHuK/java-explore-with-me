@@ -13,20 +13,16 @@
   ],
   "tags": [
     {
-      "description": "Публичный API для работы с подборками событий",
-      "name": "Public: Подборки событий"
-    },
-    {
       "description": "API для работы с категориями",
       "name": "Admin: Категории"
     },
     {
-      "description": "Закрытый API для работы с событиями",
-      "name": "Private: События"
-    },
-    {
       "description": "Публичный API для работы с категориями",
       "name": "Public: Категории"
+    },
+    {
+      "description": "Закрытый API для работы с событиями",
+      "name": "Private: События"
     },
     {
       "description": "API для работы с событиями",
@@ -45,8 +41,20 @@
       "name": "Admin: Пользователи"
     },
     {
+      "description": "Публичный API для работы с подборками событий",
+      "name": "Public: Подборки событий"
+    },
+    {
       "description": "API для работы с подборками событий",
       "name": "Admin: Подборки событий"
+    },
+    {
+      "description": "Приватный API для работы с оценками",
+      "name": "Private: Оценки"
+    },
+    {
+      "description": "Публичный API для работы с оценками",
+      "name": "Public: Оценки"
     }
   ],
   "paths": {
@@ -1143,7 +1151,9 @@
               "type": "string",
               "enum": [
                 "EVENT_DATE",
-                "VIEWS"
+                "VIEWS",
+                "LIKE",
+                "DISLIKE"
               ]
             }
           },
@@ -1981,6 +1991,49 @@
         "summary": "Отмена своего запроса на участие в событии",
         "tags": [
           "Private: Запросы на участие"
+        ]
+      }
+    },
+    "/users/{userId}/events/{eventId}/rate": {
+      "post": {
+        "operationId": "cancelRequest",
+        "parameters": [
+          {
+            "description": "id текущего пользователя",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "description": "id оцениваемого события",
+            "in": "path",
+            "name": "eventId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RateDto"
+                }
+              }
+            },
+            "description": "Оценка поставлена"
+          }
+        },
+        "summary": "Добавление оценки событию от текущего пользователя",
+        "tags": [
+          "Private: Оценки"
         ]
       }
     }
@@ -2830,6 +2883,62 @@
           }
         },
         "description": "Пользователь (краткая информация)"
+      },
+      "RateShortDto": {
+        "required": [
+          "event",
+          "rate"
+        ],
+        "type": "object",
+        "properties": {
+          "event": {
+            "type": "integer",
+            "description": "Индентификатор пользователя",
+            "format": "int64",
+            "example": 1
+          },
+          "rate": {
+            "type": "boolean",
+            "description": "Понравилось не понравилось событие",
+            "example": true
+          }
+        },
+        "description": "Краткая информация об оценке"
+      },
+      "RateDto": {
+        "required": [
+          "id",
+          "user",
+          "event",
+          "rate"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Индентификатор",
+            "format": "int64",
+            "example": 1
+          },
+          "user": {
+            "type": "integer",
+            "description": "Индентификатор пользователя",
+            "format": "int64",
+            "example": 1
+          },
+          "event": {
+            "type": "integer",
+            "description": "Индентификатор события",
+            "format": "int64",
+            "example": 1
+          },
+          "rate": {
+            "type": "boolean",
+            "description": "Понравилось или не понравилось событие",
+            "example": true
+          }
+        },
+        "description": "Краткая информация об оценке"
       }
     }
   }
