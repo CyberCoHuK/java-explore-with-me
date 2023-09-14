@@ -1996,7 +1996,8 @@
     },
     "/users/{userId}/events/{eventId}/rate": {
       "post": {
-        "operationId": "cancelRequest",
+        "description": "Обратите внимание:\n- поставить оценку можно только опубликованным событиям (Ожидается код ошибки 400)\n- нельзя поставить оценку своему событию (Ожидается код ошибки 400)\n- пользователь должен посетить событие (запрос на участие в событие в статусе CONFIRMED) (Ожидается код ошибки 400)\n",
+        "operationId": "createRate",
         "parameters": [
           {
             "description": "id текущего пользователя",
@@ -2020,7 +2021,7 @@
           }
         ],
         "responses": {
-          "200": {
+          "201": {
             "content": {
               "application/json": {
                 "schema": {
@@ -2029,11 +2030,276 @@
               }
             },
             "description": "Оценка поставлена"
+          },
+          "400": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "BAD_REQUEST",
+                  "reason": "Incorrectly made request.",
+                  "message": "Event status must be published",
+                  "timestamp": "2022-09-07 09:10:50"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Запрос составлен некорректно"
           }
         },
         "summary": "Добавление оценки событию от текущего пользователя",
         "tags": [
           "Private: Оценки"
+        ]
+      }
+    },
+    "/users/{userId}/events/{eventId}/rate/{rateId}": {
+      "patch": {
+        "operationId": "patchRate",
+        "parameters": [
+          {
+            "description": "id текущего пользователя",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "description": "id оцениваемого события",
+            "in": "path",
+            "name": "eventId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "description": "id изменяемой оценки",
+            "in": "path",
+            "name": "rateId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RateDto"
+                }
+              }
+            },
+            "description": "Оценка изменина"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "NOT_FOUND",
+                  "reason": "The required object was not found.",
+                  "message": "Rate with id=2727 was not found",
+                  "timestamp": "2022-09-07 09:10:50"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Запрос не найден или недоступен"
+          }
+        },
+        "summary": "Изменение оценки событию от текущего пользователя",
+        "tags": [
+          "Private: Оценки"
+        ]
+      },
+      "delete": {
+        "operationId": "deleteRate",
+        "parameters": [
+          {
+            "description": "id текущего пользователя",
+            "in": "path",
+            "name": "userId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "description": "id оцениваемого события",
+            "in": "path",
+            "name": "eventId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          },
+          {
+            "description": "id изменяемой оценки",
+            "in": "path",
+            "name": "rateId",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Оценка удалена"
+          },
+          "404": {
+            "content": {
+              "application/json": {
+                "example": {
+                  "status": "NOT_FOUND",
+                  "reason": "The required object was not found.",
+                  "message": "Rate with id=2727 was not found",
+                  "timestamp": "2022-09-07 09:10:50"
+                },
+                "schema": {
+                  "$ref": "#/components/schemas/ApiError"
+                }
+              }
+            },
+            "description": "Запрос не найден или недоступен"
+          }
+        },
+        "summary": "Удаление оценки событию от текущего пользователя",
+        "tags": [
+          "Private: Оценки"
+        ]
+      }
+    },
+    "/rating/users": {
+      "get": {
+        "description": "Рейтинг состоит только из пользователей получивших оценки",
+        "operationId": "getUsersRating",
+        "parameters": [
+          {
+            "description": "сортировка по лайкам - true, дизлайкам - false",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "description": "количество пользователей, которые нужно пропустить для формирования текущего набора",
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "description": "количество пользователей в наборе",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/UserDtoRate"
+                  }
+                }
+              }
+            },
+            "description": "Рейтинг пользователей получен"
+          }
+        },
+        "summary": "Получение рейтинга пользователей",
+        "tags": [
+          "Public: Оценки"
+        ]
+      }
+    },
+    "/rating/events": {
+      "get": {
+        "description": "Рейтинг состоит только из событий получивших оценки",
+        "operationId": "getEventsRating",
+        "parameters": [
+          {
+            "description": "сортировка по лайкам - true, дизлайкам - false",
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "type": "boolean",
+              "default": true
+            }
+          },
+          {
+            "description": "количество событий, которые нужно пропустить для формирования текущего набора",
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "minimum": 0,
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "description": "количество событий в наборе",
+            "in": "query",
+            "name": "size",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 10
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/EventShortDto"
+                  }
+                }
+              }
+            },
+            "description": "Рейтинг событий получен"
+          }
+        },
+        "summary": "Получение рейтинга событий",
+        "tags": [
+          "Public: Оценки"
         ]
       }
     }
@@ -2336,6 +2602,18 @@
             "description": "Количество просмотрев события",
             "format": "int64",
             "example": 999
+          },
+          "like": {
+            "type": "integer",
+            "description": "Количество лайков события",
+            "format": "int64",
+            "example": 999
+          },
+          "dislike": {
+            "type": "integer",
+            "description": "Количество дизлайков события",
+            "format": "int64",
+            "example": 999
           }
         }
       },
@@ -2438,6 +2716,18 @@
           "views": {
             "type": "integer",
             "description": "Количество просмотрев события",
+            "format": "int64",
+            "example": 999
+          },
+          "like": {
+            "type": "integer",
+            "description": "Количество лайков события",
+            "format": "int64",
+            "example": 999
+          },
+          "dislike": {
+            "type": "integer",
+            "description": "Количество дизлайков события",
             "format": "int64",
             "example": 999
           }
@@ -2883,6 +3173,41 @@
           }
         },
         "description": "Пользователь (краткая информация)"
+      },
+      "UserDtoRate": {
+        "required": [
+          "id",
+          "name",
+          "like",
+          "dislike"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "Идентификатор",
+            "format": "int64",
+            "example": 3
+          },
+          "name": {
+            "type": "string",
+            "description": "Имя",
+            "example": "Фёдоров Матвей"
+          },
+          "like": {
+            "type": "integer",
+            "description": "Лайки",
+            "format": "int64",
+            "example": 3
+          },
+          "dislike": {
+            "type": "integer",
+            "description": "Дизлайки",
+            "format": "int64",
+            "example": 3
+          }
+        },
+        "description": "Пользователь краткая информация для рейтинга"
       },
       "RateShortDto": {
         "required": [
