@@ -2830,6 +2830,62 @@
           }
         },
         "description": "Пользователь (краткая информация)"
+      },
+      "RateShortDto": {
+        "required": [
+          "event",
+          "rate"
+        ],
+        "type": "object",
+        "properties": {
+          "event": {
+            "type": "integer",
+            "description": "Индентификатор пользователя",
+            "format": "int64",
+            "example": 1
+          },
+            "rate": {
+            "type": "boolean",
+            "description": "Понравилось\Не понравилось событие",
+            "example": true
+          }
+        },
+        "description": "Краткая информация об оценке"
+      },
+      "RateDto": {
+        "required": [
+          "id",
+          "user",
+          "event",
+          "rate"
+        ],
+        "type": "object",
+        "properties": {
+            "id": {
+            "type": "integer",
+            "description": "Индентификатор",
+            "format": "int64",
+            "example": 1
+          },
+            "user": {
+            "type": "integer",
+            "description": "Индентификатор пользователя",
+            "format": "int64",
+            "example": 1
+          },
+          "event": {
+            "type": "integer",
+            "description": "Индентификатор события",
+            "format": "int64",
+            "example": 1
+          },
+            "rate": {
+            "type": "boolean",
+            "description": "Понравилось\Не понравилось событие",
+            "example": true
+          }
+        },
+        "description": "Краткая информация об оценке"
       }
     }
   }
